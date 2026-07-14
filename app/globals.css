@@ -19,12 +19,14 @@
   --animate-topbar: topbar 16s linear infinite;
   --animate-marquee: marquee 40s linear infinite;
 
+  /* passos em rem: 1 linha = h-8 (2rem); translateY em % seria relativo
+     à pilha inteira de mensagens e deixaria a faixa vazia */
   @keyframes topbar {
     0%, 22% { transform: translateY(0); }
-    25%, 47% { transform: translateY(-100%); }
-    50%, 72% { transform: translateY(-200%); }
-    75%, 97% { transform: translateY(-300%); }
-    100% { transform: translateY(-400%); }
+    25%, 47% { transform: translateY(-2rem); }
+    50%, 72% { transform: translateY(-4rem); }
+    75%, 97% { transform: translateY(-6rem); }
+    100% { transform: translateY(-8rem); }
   }
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -165,6 +167,141 @@
 }
 *::-webkit-scrollbar-thumb:hover {
   background: rgb(138 138 138 / 0.7);
+}
+
+/* ============================================================
+   LOADER — overlay preto com logo + "carregando…" que se desfaz
+   em quadrados (pixel dissolve), de baixo para cima.
+   ============================================================ */
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: #090909;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.loading {
+  overflow: hidden;
+}
+.site-loader-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.35s ease;
+}
+.site-loader.leaving .site-loader-center {
+  opacity: 0;
+}
+.site-loader-logo {
+  width: min(62vw, 320px);
+  height: auto;
+  display: block;
+  /* funde as bordas da arte (fundo com glow) no preto do overlay */
+  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 98%);
+  mask-image: radial-gradient(closest-side, #000 55%, transparent 98%);
+}
+.site-loader-text {
+  margin-top: -4px;
+  font-family: ui-monospace, "Cascadia Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.85);
+  animation: loader-pulse 1.6s ease-in-out infinite;
+}
+@keyframes loader-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+/* grade da saída: cada célula é um "pixel" que some sozinho */
+.site-loader-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  overflow: hidden;
+}
+.site-loader.leaving {
+  background: transparent;
+}
+.site-loader-grid span {
+  background: #090909;
+  /* cobre as emendas subpixel entre as células */
+  box-shadow: 0 0 0 1px #090909;
+  opacity: 1;
+  transition: opacity 0.22s ease;
+}
+.site-loader.leaving .site-loader-grid span {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-loader {
+    transition: opacity 0.4s ease;
+  }
+  .site-loader.leaving {
+    background: #090909;
+    opacity: 0;
+  }
+  .site-loader-text {
+    animation: none;
+  }
+}
+
+/* entrada do hero: sobe e revela em sequência (CSS puro) */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-in {
+  animation: rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise-d1 {
+  animation-delay: 0.1s;
+}
+.rise-d2 {
+  animation-delay: 0.2s;
+}
+.rise-d3 {
+  animation-delay: 0.3s;
+}
+.rise-d4 {
+  animation-delay: 0.42s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
+  }
+}
+
+/* feedback de toque nos CTAs (mobile não tem hover) */
+.tap {
+  transition: transform 0.15s ease;
+}
+.tap:active {
+  transform: scale(0.97);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tap,
+  .tap:active {
+    transition: none;
+    transform: none;
+  }
 }
 
 /* anel de ping do botão de WhatsApp: pulsa 1x a cada 7s */

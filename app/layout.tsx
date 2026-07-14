@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Toaster from "@/components/Toaster";
+import SiteLoader from "@/components/SiteLoader";
 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${barlow.variable} ${dmSans.variable}`}>
       <body className="min-h-screen antialiased">
+        <SiteLoader />
         <Header />
         <main id="conteudo">{children}</main>
         <Footer />

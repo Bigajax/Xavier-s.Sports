@@ -87,7 +87,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="mt-auto flex items-center gap-2 pt-3 sm:pt-4">
           <Link
             href={`/produto/${product.slug}`}
-            className="min-w-0 flex-1 whitespace-nowrap rounded-lg bg-roxo px-3 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-roxo-escuro"
+            className="tap min-w-0 flex-1 whitespace-nowrap rounded-lg bg-roxo px-3 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-roxo-escuro"
           >
             Ver detalhes
           </Link>

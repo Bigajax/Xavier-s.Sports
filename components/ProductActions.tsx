@@ -251,7 +251,7 @@ export default function ProductActions({ product }: { product: Product }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-disabled={blocked}
-          className={`xavier-tag flex-1 px-4 py-3.5 text-center text-sm ${
+          className={`tap xavier-tag flex-1 px-4 py-3.5 text-center text-sm ${
             blocked
               ? "border-2 border-dashed border-roxo/40 bg-roxo/5 text-roxo"
               : "bg-whats text-white"

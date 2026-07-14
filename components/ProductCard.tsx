@@ -28,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const parcel = installmentText(product.price, product.installments);
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/5 transition-shadow hover:shadow-xl">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/5 transition-shadow hover:shadow-xl">
       <Link
         href={`/produto/${product.slug}`}
         className="relative aspect-square overflow-hidden bg-cloud"

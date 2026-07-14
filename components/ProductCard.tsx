@@ -87,7 +87,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="mt-auto flex items-center gap-2 pt-3 sm:pt-4">
           <Link
             href={`/produto/${product.slug}`}
-            className="min-w-0 flex-1 whitespace-nowrap rounded-lg bg-roxo px-2 py-2.5 text-center text-xs font-bold text-white transition-colors hover:bg-roxo-escuro sm:px-3 sm:text-sm"
+            className="min-w-0 flex-1 whitespace-nowrap rounded-lg bg-roxo px-3 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-roxo-escuro"
           >
             Ver detalhes
           </Link>
@@ -96,7 +96,7 @@ export default function ProductCard({ product }: { product: Product }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Consultar ${product.name} no WhatsApp`}
-            className="shrink-0 rounded-lg bg-whats/10 p-2 text-whats transition-colors hover:bg-whats hover:text-white sm:p-2.5"
+            className="hidden shrink-0 rounded-lg bg-whats/10 p-2.5 text-whats transition-colors hover:bg-whats hover:text-white sm:block"
           >
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
           </a>

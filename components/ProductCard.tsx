@@ -84,10 +84,10 @@ export default function ProductCard({ product }: { product: Product }) {
         {parcel && <p className="text-xs text-steel">{parcel}</p>}
         <p className="mt-1 text-xs text-steel">Disponível: {sizeSummary(product)}</p>
 
-        <div className="mt-3 flex items-center gap-2 sm:mt-4">
+        <div className="mt-auto flex items-center gap-2 pt-3 sm:pt-4">
           <Link
             href={`/produto/${product.slug}`}
-            className="min-w-0 flex-1 rounded-lg bg-roxo px-2 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-roxo-escuro sm:px-3"
+            className="min-w-0 flex-1 whitespace-nowrap rounded-lg bg-roxo px-2 py-2.5 text-center text-xs font-bold text-white transition-colors hover:bg-roxo-escuro sm:px-3 sm:text-sm"
           >
             Ver detalhes
           </Link>

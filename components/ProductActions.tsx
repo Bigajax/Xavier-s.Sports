@@ -54,6 +54,11 @@ export default function ProductActions({ product }: { product: Product }) {
 
   const href = waProduct(product, size ?? undefined, personalization);
 
+  const blockedHint =
+    needsSize && !size
+      ? "Escolha o tamanho para consultar"
+      : "Confirme a personalização";
+
   return (
     <div>
       {/* Tamanhos */}
@@ -205,11 +210,11 @@ export default function ProductActions({ product }: { product: Product }) {
           aria-disabled={blocked}
           className={`xavier-tag flex-1 px-6 py-4 text-center text-base ${
             blocked
-              ? "cursor-not-allowed bg-steel/30 text-steel"
+              ? "border-2 border-dashed border-roxo/40 bg-roxo/5 text-roxo"
               : "bg-roxo text-white transition-transform hover:scale-[1.01]"
           }`}
         >
-          <span>Consultar disponibilidade</span>
+          <span>{blocked ? blockedHint : "Consultar disponibilidade"}</span>
         </a>
         <a
           href={href}
@@ -248,13 +253,13 @@ export default function ProductActions({ product }: { product: Product }) {
           aria-disabled={blocked}
           className={`xavier-tag flex-1 px-4 py-3.5 text-center text-sm ${
             blocked
-              ? "cursor-not-allowed bg-steel/30 text-steel"
+              ? "border-2 border-dashed border-roxo/40 bg-roxo/5 text-roxo"
               : "bg-whats text-white"
           }`}
         >
           <span className="flex items-center justify-center gap-2">
             <MessageCircle className="h-4 w-4 skew-x-[8deg]" aria-hidden="true" />
-            Consultar disponibilidade
+            {blocked ? blockedHint : "Consultar disponibilidade"}
           </span>
         </a>
       </div>

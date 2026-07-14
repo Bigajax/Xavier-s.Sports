@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#3d095e"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-style="italic" font-size="30" fill="#ffd600">XS</text>
+  <rect x="16" y="48" width="32" height="5" rx="2.5" fill="#6f16a8" transform="skewX(-18) translate(16 0)"/>
+</svg>

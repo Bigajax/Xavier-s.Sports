@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta Xavier's Sports */
+  --color-roxo: #6f16a8;
+  --color-roxo-escuro: #3d095e;
+  --color-amarelo: #ffd600;
+  --color-ink: #090909;
+  --color-cloud: #f4f4f4;
+  --color-steel: #8a8a8a;
+  --color-whats: #25d366;
+  --color-promo: #e53935;
+
+  /* Tipografia */
+  --font-display: var(--font-barlow), "Barlow Condensed", sans-serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", sans-serif;
+
+  /* Animações */
+  --animate-topbar: topbar 16s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes topbar {
+    0%, 22% { transform: translateY(0); }
+    25%, 47% { transform: translateY(-100%); }
+    50%, 72% { transform: translateY(-200%); }
+    75%, 97% { transform: translateY(-300%); }
+    100% { transform: translateY(-400%); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+/* ---- Assinatura: "corte Xavier" — ângulo itálico da logo (~ -8°) ---- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+}
+
+.display-upright {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+}
+
+/* Eyebrow inclinada com barra amarela, ecoando a logo */
+.xavier-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+}
+.xavier-eyebrow::before {
+  content: "";
+  width: 1.4rem;
+  height: 0.32rem;
+  background: var(--color-amarelo);
+  transform: skewX(-18deg);
+}
+
+/* Selo/badge inclinado */
+.xavier-tag {
+  display: inline-block;
+  transform: skewX(-8deg);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.xavier-tag > span {
+  display: inline-block;
+  transform: skewX(8deg);
+}
+
+/* Underline-swoosh amarelo para títulos de seção */
+.swoosh {
+  position: relative;
+  display: inline-block;
+}
+.swoosh::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 12%;
+  bottom: -0.18em;
+  height: 0.14em;
+  background: var(--color-amarelo);
+  transform: skewX(-30deg);
+  border-radius: 999px;
+}
+
+/* Recorte diagonal para faixas/heros */
+.clip-diag {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3rem), 0 100%);
+}
+.clip-diag-top {
+  clip-path: polygon(0 3rem, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Textura sutil de linhas de campo (chrome escuro) */
+.field-lines {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgb(111 22 168 / 0.35), transparent 65%),
+    repeating-linear-gradient(
+      -8deg,
+      transparent 0,
+      transparent 120px,
+      rgb(255 255 255 / 0.025) 120px,
+      rgb(255 255 255 / 0.025) 122px
+    );
+}
+
+/* Papel de arquivo esportivo (seção retrô) */
+.retro-paper {
+  background-color: #f4efe6;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 26px,
+    rgb(9 9 9 / 0.035) 26px,
+    rgb(9 9 9 / 0.035) 27px
+  );
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* barras de rolagem discretas em todo o site */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(138 138 138 / 0.45) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgb(138 138 138 / 0.45);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(138 138 138 / 0.7);
+}
+
+/* anel de ping do botão de WhatsApp: pulsa 1x a cada 7s */
+@keyframes wa-ping {
+  0%,
+  80% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  82% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+.wa-ping {
+  animation: wa-ping 7s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-ping {
+    animation: none;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-amarelo);
+  outline-offset: 2px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

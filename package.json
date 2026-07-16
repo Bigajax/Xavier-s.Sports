@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed": "tsx scripts/seed-supabase.ts"
+    "seed": "tsx scripts/seed-supabase.ts",
+    "escudos": "tsx scripts/gen-escudos.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

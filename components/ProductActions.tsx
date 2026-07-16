@@ -7,7 +7,7 @@ import {
   variantAvailability,
   type Product,
 } from "@/lib/products/types";
-import { waProduct, type Personalization } from "@/lib/whatsapp";
+import { waProduct, type Personalization, type WaAvailability } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 import FavoriteButton from "@/components/FavoriteButton";
 import { useCart } from "@/lib/cart";
@@ -90,7 +90,24 @@ export default function ProductActions({ product }: { product: Product }) {
     }
   };
 
-  const href = waProduct(product, size ?? undefined, personalization);
+  // A mensagem reflete a disponibilidade que o site já conhece.
+  const waAvailability: WaAvailability | undefined =
+    selectedAvail?.kind === "pronta-entrega"
+      ? { kind: "pronta-entrega", stock: selectedAvail.stock, low: selectedAvail.low }
+      : selectedAvail?.kind === "encomenda"
+        ? { kind: "encomenda", estimatedDelivery: selectedAvail.estimatedDelivery }
+        : undefined;
+
+  const href = waProduct(product, size ?? undefined, personalization, waAvailability);
+
+  const ctaLabel =
+    selectedAvail?.kind === "pronta-entrega"
+      ? "Fechar pedido pelo WhatsApp"
+      : selectedAvail?.kind === "encomenda"
+        ? "Encomendar pelo WhatsApp"
+        : soldOut
+          ? "Consultar reposição"
+          : "Consultar disponibilidade";
 
   const blockedHint =
     needsSize && !size
@@ -300,13 +317,7 @@ export default function ProductActions({ product }: { product: Product }) {
               : "bg-roxo text-white transition-transform hover:scale-[1.01]"
           }`}
         >
-          <span>
-            {blocked
-              ? blockedHint
-              : soldOut
-                ? "Consultar reposição"
-                : "Consultar disponibilidade"}
-          </span>
+          <span>{blocked ? blockedHint : ctaLabel}</span>
         </a>
         <button
           onClick={addToBag}
@@ -366,11 +377,7 @@ export default function ProductActions({ product }: { product: Product }) {
         >
           <span className="flex items-center justify-center gap-2">
             <MessageCircle className="h-4 w-4 skew-x-[8deg]" aria-hidden="true" />
-            {blocked
-              ? blockedHint
-              : soldOut
-                ? "Consultar reposição"
-                : "Consultar disponibilidade"}
+            {blocked ? blockedHint : ctaLabel}
           </span>
         </a>
       </div>

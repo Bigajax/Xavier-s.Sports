@@ -24,11 +24,17 @@ export type Personalization = {
   notes?: string;
 };
 
+/** Disponibilidade que o site já conhece — muda o tom da mensagem. */
+export type WaAvailability =
+  | { kind: "pronta-entrega"; stock?: number; low?: boolean }
+  | { kind: "encomenda"; estimatedDelivery?: string };
+
 /** Mensagem da página de produto — campos vazios são omitidos. */
 export function waProduct(
   product: Pick<Product, "name" | "team" | "version">,
   size?: string,
-  personalization?: Personalization
+  personalization?: Personalization,
+  availability?: WaAvailability
 ): string {
   const label = /^camisa|^kit/i.test(product.name)
     ? product.name
@@ -36,10 +42,25 @@ export function waProduct(
   const parts: string[] = [
     `Olá! Vi a ${label} (${product.team}) no site da Xavier's Sports.`,
   ];
-  const interest: string[] = [];
-  if (size) interest.push(`tamanho ${size}`);
-  interest.push(`versão ${product.version}`);
-  parts.push(`Tenho interesse no ${interest.join(", ")}.`);
+  parts.push(
+    size
+      ? `Tenho interesse no tamanho ${size}, versão ${product.version}.`
+      : `Tenho interesse na versão ${product.version}.`
+  );
+
+  if (availability?.kind === "pronta-entrega") {
+    parts.push(
+      availability.low && availability.stock
+        ? `O site mostra pronta entrega (últimas ${availability.stock} unidades).`
+        : "O site mostra pronta entrega."
+    );
+  } else if (availability?.kind === "encomenda") {
+    parts.push(
+      availability.estimatedDelivery
+        ? `O site mostra disponibilidade por encomenda, com prazo estimado de ${availability.estimatedDelivery}.`
+        : "O site mostra disponibilidade por encomenda."
+    );
+  }
 
   if (personalization?.wanted) {
     parts.push("Personalização: sim.");
@@ -50,7 +71,21 @@ export function waProduct(
     parts.push("Personalização: não.");
   }
 
-  parts.push("Poderia confirmar disponibilidade, valor final e prazo de envio?");
+  if (availability?.kind === "pronta-entrega") {
+    parts.push(
+      size
+        ? "Quero fechar o pedido — pode confirmar o valor final, o pagamento e o envio?"
+        : "Pode confirmar os tamanhos disponíveis, o valor final e o envio?"
+    );
+  } else if (availability?.kind === "encomenda") {
+    parts.push(
+      size
+        ? "Quero encomendar — pode confirmar o pedido, o valor final e o prazo?"
+        : "Pode confirmar os tamanhos, o valor final e o prazo da encomenda?"
+    );
+  } else {
+    parts.push("Poderia confirmar disponibilidade, valor final e prazo de envio?");
+  }
   return waLink(parts.join(" "));
 }
 

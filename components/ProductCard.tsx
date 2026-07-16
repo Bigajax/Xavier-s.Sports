@@ -116,7 +116,16 @@ export default function ProductCard({ product }: { product: Product }) {
             Ver detalhes
           </Link>
           <a
-            href={waProduct(product)}
+            href={waProduct(
+              product,
+              undefined,
+              undefined,
+              status === "pronta-entrega"
+                ? { kind: "pronta-entrega" }
+                : status === "sob-encomenda"
+                  ? { kind: "encomenda" }
+                  : undefined
+            )}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Consultar ${product.name} no WhatsApp`}

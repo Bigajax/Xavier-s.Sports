@@ -1,22 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import type { Product } from "@/lib/products/types";
 import { saveProduct, type SaveProductInput } from "@/app/admin/produtos/actions";
 import ImagesEditor from "@/components/admin/ImagesEditor";
+import VariantsEditor, { type VariantDraft } from "@/components/admin/VariantsEditor";
 import { toast } from "@/components/Toaster";
-
-type VariantDraft = {
-  id?: string;
-  label: string;
-  stock: string;
-  allowPreOrder: boolean;
-  estimatedDelivery: string;
-  active: boolean;
-};
-
-const DEFAULT_DELIVERY = "7 a 12 dias úteis";
 
 /**
  * Edição completa do produto: dados gerais + "Estoque por tamanho".
@@ -160,7 +150,7 @@ export default function ProductForm({
       aria-modal="true"
       aria-label={`Editar ${product.name}`}
     >
-      <div className="my-4 w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
+      <div className="my-2 w-full max-w-2xl rounded-2xl bg-white p-4 shadow-xl sm:my-4 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="display text-2xl text-ink">Editar produto</h2>
@@ -294,91 +284,12 @@ export default function ProductForm({
             Estoque zero sem encomenda = indisponível.
           </p>
 
-          <div className="mt-3 overflow-x-auto rounded-xl ring-1 ring-ink/10">
-            <table className="w-full min-w-[560px] text-left text-sm">
-              <thead className="bg-cloud text-xs uppercase tracking-wide text-steel">
-                <tr>
-                  <th className="px-3 py-2">Tamanho</th>
-                  <th className="px-3 py-2">Quantidade</th>
-                  <th className="px-3 py-2">Aceita encomenda</th>
-                  <th className="px-3 py-2">Prazo estimado</th>
-                  <th className="px-3 py-2">Ativo</th>
-                  <th className="px-3 py-2"><span className="sr-only">Remover</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                {variants.map((v, i) => (
-                  <tr key={v.id ?? `nova-${i}`} className="border-t border-ink/5">
-                    <td className="px-3 py-2">
-                      <input
-                        value={v.label}
-                        onChange={(e) => setVariant(i, { label: e.target.value })}
-                        placeholder="P, M, G..."
-                        aria-label={`Nome do tamanho ${i + 1}`}
-                        className="w-20 rounded border border-ink/15 px-2 py-1.5 text-sm uppercase"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <input
-                        type="number"
-                        min={0}
-                        value={v.stock}
-                        onChange={(e) => setVariant(i, { stock: e.target.value })}
-                        aria-label={`Estoque do tamanho ${v.label || i + 1}`}
-                        className="w-20 rounded border border-ink/15 px-2 py-1.5 text-sm tabular-nums"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <input
-                        type="checkbox"
-                        checked={v.allowPreOrder}
-                        onChange={(e) =>
-                          setVariant(i, {
-                            allowPreOrder: e.target.checked,
-                            estimatedDelivery:
-                              e.target.checked && !v.estimatedDelivery
-                                ? DEFAULT_DELIVERY
-                                : v.estimatedDelivery,
-                          })
-                        }
-                        aria-label={`Aceita encomenda no tamanho ${v.label || i + 1}`}
-                        className="h-4 w-4 accent-roxo"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <input
-                        value={v.estimatedDelivery}
-                        onChange={(e) =>
-                          setVariant(i, { estimatedDelivery: e.target.value })
-                        }
-                        placeholder={v.allowPreOrder ? DEFAULT_DELIVERY : "—"}
-                        disabled={!v.allowPreOrder}
-                        aria-label={`Prazo de encomenda do tamanho ${v.label || i + 1}`}
-                        className="w-36 rounded border border-ink/15 px-2 py-1.5 text-sm disabled:bg-cloud/60 disabled:text-steel"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <input
-                        type="checkbox"
-                        checked={v.active}
-                        onChange={(e) => setVariant(i, { active: e.target.checked })}
-                        aria-label={`Tamanho ${v.label || i + 1} ativo`}
-                        className="h-4 w-4 accent-roxo"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <button
-                        onClick={() => removeVariant(i)}
-                        aria-label={`Remover tamanho ${v.label || i + 1}`}
-                        className="rounded p-1.5 text-steel hover:bg-cloud hover:text-promo"
-                      >
-                        <Trash2 className="h-4 w-4" aria-hidden="true" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="mt-3">
+            <VariantsEditor
+              variants={variants}
+              onPatch={setVariant}
+              onRemove={removeVariant}
+            />
           </div>
         </div>
 

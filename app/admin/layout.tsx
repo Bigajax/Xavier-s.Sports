@@ -23,10 +23,10 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-cloud lg:grid lg:grid-cols-[240px_1fr]">
-      <aside className="bg-ink lg:min-h-screen">
+      <aside className="sticky top-0 z-40 bg-ink lg:static lg:min-h-screen">
         <AdminNav userEmail={user.email ?? ""} />
       </aside>
-      <main className="p-6">{children}</main>
+      <main className="p-4 pb-16 sm:p-6">{children}</main>
     </div>
   );
 }

@@ -19,7 +19,11 @@ import {
   type Variant,
 } from "@/lib/products/types";
 import { useCart, type CartItem } from "@/lib/cart";
-import { waCart, type CartMessageItem } from "@/lib/whatsapp";
+import {
+  waCart,
+  type CartMessageItem,
+  type OrderCustomer,
+} from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 import { toast } from "@/components/Toaster";
 
@@ -57,6 +61,7 @@ export default function CartDrawer({
   const getProduct = useProductLookup();
   const [stock, setStock] = useState<StockMap>({});
   const [stockError, setStockError] = useState(false);
+  const [customer, setCustomer] = useState<OrderCustomer>({});
   const reconciledFor = useRef<string | null>(null);
 
   const lines: Line[] = ready
@@ -154,7 +159,7 @@ export default function CartDrawer({
   const messageItems: CartMessageItem[] = orderable.map(
     ({ item, product: p, state }) => ({
       name: p.name,
-      team: p.team,
+      version: p.version,
       size: item.size,
       qty: item.qty,
       unitPrice: p.price,
@@ -171,7 +176,7 @@ export default function CartDrawer({
     if (state.kind !== "sem-tamanho") continue;
     messageItems.push({
       name: p.name,
-      team: p.team,
+      version: p.version,
       size: undefined,
       qty: item.qty,
       unitPrice: p.price,
@@ -422,9 +427,59 @@ export default function CartDrawer({
                       {brl(messageTotal)}
                     </p>
                   </div>
+
+                  {/* Dados opcionais do cliente — entram no fim da mensagem */}
+                  {canOrder && (
+                    <details className="group rounded-lg bg-white/5">
+                      <summary className="cursor-pointer list-none px-3 py-2.5 text-xs font-bold text-white/70 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
+                        Adiantar meus dados (opcional)
+                        <span className="float-right transition-transform group-open:rotate-180">
+                          ▾
+                        </span>
+                      </summary>
+                      <div className="space-y-2 px-3 pb-3">
+                        {(
+                          [
+                            ["Nome", "name", "Seu nome"],
+                            ["Cidade", "city", "Ex.: Maringá - PR"],
+                            ["Entrega", "delivery", "Ex.: retirada, envio..."],
+                            ["Observação", "notes", "Algo que a loja deva saber"],
+                          ] as const
+                        ).map(([label, key, placeholder]) => (
+                          <div key={key}>
+                            <label
+                              htmlFor={`pedido-${key}`}
+                              className="mb-0.5 block text-[10px] font-bold uppercase tracking-wide text-white/50"
+                            >
+                              {label}
+                            </label>
+                            <input
+                              id={`pedido-${key}`}
+                              value={customer[key] ?? ""}
+                              onChange={(e) =>
+                                setCustomer((prev) => ({
+                                  ...prev,
+                                  [key]: e.target.value,
+                                }))
+                              }
+                              placeholder={placeholder}
+                              maxLength={80}
+                              className="w-full rounded-md border border-white/20 bg-white/10 px-2.5 py-1.5 text-xs text-white placeholder:text-white/30"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  )}
+
                   {canOrder ? (
                     <a
-                      href={waCart(messageItems, messageTotal)}
+                      href={waCart(messageItems, messageTotal, {
+                        name: customer.name?.trim() || undefined,
+                        city: customer.city?.trim() || undefined,
+                        delivery: customer.delivery?.trim() || undefined,
+                        notes: customer.notes?.trim() || undefined,
+                      })}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"

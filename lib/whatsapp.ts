@@ -29,66 +29,107 @@ export type WaAvailability =
   | { kind: "pronta-entrega"; stock?: number; low?: boolean }
   | { kind: "encomenda"; estimatedDelivery?: string };
 
-/** Mensagem da página de produto — campos vazios são omitidos. */
+const versionLabels: Record<string, string> = {
+  torcedor: "Torcedor",
+  jogador: "Jogador",
+  treino: "Treino",
+  "pre-jogo": "Pré-jogo",
+  goleiro: "Goleiro",
+  retro: "Retrô",
+};
+
+/** Nome do produto sem o sufixo "— Versão X" (a versão tem bloco próprio). */
+function productTitle(name: string): string {
+  return name.replace(/\s*[—–-]\s*vers[ãa]o\s+.+$/i, "").trim();
+}
+
+/** Bloco "EMOJI RÓTULO \n valor" — a unidade visual da mensagem. */
+function block(emoji: string, label: string, value: string): string {
+  return `${emoji} ${label}\n${value}`;
+}
+
+/**
+ * Mensagem da página de produto em blocos, fácil de ler no WhatsApp.
+ * Campos vazios são omitidos; o tom muda conforme a disponibilidade.
+ */
 export function waProduct(
-  product: Pick<Product, "name" | "team" | "version" | "price">,
+  product: Pick<Product, "name" | "version" | "price" | "personalizationPrice">,
   size?: string,
   personalization?: Personalization,
   availability?: WaAvailability
 ): string {
-  const label = /^camisa|^kit/i.test(product.name)
-    ? product.name
-    : `camisa ${product.name}`;
-  const parts: string[] = [
-    `Olá! Vi a ${label} (${product.team}) no site da Xavier's Sports.`,
-  ];
-  parts.push(
-    size
-      ? `Tenho interesse no tamanho ${size}, versão ${product.version}.`
-      : `Tenho interesse na versão ${product.version}.`
+  const isOrder = availability?.kind === "pronta-entrega";
+  const isPreOrder = availability?.kind === "encomenda";
+
+  const greeting = isPreOrder
+    ? `Olá! Quero fazer uma encomenda na ${site.name} ⚽`
+    : isOrder
+      ? `Olá! Quero fazer um pedido na ${site.name} ⚽`
+      : `Olá! Vi este produto no site da ${site.name} ⚽`;
+
+  const blocks: string[] = [greeting];
+  blocks.push(block("📦", "PRODUTO", productTitle(product.name)));
+  blocks.push(
+    block("👕", "VERSÃO", versionLabels[product.version] ?? product.version)
   );
+  if (size) blocks.push(block("📏", "TAMANHO", size));
 
-  if (availability?.kind === "pronta-entrega") {
-    parts.push(
-      availability.low && availability.stock
-        ? `O site mostra pronta entrega (últimas ${availability.stock} unidades).`
-        : "O site mostra pronta entrega."
+  if (isOrder) {
+    blocks.push(
+      block(
+        "✅",
+        "DISPONIBILIDADE",
+        availability.low && availability.stock
+          ? `Pronta entrega — últimas ${availability.stock} unidades`
+          : "Pronta entrega"
+      )
     );
-  } else if (availability?.kind === "encomenda") {
-    parts.push(
-      availability.estimatedDelivery
-        ? `O site mostra disponibilidade por encomenda, com prazo estimado de ${availability.estimatedDelivery}.`
-        : "O site mostra disponibilidade por encomenda."
-    );
+  } else if (isPreOrder) {
+    blocks.push(block("🕒", "DISPONIBILIDADE", "Sob encomenda"));
+    if (availability.estimatedDelivery) {
+      blocks.push(block("📅", "PRAZO ESTIMADO", availability.estimatedDelivery));
+    }
   }
-
-  parts.push(`Valor no site: ${brl(product.price)}.`);
 
   if (personalization?.wanted) {
-    parts.push("Personalização: sim.");
-    if (personalization.name) parts.push(`Nome: ${personalization.name}.`);
-    if (personalization.number) parts.push(`Número: ${personalization.number}.`);
-    if (personalization.notes) parts.push(`Observações: ${personalization.notes}.`);
+    blocks.push(block("✍️", "PERSONALIZAÇÃO", "Sim"));
+    if (personalization.name) blocks.push(block("🔤", "NOME", personalization.name));
+    if (personalization.number)
+      blocks.push(block("🔢", "NÚMERO", personalization.number));
+    if (personalization.notes)
+      blocks.push(block("📝", "OBSERVAÇÕES", personalization.notes));
+    if (product.personalizationPrice) {
+      blocks.push(
+        block(
+          "💵",
+          "ADICIONAL DE PERSONALIZAÇÃO",
+          brl(product.personalizationPrice)
+        )
+      );
+    }
   } else {
-    parts.push("Personalização: não.");
+    blocks.push(block("✍️", "PERSONALIZAÇÃO", "Não"));
   }
 
-  if (availability?.kind === "pronta-entrega") {
-    parts.push(
+  blocks.push(block("💰", "VALOR", brl(product.price)));
+
+  if (isOrder) {
+    blocks.push(
       size
-        ? "Quero fechar o pedido — pode me passar o pagamento e o envio?"
-        : "Pode confirmar os tamanhos disponíveis e o envio?"
+        ? "Pode me passar as formas de pagamento e entrega?"
+        : "Pode confirmar os tamanhos disponíveis para mim?"
     );
-  } else if (availability?.kind === "encomenda") {
-    parts.push(
+  } else if (isPreOrder) {
+    blocks.push(
       size
-        ? "Quero encomendar — pode confirmar o pedido e o prazo?"
-        : "Pode confirmar os tamanhos e o prazo da encomenda?"
+        ? "Pode confirmar a disponibilidade e o prazo para mim?"
+        : "Pode confirmar os tamanhos e o prazo para mim?"
     );
   } else {
-    parts.push("Poderia confirmar a disponibilidade e o prazo de envio?");
+    blocks.push("Poderia confirmar a disponibilidade e o prazo de envio?");
   }
-  return waLink(parts.join(" "));
+
+  return waLink(blocks.join("\n\n"));
 }
 
 /** Lista de favoritos. */
@@ -108,12 +149,20 @@ export function waFavorites(
 
 export type CartMessageItem = {
   name: string;
-  team: string;
+  version?: string;
   size?: string;
   qty: number;
   unitPrice: number;
   availability: "pronta-entrega" | "encomenda" | "a-confirmar";
   estimatedDelivery?: string;
+};
+
+/** Dados opcionais que o cliente pode preencher antes de abrir o WhatsApp. */
+export type OrderCustomer = {
+  name?: string;
+  city?: string;
+  delivery?: string;
+  notes?: string;
 };
 
 const availabilityText: Record<CartMessageItem["availability"], string> = {
@@ -122,45 +171,72 @@ const availabilityText: Record<CartMessageItem["availability"], string> = {
   "a-confirmar": "A confirmar no atendimento",
 };
 
-/**
- * Pedido consolidado da sacola — um bloco por item com tamanho, valor e
- * disponibilidade, total estimado e campos para o cliente preencher.
- */
-export function waCart(items: CartMessageItem[], total: number): string {
-  const mixed =
-    items.some((i) => i.availability === "pronta-entrega") &&
-    items.some((i) => i.availability === "encomenda");
+const DIVIDER = "━━━━━━━━━━━━━━";
 
-  const blocks = items.map((item, i) => {
-    const lines = [
-      `${i + 1}. ${item.qty}x ${item.name} (${item.team})`,
-      `Tamanho: ${item.size ?? "a definir"}`,
-      `Valor: ${brl(item.unitPrice * item.qty)}`,
-      `Disponibilidade: ${availabilityText[item.availability]}`,
-    ];
+/**
+ * Pedido consolidado da sacola — um bloco por item separado por divisor,
+ * total do pedido e dados opcionais do cliente. Campos vazios são omitidos.
+ */
+export function waCart(
+  items: CartMessageItem[],
+  total: number,
+  customer?: OrderCustomer
+): string {
+  const hasReady = items.some((i) => i.availability === "pronta-entrega");
+  const hasPreOrder = items.some((i) => i.availability === "encomenda");
+  const allPreOrder = items.length > 0 && !hasReady && items.every(
+    (i) => i.availability === "encomenda"
+  );
+  const mixed = hasReady && hasPreOrder;
+
+  const itemBlocks = items.map((item, i) => {
+    const lines = [`📦 ITEM ${i + 1}`, ""];
+    lines.push(`Produto: ${productTitle(item.name)}`);
+    if (item.version) {
+      lines.push(`Versão: ${versionLabels[item.version] ?? item.version}`);
+    }
+    lines.push(`Tamanho: ${item.size ?? "a definir"}`);
+    lines.push(`Quantidade: ${item.qty}`);
+    lines.push(`Disponibilidade: ${availabilityText[item.availability]}`);
     if (item.availability === "encomenda" && item.estimatedDelivery) {
       lines.push(`Prazo estimado: ${item.estimatedDelivery}`);
+    }
+    if (item.qty > 1) {
+      lines.push(`Valor unitário: ${brl(item.unitPrice)}`);
+      lines.push(`Subtotal: ${brl(item.unitPrice * item.qty)}`);
+    } else {
+      lines.push(`Valor: ${brl(item.unitPrice)}`);
     }
     return lines.join("\n");
   });
 
-  const parts = [
-    "Olá! Montei minha sacola no site da Xavier's Sports e gostaria de fazer o pedido:",
-    "",
-    blocks.join("\n\n"),
-    "",
-    `Total estimado: ${brl(total)}`,
+  const parts: string[] = [
+    allPreOrder
+      ? `Olá! Quero fazer uma encomenda na ${site.name} ⚽`
+      : `Olá! Quero fazer um pedido na ${site.name} ⚽`,
+    DIVIDER,
   ];
+  for (const itemBlock of itemBlocks) {
+    parts.push(itemBlock, DIVIDER);
+  }
+  parts.push(`🧾 TOTAL DO PEDIDO\n${brl(total)}`);
 
   if (mixed) {
-    parts.push(
-      "",
-      "Atenção: meu pedido mistura itens de pronta entrega e sob encomenda, então os prazos de envio podem ser diferentes."
-    );
+    parts.push("O pedido possui itens com prazos diferentes.");
   }
 
-  parts.push("", "Nome:", "Forma de entrega:", "Cidade:");
-  return waLink(parts.join("\n"));
+  if (customer?.name) parts.push(`👤 CLIENTE\n${customer.name}`);
+  if (customer?.city) parts.push(`📍 CIDADE\n${customer.city}`);
+  if (customer?.delivery) parts.push(`🚚 ENTREGA\n${customer.delivery}`);
+  if (customer?.notes) parts.push(`📝 OBSERVAÇÃO\n${customer.notes}`);
+
+  parts.push(
+    allPreOrder
+      ? "Pode confirmar a disponibilidade e o prazo para mim?"
+      : "Pode me passar as formas de pagamento e entrega?"
+  );
+
+  return waLink(parts.join("\n\n"));
 }
 
 // ---------- Trocas e devoluções ----------

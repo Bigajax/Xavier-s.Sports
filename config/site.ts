@@ -2,7 +2,6 @@
  * Configuração central da loja — edite aqui e o site inteiro acompanha.
  *
  * ⚠️ PENDÊNCIAS DO PROPRIETÁRIO antes de publicar:
- *  - `whatsapp`: número real com DDI + DDD, apenas dígitos (ex.: "5544999990000").
  *  - `email`, `url`: dados reais.
  *  - Textos de envio, pagamento e políticas (ver /admin > Configurações).
  */
@@ -13,8 +12,8 @@ export const site = {
   description:
     "Camisas de clubes e seleções, modelos atuais e retrô, com envio para todo o Brasil.",
 
-  // ⚠️ PLACEHOLDER — substituir pelo número oficial da loja (só dígitos, com 55 + DDD)
-  whatsapp: "5500000000000",
+  // Número oficial da loja: (44) 99821-0470
+  whatsapp: "5544998210470",
   whatsappDefaultMessage:
     "Olá! Vim pelo site da Xavier's Sports e gostaria de atendimento.",
 

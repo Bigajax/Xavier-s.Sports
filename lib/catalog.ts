@@ -1,4 +1,4 @@
-import type { Product } from "@/data/products";
+import { variantAvailability, type Product } from "@/lib/products/types";
 
 /** Normaliza para busca sem acento e caixa. */
 export function norm(s: string): string {
@@ -24,6 +24,8 @@ export type Filters = {
   priceMin?: number;
   priceMax?: number;
   onlyAvailable?: boolean;
+  /** Somente produtos com ao menos um tamanho ativo em estoque. */
+  onlyReadyToShip?: boolean;
   onlyPersonalizable?: boolean;
   onlyOnSale?: boolean;
   decade?: string; // "1990" | "2000" ...
@@ -85,7 +87,10 @@ export function applyFilters(list: Product[], f: Filters): Product[] {
     if (f.sleeve && p.sleeve !== f.sleeve) return false;
     if (
       f.size &&
-      !p.sizes.some((s) => s.label === f.size && s.status !== "indisponivel")
+      !p.variants.some(
+        (v) =>
+          v.label === f.size && variantAvailability(v).kind !== "indisponivel"
+      )
     )
       return false;
     if (f.color && !p.colors.some((c) => norm(c) === norm(f.color!)))
@@ -93,6 +98,11 @@ export function applyFilters(list: Product[], f: Filters): Product[] {
     if (f.priceMin !== undefined && p.price < f.priceMin) return false;
     if (f.priceMax !== undefined && p.price > f.priceMax) return false;
     if (f.onlyAvailable && !p.available) return false;
+    if (
+      f.onlyReadyToShip &&
+      !p.variants.some((v) => v.active && v.stock > 0)
+    )
+      return false;
     if (f.onlyPersonalizable && !p.personalizationAvailable) return false;
     if (f.onlyOnSale && !p.onSale) return false;
     if (f.decade) {
@@ -137,7 +147,7 @@ export function facets(list: Product[]) {
     versions: uniq(list.map((p) => p.version)),
     audiences: uniq(list.map((p) => p.audience)),
     colors: uniq(list.flatMap((p) => p.colors)),
-    sizes: uniq(list.flatMap((p) => p.sizes.map((s) => s.label))),
+    sizes: uniq(list.flatMap((p) => p.variants.map((v) => v.label))),
     countries: uniq(list.map((p) => p.country)),
   };
 }

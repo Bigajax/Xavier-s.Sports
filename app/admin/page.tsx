@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { products } from "@/data/products";
+import { getAdminCatalog } from "@/lib/products/db";
+import { deriveStatus } from "@/lib/products/types";
+
+export const dynamic = "force-dynamic";
 
 /** Dados simulados do dashboard — claramente demonstrativos. */
 const demoStats = {
@@ -12,25 +15,37 @@ const demoStats = {
   topSearches: ["corinthians branca", "brasil feminina", "retrô", "portugal"],
 };
 
-export default function AdminDashboard() {
-  const total = products.length;
-  const disponiveis = products.filter((p) => p.available).length;
-  const semEstoque = products.filter(
-    (p) => !p.available || p.sizes.every((s) => s.status === "indisponivel")
-  ).length;
+export default async function AdminDashboard() {
+  let products: Awaited<ReturnType<typeof getAdminCatalog>> = [];
+  try {
+    products = await getAdminCatalog();
+  } catch {
+    // Cards zerados; a página de produtos mostra o erro detalhado.
+  }
 
+  const statuses = products.map((p) => deriveStatus(p.variants));
   const cards = [
-    { label: "Produtos cadastrados", value: total },
-    { label: "Produtos disponíveis", value: disponiveis },
-    { label: "Sem estoque", value: semEstoque },
-    { label: "Cliques no WhatsApp*", value: demoStats.whatsappClicks },
+    { label: "Produtos cadastrados", value: products.length },
+    {
+      label: "Pronta entrega",
+      value: statuses.filter((s) => s === "pronta-entrega").length,
+    },
+    {
+      label: "Sob encomenda",
+      value: statuses.filter((s) => s === "sob-encomenda").length,
+    },
+    {
+      label: "Esgotados",
+      value: statuses.filter((s) => s === "esgotado").length,
+    },
   ];
 
   return (
     <div>
       <h1 className="display text-3xl text-ink">Dashboard</h1>
       <p className="mt-1 text-sm text-steel">
-        Visão geral da loja. *Números marcados são simulados para demonstração.
+        Visão geral da loja — contagens calculadas pelo estoque por tamanho.
+        *Números marcados são simulados para demonstração.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -73,15 +88,17 @@ export default function AdminDashboard() {
       <div className="mt-6 rounded-xl border border-roxo/30 bg-roxo/5 p-5 text-sm text-ink/80">
         <p className="font-bold text-ink">Pendências antes de publicar</p>
         <ul className="mt-2 list-disc space-y-1 pl-5">
-          <li>Preencher o número real do WhatsApp em <code>config/site.ts</code>.</li>
           <li>Validar política de trocas, devoluções e reembolsos.</li>
           <li>Substituir medidas do guia de tamanhos pelas reais.</li>
           <li>Definir a classificação correta e legal dos produtos.</li>
           <li>Revisar textos jurídicos (privacidade e termos).</li>
         </ul>
         <p className="mt-3">
-          Esta versão salva dados no navegador; a estrutura está pronta para
-          migrar para Supabase. Veja o <Link href="/admin/configuracoes" className="font-bold text-roxo hover:underline">passo a passo em Configurações</Link>.
+          O catálogo e o estoque vivem no Supabase — gerencie tudo em{" "}
+          <Link href="/admin/produtos" className="font-bold text-roxo hover:underline">
+            Produtos e estoque
+          </Link>
+          .
         </p>
       </div>
     </div>

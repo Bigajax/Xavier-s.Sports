@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { products, type Product } from "@/data/products";
 import {
   applyFilters,
   facets,
@@ -16,6 +15,8 @@ import {
 import { getCategory } from "@/data/categories";
 import { leagues } from "@/data/leagues";
 import { teams } from "@/data/teams";
+import { useCatalog } from "@/components/CatalogProvider";
+import CatalogError from "@/components/CatalogError";
 import ProductGrid from "@/components/ProductGrid";
 
 const PAGE_SIZE = 12;
@@ -99,6 +100,7 @@ export default function CatalogClient({
 }) {
   const router = useRouter();
   const params = useSearchParams();
+  const { products, error: catalogError } = useCatalog();
 
   // filtros vindos da URL
   const urlFilters: Filters = useMemo(() => {
@@ -126,13 +128,13 @@ export default function CatalogClient({
   const filtered = useMemo(
     () => sortProducts(applyFilters(products, merged), sort),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(merged), sort]
+    [products, JSON.stringify(merged), sort]
   );
 
   const pooled = useMemo(
     () => applyFilters(products, { ...baseFilters, ...urlFilters }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(baseFilters), JSON.stringify(urlFilters)]
+    [products, JSON.stringify(baseFilters), JSON.stringify(urlFilters)]
   );
   const f = facets(pooled);
 
@@ -294,6 +296,16 @@ export default function CatalogClient({
         </div>
       </FilterGroup>
 
+      <FilterGroup title="Disponibilidade">
+        <Check
+          label="Pronta entrega"
+          checked={!!merged.onlyReadyToShip}
+          onChange={() =>
+            set({ onlyReadyToShip: merged.onlyReadyToShip ? undefined : true })
+          }
+        />
+      </FilterGroup>
+
       <FilterGroup title="Mais opções" defaultOpen={false}>
         <Check
           label="Somente disponíveis"
@@ -329,6 +341,22 @@ export default function CatalogClient({
       )}
     </div>
   );
+
+  if (catalogError) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-10 md:px-6">
+        <header>
+          <p className="xavier-eyebrow text-roxo">Catálogo</p>
+          <h1 className="display mt-2 text-4xl text-ink sm:text-5xl">
+            <span className="swoosh">{title}</span>
+          </h1>
+        </header>
+        <div className="mt-10">
+          <CatalogError />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-6">

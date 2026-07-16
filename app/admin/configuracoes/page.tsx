@@ -1,7 +1,7 @@
 import { site } from "@/config/site";
 
 const pending = [
-  ["WhatsApp oficial", site.whatsapp === "5500000000000" ? "⚠️ PENDENTE — placeholder ativo" : site.whatsapp],
+  ["WhatsApp oficial", (site.whatsapp as string) === "5500000000000" ? "⚠️ PENDENTE — placeholder ativo" : site.whatsapp],
   ["E-mail", site.email],
   ["Domínio (SEO)", site.url],
   ["Horário de atendimento", site.businessHours],

@@ -5,11 +5,25 @@ import { useCallback, useEffect, useState } from "react";
 const KEY = "xaviers-sports:sacola";
 const EVENT = "xaviers-cart-changed";
 
-/** Item da sacola: mesma camisa em tamanhos diferentes vira linhas separadas. */
+export type CartAvailability = "pronta-entrega" | "encomenda";
+
+/**
+ * Item da sacola: mesma camisa em tamanhos diferentes vira linhas separadas.
+ * `availability`/`estimatedDelivery` são um retrato do momento da adição e
+ * são reconciliados com o estoque atual quando o drawer abre — itens antigos
+ * sem esses campos continuam válidos.
+ */
 export type CartItem = {
   slug: string;
   size?: string;
   qty: number;
+  availability?: CartAvailability;
+  estimatedDelivery?: string;
+};
+
+export type CartItemMeta = {
+  availability?: CartAvailability;
+  estimatedDelivery?: string;
 };
 
 function itemKey(item: Pick<CartItem, "slug" | "size">): string {
@@ -62,18 +76,43 @@ export function useCart() {
   }, []);
 
   /** Adiciona 1 unidade; se a linha (camisa + tamanho) já existe, incrementa. */
-  const add = useCallback((slug: string, size?: string) => {
+  const add = useCallback((slug: string, size?: string, meta?: CartItemMeta) => {
     const current = read();
     const key = itemKey({ slug, size });
     const exists = current.some((i) => itemKey(i) === key);
     write(
       exists
         ? current.map((i) =>
-            itemKey(i) === key ? { ...i, qty: i.qty + 1 } : i
+            itemKey(i) === key ? { ...i, qty: i.qty + 1, ...meta } : i
           )
-        : [...current, { slug, size, qty: 1 }]
+        : [...current, { slug, size, qty: 1, ...meta }]
     );
   }, []);
+
+  /**
+   * Reconciliação com o estoque atual: aplica ajustes de quantidade e de
+   * disponibilidade em lote (usado pelo drawer ao abrir). Patches com qty 0
+   * removem a linha; slugs ausentes ficam intactos.
+   */
+  const patchItems = useCallback(
+    (
+      patches: Array<
+        Pick<CartItem, "slug" | "size"> & Partial<Omit<CartItem, "slug" | "size">>
+      >
+    ) => {
+      if (patches.length === 0) return;
+      const next = read()
+        .map((i) => {
+          const patch = patches.find(
+            (p) => itemKey(p) === itemKey(i)
+          );
+          return patch ? { ...i, ...patch } : i;
+        })
+        .filter((i) => i.qty >= 1);
+      write(next);
+    },
+    []
+  );
 
   /** Define a quantidade de uma linha; 0 ou menos remove. */
   const setQty = useCallback((slug: string, size: string | undefined, qty: number) => {
@@ -113,5 +152,5 @@ export function useCart() {
 
   const count = items.reduce((sum, i) => sum + i.qty, 0);
 
-  return { items, ready, add, setQty, setSize, remove, clear, count };
+  return { items, ready, add, setQty, setSize, remove, clear, count, patchItems };
 }

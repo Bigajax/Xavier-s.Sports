@@ -1,7 +1,8 @@
 /**
- * Catálogo demonstrativo — TODOS os produtos, preços, tamanhos, temporadas e
- * descrições são conteúdo de exemplo, totalmente editável pelo proprietário.
- * Produtos sem foto usam a prévia ilustrativa (JerseyPlaceholder) nas cores do time.
+ * ⚠️ Este arquivo NÃO alimenta mais a vitrine — o catálogo vive no Supabase
+ * (ver lib/products/db.ts) e é gerenciado pelo painel /admin.
+ * Ele permanece apenas como insumo do seed inicial (npm run seed).
+ * Atenção: re-rodar o seed sobrescreve o estoque editado no admin.
  */
 
 export type SizeStatus =

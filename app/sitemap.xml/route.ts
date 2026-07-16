@@ -1,11 +1,16 @@
 import { site } from "@/config/site";
-import { products } from "@/data/products";
+import { getCatalog } from "@/lib/products/db";
 import { teams } from "@/data/teams";
 
 // Route handler em vez da convenção app/sitemap.ts (ver app/robots.txt/route.ts).
-export const dynamic = "force-static";
 
-export function GET() {
+export async function GET() {
+  let products: Awaited<ReturnType<typeof getCatalog>> = [];
+  try {
+    products = await getCatalog();
+  } catch {
+    // Sitemap sem produtos ainda lista as páginas fixas e de times.
+  }
   const staticPages = [
     "",
     "/catalogo",

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Heart, MessageCircle, X } from "lucide-react";
 import ProductImage from "@/components/ProductImage";
-import { getProduct, type Product } from "@/data/products";
+import { purchasableVariants, type Product } from "@/lib/products/types";
+import { useProductLookup } from "@/components/CatalogProvider";
 import { useFavorites } from "@/lib/favorites";
 import { waFavorites } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
@@ -18,6 +19,7 @@ export default function FavoritesDrawer({
   onClose: () => void;
 }) {
   const { slugs, sizes, setSize, toggle, ready } = useFavorites();
+  const getProduct = useProductLookup();
   const products = ready
     ? slugs.map(getProduct).filter((p): p is Product => Boolean(p))
     : [];
@@ -118,13 +120,11 @@ export default function FavoritesDrawer({
                             className="rounded-md border border-white/20 bg-white/10 px-1.5 py-0.5 text-xs text-white [&>option]:text-ink"
                           >
                             <option value="">Tam.: a definir</option>
-                            {p.sizes
-                              .filter((s) => s.status !== "indisponivel")
-                              .map((s) => (
-                                <option key={s.label} value={s.label}>
-                                  {s.label}
-                                </option>
-                              ))}
+                            {purchasableVariants(p).map((s) => (
+                              <option key={s.label} value={s.label}>
+                                {s.label}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </div>

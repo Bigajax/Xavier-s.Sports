@@ -6,12 +6,14 @@ import {
   ArrowLeft,
   Image as ImageIcon,
   LayoutDashboard,
+  LogOut,
   MessageSquareText,
   RefreshCcw,
   Settings,
   Shirt,
   Star,
 } from "lucide-react";
+import { signOut } from "@/app/admin/actions";
 
 const items = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -23,15 +25,18 @@ const items = [
   { href: "/admin/configuracoes", label: "Configurações", icon: Settings },
 ];
 
-export default function AdminNav() {
+export default function AdminNav({ userEmail }: { userEmail?: string }) {
   const pathname = usePathname();
   return (
     <nav aria-label="Menu administrativo" className="flex h-full flex-col">
       <div className="p-4">
         <p className="display text-xl text-white">Xavier&apos;s</p>
         <p className="text-xs font-bold uppercase tracking-widest text-amarelo">
-          Painel demo
+          Painel da loja
         </p>
+        {userEmail && (
+          <p className="mt-1 truncate text-[11px] text-white/50">{userEmail}</p>
+        )}
       </div>
       <ul className="flex-1 space-y-1 px-2">
         {items.map((item) => {
@@ -57,7 +62,7 @@ export default function AdminNav() {
           );
         })}
       </ul>
-      <div className="p-2">
+      <div className="space-y-1 p-2">
         <Link
           href="/"
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white"
@@ -65,6 +70,13 @@ export default function AdminNav() {
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Voltar ao site
         </Link>
+        <button
+          onClick={() => signOut()}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white"
+        >
+          <LogOut className="h-4 w-4" aria-hidden="true" />
+          Sair
+        </button>
       </div>
     </nav>
   );

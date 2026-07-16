@@ -1,4 +1,4 @@
-import type { Product } from "@/data/products";
+import type { Product } from "@/lib/products/types";
 import ProductCard from "@/components/ProductCard";
 
 /** Trilho horizontal com scroll por gesto no mobile e grid no desktop. */

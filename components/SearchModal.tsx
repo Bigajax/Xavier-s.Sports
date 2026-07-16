@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { products } from "@/data/products";
+import { useCatalog } from "@/components/CatalogProvider";
 import { applyFilters } from "@/lib/catalog";
 import { brl } from "@/lib/format";
 
@@ -26,6 +26,7 @@ export default function SearchModal({
 }) {
   const [q, setQ] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { products } = useCatalog();
 
   useEffect(() => {
     if (open) {
@@ -39,7 +40,7 @@ export default function SearchModal({
 
   const results = useMemo(
     () => (q.trim() ? applyFilters(products, { q }).slice(0, 8) : []),
-    [q]
+    [q, products]
   );
 
   return (

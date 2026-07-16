@@ -1,11 +1,12 @@
 "use client";
 
 import { useRecentlyViewed } from "@/lib/recentlyViewed";
-import { getProduct } from "@/data/products";
+import { useProductLookup } from "@/components/CatalogProvider";
 import ProductCard from "@/components/ProductCard";
 
 export default function RecentlyViewed({ excludeSlug }: { excludeSlug?: string }) {
   const slugs = useRecentlyViewed(excludeSlug);
+  const getProduct = useProductLookup();
   const items = slugs
     .map((s) => getProduct(s))
     .filter((p): p is NonNullable<typeof p> => Boolean(p))

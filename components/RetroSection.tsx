@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { retroProducts } from "@/data/products";
+import { retroProducts, type Product } from "@/lib/products/types";
 import { brl } from "@/lib/format";
 import ProductImage from "@/components/ProductImage";
 
 /** Seção retrô com tratamento editorial de arquivo esportivo. */
-export default function RetroSection() {
-  const highlights = retroProducts.slice(0, 3);
+export default function RetroSection({ products }: { products: Product[] }) {
+  const highlights = retroProducts(products).slice(0, 3);
 
   return (
     <section className="retro-paper">

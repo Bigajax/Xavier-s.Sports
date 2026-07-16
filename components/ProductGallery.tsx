@@ -5,7 +5,7 @@ import Image from "next/image";
 import { X, ZoomIn } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import JerseyPlaceholder from "@/components/JerseyPlaceholder";
-import type { Product } from "@/data/products";
+import type { Product } from "@/lib/products/types";
 
 /**
  * Galeria da página de produto: imagem grande + miniaturas no desktop,

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
-import type { Product } from "@/data/products";
+import {
+  deriveStatus,
+  purchasableVariants,
+  statusLabel,
+  type Product,
+  type ProductStatus,
+} from "@/lib/products/types";
 import { brl, installmentText, discountPct } from "@/lib/format";
 import { waProduct } from "@/lib/whatsapp";
 import ProductImage from "@/components/ProductImage";
@@ -16,14 +22,23 @@ function badge(p: Product): { label: string; tone: string } | null {
   return null;
 }
 
+/** Selo de disponibilidade derivado do estoque por tamanho. */
+const statusTone: Record<ProductStatus, string> = {
+  "pronta-entrega": "bg-whats text-white",
+  "sob-encomenda": "bg-amarelo text-ink",
+  esgotado: "bg-ink/80 text-white",
+};
+
 function sizeSummary(p: Product): string {
-  const ok = p.sizes.filter((s) => s.status !== "indisponivel");
+  const ok = purchasableVariants(p);
   if (ok.length === 0) return "Sob consulta";
+  if (ok.length === 1) return `Tamanho ${ok[0].label}`;
   return `Do ${ok[0].label} ao ${ok[ok.length - 1].label}`;
 }
 
 export default function ProductCard({ product }: { product: Product }) {
   const b = badge(product);
+  const status = deriveStatus(product.variants);
   const off = discountPct(product.price, product.oldPrice);
   const parcel = installmentText(product.price, product.installments);
 
@@ -54,6 +69,11 @@ export default function ProductCard({ product }: { product: Product }) {
             <span>-{off}%</span>
           </span>
         )}
+        <span
+          className={`xavier-tag absolute bottom-3 left-3 px-2 py-1 text-[11px] ${statusTone[status]}`}
+        >
+          <span>{statusLabel[status]}</span>
+        </span>
       </Link>
       <FavoriteButton
         slug={product.slug}
@@ -82,7 +102,11 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
         {parcel && <p className="text-xs text-steel">{parcel}</p>}
-        <p className="mt-1 text-xs text-steel">Disponível: {sizeSummary(product)}</p>
+        <p className="mt-1 text-xs text-steel">
+          {status === "esgotado"
+            ? "Esgotado — consulte reposição"
+            : `Disponível: ${sizeSummary(product)}`}
+        </p>
 
         <div className="mt-auto flex items-center gap-2 pt-3 sm:pt-4">
           <Link

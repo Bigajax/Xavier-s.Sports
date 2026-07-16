@@ -20,7 +20,8 @@ import {
 } from "@/data/teams";
 import { categories } from "@/data/categories";
 import { leagues } from "@/data/leagues";
-import { newArrivals, bestSellers, getProduct } from "@/data/products";
+import { newArrivals, bestSellers, findProduct } from "@/lib/products/types";
+import { getCatalog } from "@/lib/products/db";
 import { waGeneric, waPersonalizacao } from "@/lib/whatsapp";
 
 const personalizationSteps = [
@@ -50,7 +51,17 @@ const buySteps = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  let catalog: Awaited<ReturnType<typeof getCatalog>> = [];
+  try {
+    catalog = await getCatalog();
+  } catch {
+    // Sem catálogo a home ainda funciona: carrosséis ficam vazios e as
+    // seções institucionais seguem no ar.
+  }
+  const lancamentos = newArrivals(catalog);
+  const maisProcuradas = bestSellers(catalog);
+
   return (
     <>
       <Hero />
@@ -97,7 +108,9 @@ export default function HomePage() {
           </Reveal>
           <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {categories.map((c) => {
-              const cover = c.coverProduct ? getProduct(c.coverProduct) : undefined;
+              const cover = c.coverProduct
+                ? findProduct(catalog, c.coverProduct)
+                : undefined;
               const img = cover?.images[0];
               return (
                 <Link
@@ -148,13 +161,13 @@ export default function HomePage() {
             </div>
           </Reveal>
           <div className="mt-8">
-            <ProductCarousel products={newArrivals.slice(0, 8)} />
+            <ProductCarousel products={lancamentos.slice(0, 8)} />
           </div>
         </div>
       </section>
 
       {/* 7.6 Retrô */}
-      <RetroSection />
+      <RetroSection products={catalog} />
 
       {/* 7.7 Seleções */}
       <section className="field-lines bg-ink text-white">
@@ -213,7 +226,7 @@ export default function HomePage() {
             />
           </Reveal>
           <div className="mt-8">
-            <ProductCarousel products={bestSellers.slice(0, 8)} />
+            <ProductCarousel products={maisProcuradas.slice(0, 8)} />
           </div>
         </div>
       </section>

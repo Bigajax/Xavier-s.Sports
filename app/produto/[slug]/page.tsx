@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronDown } from "lucide-react";
-import { getProduct, products, related } from "@/data/products";
+import { getCatalog, getProduct } from "@/lib/products/db";
+import { deriveStatus, related, statusLabel } from "@/lib/products/types";
 import { brl, installmentText, discountPct } from "@/lib/format";
 import { site } from "@/config/site";
 import ProductGallery from "@/components/ProductGallery";
@@ -11,17 +12,14 @@ import ProductGrid from "@/components/ProductGrid";
 import RegisterView from "@/components/RegisterView";
 import RecentlyViewed from "@/components/RecentlyViewed";
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  // Falha do banco não pode derrubar a página em 500 — o boundary cuida do resto.
+  const product = await getProduct(slug).catch(() => undefined);
   if (!product) return {};
   return {
     title: `${product.name} | ${product.team}`,
@@ -82,9 +80,11 @@ export default async function ProdutoPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
   if (!product) notFound();
 
+  const catalog = await getCatalog();
+  const status = deriveStatus(product.variants);
   const off = discountPct(product.price, product.oldPrice);
   const parcel = installmentText(product.price, product.installments);
   const teamHref =
@@ -104,9 +104,12 @@ export default async function ProdutoPage({
       "@type": "Offer",
       priceCurrency: "BRL",
       price: product.price,
-      availability: product.available
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
+      availability:
+        status === "pronta-entrega"
+          ? "https://schema.org/InStock"
+          : status === "sob-encomenda"
+            ? "https://schema.org/PreOrder"
+            : "https://schema.org/OutOfStock",
     },
   };
 
@@ -203,6 +206,19 @@ export default async function ProdutoPage({
               )}
             </div>
             {parcel && <p className="mt-1 text-sm text-steel">{parcel}</p>}
+            <p className="mt-3">
+              <span
+                className={`xavier-tag px-2.5 py-1 text-xs ${
+                  status === "pronta-entrega"
+                    ? "bg-whats text-white"
+                    : status === "sob-encomenda"
+                      ? "bg-amarelo text-ink"
+                      : "bg-ink/80 text-white"
+                }`}
+              >
+                <span>{statusLabel[status]}</span>
+              </span>
+            </p>
             <p className="mt-2 text-xs text-steel">
               Preço demonstrativo — valor final confirmado no atendimento.
             </p>
@@ -281,7 +297,7 @@ export default async function ProdutoPage({
             <span className="swoosh">Você também pode gostar</span>
           </h2>
           <div className="mt-6">
-            <ProductGrid products={related(product, 4)} />
+            <ProductGrid products={related(product, catalog, 4)} />
           </div>
         </section>
       </div>

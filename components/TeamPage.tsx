@@ -2,16 +2,22 @@ import { Suspense } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTeam, teamCrest } from "@/data/teams";
-import { productsByTeam } from "@/data/products";
+import { productsByTeam } from "@/lib/products/types";
+import { getCatalog } from "@/lib/products/db";
 import CatalogClient from "@/components/CatalogClient";
 import CatalogSkeleton from "@/components/CatalogSkeleton";
 
 /** Página de time/seleção: banner nas cores oficiais + catálogo filtrado. */
-export default function TeamPage({ slug }: { slug: string }) {
+export default async function TeamPage({ slug }: { slug: string }) {
   const team = getTeam(slug);
   if (!team) notFound();
 
-  const count = productsByTeam(team.slug).length;
+  let count = 0;
+  try {
+    count = productsByTeam(await getCatalog(), team.slug).length;
+  } catch {
+    // Sem catálogo o banner mostra "sob consulta".
+  }
   const textColor = team.textOnPrimary === "dark" ? "text-ink" : "text-white";
 
   return (

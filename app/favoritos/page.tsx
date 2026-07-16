@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { MessageCircle, Trash2 } from "lucide-react";
 import { useFavorites } from "@/lib/favorites";
-import { getProduct } from "@/data/products";
+import { useProductLookup } from "@/components/CatalogProvider";
+import { purchasableVariants } from "@/lib/products/types";
 import { waFavorites } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 import ProductImage from "@/components/ProductImage";
@@ -12,6 +13,7 @@ import SectionHeading from "@/components/SectionHeading";
 
 export default function FavoritosPage() {
   const { slugs, sizes, setSize, ready, clear } = useFavorites();
+  const getProduct = useProductLookup();
 
   const items = slugs
     .map((s) => getProduct(s))
@@ -87,13 +89,11 @@ export default function FavoritosPage() {
                       className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm"
                     >
                       <option value="">A definir</option>
-                      {p.sizes
-                        .filter((s) => s.status !== "indisponivel")
-                        .map((s) => (
-                          <option key={s.label} value={s.label}>
-                            {s.label}
-                          </option>
-                        ))}
+                      {purchasableVariants(p).map((s) => (
+                        <option key={s.label} value={s.label}>
+                          {s.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <FavoriteButton

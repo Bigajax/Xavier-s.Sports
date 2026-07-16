@@ -1,6 +1,6 @@
 import Image from "next/image";
 import JerseyPlaceholder from "@/components/JerseyPlaceholder";
-import type { Product } from "@/data/products";
+import type { Product } from "@/lib/products/types";
 
 /** Foto real quando existe; senão, prévia ilustrativa nas cores do time. */
 export default function ProductImage({

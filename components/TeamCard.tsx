@@ -2,14 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { teamCrest, type Team } from "@/data/teams";
-import { products } from "@/data/products";
+import { getCatalog } from "@/lib/products/db";
 
 /**
  * Card de time: escudo limpo sobre branco (sem molduras nem sombras) e a
  * identidade do clube na dupla faixa diagonal — o corte da marca (-8°).
  */
-export default function TeamCard({ team }: { team: Team }) {
-  const count = products.filter((p) => p.teamSlug === team.slug).length;
+export default async function TeamCard({ team }: { team: Team }) {
+  let count = 0;
+  try {
+    const products = await getCatalog();
+    count = products.filter((p) => p.teamSlug === team.slug).length;
+  } catch {
+    // Sem catálogo o card mostra "Sob consulta".
+  }
   const href =
     team.type === "clube" ? `/clubes/${team.slug}` : `/selecoes/${team.slug}`;
 

@@ -1,22 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle, ShoppingBag } from "lucide-react";
-import type { Product } from "@/data/products";
+import { Clock, MessageCircle, PackageCheck, ShoppingBag } from "lucide-react";
+import {
+  purchasableVariants,
+  variantAvailability,
+  type Product,
+} from "@/lib/products/types";
 import { waProduct, type Personalization } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 import FavoriteButton from "@/components/FavoriteButton";
 import { useCart } from "@/lib/cart";
 import { toast } from "@/components/Toaster";
 
-const sizeStatusLabel: Record<string, string> = {
-  "poucas-unidades": "poucas unidades",
-  consulta: "sob consulta",
-};
-
 /**
  * Núcleo de conversão: seleção de tamanho obrigatória antes do envio,
- * personalização opcional com confirmação, CTA fixo no mobile.
+ * disponibilidade por tamanho em tempo real, personalização opcional com
+ * confirmação, CTA fixo no mobile.
  */
 export default function ProductActions({ product }: { product: Product }) {
   const [size, setSize] = useState<string | null>(null);
@@ -27,9 +27,18 @@ export default function ProductActions({ product }: { product: Product }) {
   const [confirmed, setConfirmed] = useState(false);
   const { add } = useCart();
 
-  const needsSize = product.sizes.length > 0;
+  // Esgotado (nenhum tamanho comprável): CTA vira consulta de reposição.
+  const soldOut =
+    product.variants.length > 0 && purchasableVariants(product).length === 0;
+  const needsSize = product.variants.length > 0 && !soldOut;
+  const selected = product.variants.find((v) => v.label === size);
+  const selectedAvail = selected ? variantAvailability(selected) : null;
 
   const addToBag = () => {
+    if (soldOut) {
+      toast("Produto esgotado — consulte a reposição pelo WhatsApp");
+      return;
+    }
     if (needsSize && !size) {
       toast("Selecione um tamanho antes de adicionar");
       document
@@ -37,7 +46,22 @@ export default function ProductActions({ product }: { product: Product }) {
         ?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    add(product.slug, size ?? undefined);
+    if (selectedAvail?.kind === "indisponivel") {
+      toast("Este tamanho está indisponível no momento");
+      return;
+    }
+    add(
+      product.slug,
+      size ?? undefined,
+      selectedAvail?.kind === "encomenda"
+        ? {
+            availability: "encomenda",
+            estimatedDelivery: selectedAvail.estimatedDelivery,
+          }
+        : selectedAvail?.kind === "pronta-entrega"
+          ? { availability: "pronta-entrega" }
+          : undefined
+    );
     toast("Adicionada à sacola 🛍️");
   };
 
@@ -76,7 +100,7 @@ export default function ProductActions({ product }: { product: Product }) {
   return (
     <div>
       {/* Tamanhos */}
-      {needsSize && (
+      {product.variants.length > 0 && (
         <div id="tamanhos" className="mt-6">
           <div className="flex items-center justify-between">
             <h2 className="display-upright text-base text-ink">
@@ -93,14 +117,23 @@ export default function ProductActions({ product }: { product: Product }) {
             Ficou em dúvida? Consulte o guia de medidas antes de pedir.
           </p>
           <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Tamanhos">
-            {product.sizes.map((s) => {
-              const disabled = s.status === "indisponivel";
-              const active = size === s.label;
+            {product.variants.map((v) => {
+              const avail = variantAvailability(v);
+              const disabled = avail.kind === "indisponivel";
+              const active = size === v.label;
+              const pill =
+                avail.kind === "pronta-entrega" && avail.low
+                  ? avail.stock === 1
+                    ? "última unidade"
+                    : `últimas ${avail.stock}`
+                  : avail.kind === "encomenda"
+                    ? "encomenda"
+                    : null;
               return (
                 <button
-                  key={s.label}
+                  key={v.label}
                   disabled={disabled}
-                  onClick={() => setSize(active ? null : s.label)}
+                  onClick={() => setSize(active ? null : v.label)}
                   aria-pressed={active}
                   className={`relative min-w-12 rounded-lg border-2 px-3 py-2.5 text-sm font-bold transition-colors ${
                     disabled
@@ -110,15 +143,54 @@ export default function ProductActions({ product }: { product: Product }) {
                         : "border-ink/15 text-ink hover:border-roxo"
                   }`}
                 >
-                  {s.label}
-                  {!disabled && s.status !== "disponivel" && (
+                  {v.label}
+                  {pill && (
                     <span className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-amarelo px-1.5 text-[9px] font-bold normal-case text-ink">
-                      {sizeStatusLabel[s.status]}
+                      {pill}
                     </span>
                   )}
                 </button>
               );
             })}
+          </div>
+
+          {/* Disponibilidade do tamanho selecionado */}
+          <div className="mt-3" aria-live="polite">
+            {soldOut ? (
+              <p className="text-sm font-semibold text-steel">
+                Todos os tamanhos estão esgotados — consulte a reposição pelo
+                WhatsApp.
+              </p>
+            ) : !selectedAvail ? (
+              <p className="text-xs text-steel">
+                Selecione um tamanho para ver a disponibilidade.
+              </p>
+            ) : selectedAvail.kind === "pronta-entrega" ? (
+              <p className="flex items-center gap-1.5 text-sm font-semibold text-whats">
+                <PackageCheck className="h-4 w-4" aria-hidden="true" />
+                {selectedAvail.low
+                  ? selectedAvail.stock === 1
+                    ? "Última unidade — pronta entrega"
+                    : `Últimas ${selectedAvail.stock} unidades — pronta entrega`
+                  : "Em estoque — pronta entrega"}
+              </p>
+            ) : selectedAvail.kind === "encomenda" ? (
+              <div className="text-sm">
+                <p className="flex items-center gap-1.5 font-semibold text-ink">
+                  <Clock className="h-4 w-4 text-roxo" aria-hidden="true" />
+                  Disponível por encomenda
+                </p>
+                {selectedAvail.estimatedDelivery && (
+                  <p className="mt-0.5 pl-[22px] text-xs text-steel">
+                    Prazo estimado: {selectedAvail.estimatedDelivery}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <p className="text-sm font-semibold text-steel">
+                Tamanho indisponível no momento.
+              </p>
+            )}
           </div>
         </div>
       )}
@@ -228,11 +300,18 @@ export default function ProductActions({ product }: { product: Product }) {
               : "bg-roxo text-white transition-transform hover:scale-[1.01]"
           }`}
         >
-          <span>{blocked ? blockedHint : "Consultar disponibilidade"}</span>
+          <span>
+            {blocked
+              ? blockedHint
+              : soldOut
+                ? "Consultar reposição"
+                : "Consultar disponibilidade"}
+          </span>
         </a>
         <button
           onClick={addToBag}
-          className="flex items-center gap-2 rounded-lg border-2 border-ink/15 px-5 py-3.5 text-sm font-bold text-ink transition-colors hover:border-roxo hover:text-roxo"
+          disabled={soldOut}
+          className="flex items-center gap-2 rounded-lg border-2 border-ink/15 px-5 py-3.5 text-sm font-bold text-ink transition-colors hover:border-roxo hover:text-roxo disabled:cursor-not-allowed disabled:border-cloud disabled:text-steel/50 disabled:hover:border-cloud disabled:hover:text-steel/50"
         >
           <ShoppingBag className="h-5 w-5" aria-hidden="true" />
           Adicionar à sacola
@@ -287,7 +366,11 @@ export default function ProductActions({ product }: { product: Product }) {
         >
           <span className="flex items-center justify-center gap-2">
             <MessageCircle className="h-4 w-4 skew-x-[8deg]" aria-hidden="true" />
-            {blocked ? blockedHint : "Consultar disponibilidade"}
+            {blocked
+              ? blockedHint
+              : soldOut
+                ? "Consultar reposição"
+                : "Consultar disponibilidade"}
           </span>
         </a>
       </div>

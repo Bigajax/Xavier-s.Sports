@@ -1,27 +1,32 @@
 import type { Metadata } from "next";
 import AdminNav from "@/components/admin/AdminNav";
+import { supabaseServer } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "Painel administrativo (demonstração)",
+  title: "Painel administrativo",
   robots: { index: false, follow: false },
 };
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Defesa dupla com o middleware: sem sessão, renderiza só o conteúdo
+  // (a página de login), sem o chrome do painel.
+  const supabase = await supabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return <div className="min-h-screen bg-cloud">{children}</div>;
+  }
+
   return (
     <div className="min-h-screen bg-cloud lg:grid lg:grid-cols-[240px_1fr]">
       <aside className="bg-ink lg:min-h-screen">
-        <AdminNav />
+        <AdminNav userEmail={user.email ?? ""} />
       </aside>
-      <div>
-        <div className="border-b border-amarelo bg-amarelo/20 px-6 py-2 text-xs font-semibold text-ink">
-          Painel demonstrativo — dados salvos apenas neste navegador. Conteúdo
-          provisório: validar políticas, preços e textos antes de colocar o
-          site no ar. Em produção, proteger este painel com autenticação.
-        </div>
-        <main className="p-6">{children}</main>
-      </div>
+      <main className="p-6">{children}</main>
     </div>
   );
 }

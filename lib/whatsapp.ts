@@ -1,5 +1,6 @@
 import { site } from "@/config/site";
 import type { Product } from "@/data/products";
+import { brl } from "@/lib/format";
 
 /** Monta o link wa.me com a mensagem codificada. Nunca abre automaticamente. */
 export function waLink(message: string): string {
@@ -64,6 +65,27 @@ export function waFavorites(
       (item, i) =>
         `${i + 1}. ${item.name}${item.size ? `, tamanho ${item.size}` : ""}`
     ),
+  ];
+  return waLink(lines.join("\n"));
+}
+
+/** Pedido consolidado da sacola — uma linha por item, com quantidade e tamanho. */
+export function waCart(
+  items: { name: string; size?: string; qty: number }[],
+  subtotal: number
+): string {
+  const lines = [
+    "Olá! Montei minha sacola no site da Xavier's Sports e gostaria de fazer o pedido:",
+    "",
+    ...items.map(
+      (item, i) =>
+        `${i + 1}. ${item.qty}x ${item.name}${
+          item.size ? ` — tamanho ${item.size}` : " — tamanho a definir"
+        }`
+    ),
+    "",
+    `Subtotal estimado: ${brl(subtotal)}.`,
+    "Poderia confirmar disponibilidade, valor final e prazo de envio?",
   ];
   return waLink(lines.join("\n"));
 }

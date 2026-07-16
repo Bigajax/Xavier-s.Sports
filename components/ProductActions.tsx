@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, ShoppingBag } from "lucide-react";
 import type { Product } from "@/data/products";
 import { waProduct, type Personalization } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 import FavoriteButton from "@/components/FavoriteButton";
+import { useCart } from "@/lib/cart";
 import { toast } from "@/components/Toaster";
 
 const sizeStatusLabel: Record<string, string> = {
@@ -24,8 +25,21 @@ export default function ProductActions({ product }: { product: Product }) {
   const [pNumber, setPNumber] = useState("");
   const [pNotes, setPNotes] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const { add } = useCart();
 
   const needsSize = product.sizes.length > 0;
+
+  const addToBag = () => {
+    if (needsSize && !size) {
+      toast("Selecione um tamanho antes de adicionar");
+      document
+        .getElementById("tamanhos")
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    add(product.slug, size ?? undefined);
+    toast("Adicionada à sacola 🛍️");
+  };
 
   const personalization: Personalization = {
     wanted: wantsPersonalization,
@@ -201,7 +215,7 @@ export default function ProductActions({ product }: { product: Product }) {
       )}
 
       {/* CTAs */}
-      <div className="mt-6 hidden gap-3 md:flex">
+      <div className="mt-6 hidden flex-wrap gap-3 md:flex">
         <a
           href={href}
           onClick={guard}
@@ -216,6 +230,13 @@ export default function ProductActions({ product }: { product: Product }) {
         >
           <span>{blocked ? blockedHint : "Consultar disponibilidade"}</span>
         </a>
+        <button
+          onClick={addToBag}
+          className="flex items-center gap-2 rounded-lg border-2 border-ink/15 px-5 py-3.5 text-sm font-bold text-ink transition-colors hover:border-roxo hover:text-roxo"
+        >
+          <ShoppingBag className="h-5 w-5" aria-hidden="true" />
+          Adicionar à sacola
+        </button>
         <a
           href={href}
           onClick={guard}
@@ -245,6 +266,13 @@ export default function ProductActions({ product }: { product: Product }) {
           name={product.name}
           className="border border-ink/10"
         />
+        <button
+          onClick={addToBag}
+          aria-label={`Adicionar ${product.name} à sacola`}
+          className="tap flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink/10 bg-white/90 shadow-md"
+        >
+          <ShoppingBag className="h-5 w-5 text-ink" aria-hidden="true" />
+        </button>
         <a
           href={href}
           onClick={guard}

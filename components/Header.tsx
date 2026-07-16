@@ -10,6 +10,7 @@ import {
   Menu,
   MessageCircle,
   Search,
+  ShoppingBag,
   UserRound,
   X,
 } from "lucide-react";
@@ -18,9 +19,11 @@ import Logo from "@/components/Logo";
 import TopBar from "@/components/TopBar";
 import SearchModal from "@/components/SearchModal";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
+import CartDrawer from "@/components/CartDrawer";
 import { mainNav, megaClubes, megaSelecoes } from "@/components/nav";
 import { teamCrest } from "@/data/teams";
 import { useFavorites } from "@/lib/favorites";
+import { useCart } from "@/lib/cart";
 import { waDefault } from "@/lib/whatsapp";
 import { toast } from "@/components/Toaster";
 
@@ -29,12 +32,15 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [favOpen, setFavOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const [mega, setMega] = useState<"clubes" | "selecoes" | null>(null);
   const { count, ready } = useFavorites();
+  const { count: cartCount, ready: cartReady } = useCart();
 
   useEffect(() => {
     setDrawerOpen(false);
     setFavOpen(false);
+    setCartOpen(false);
     setMega(null);
   }, [pathname]);
 
@@ -170,6 +176,23 @@ export default function Header() {
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amarelo px-1 text-[10px] font-bold text-ink">
                   {count}
                 </span>
+              )}
+            </button>
+            <button
+              onClick={() => setCartOpen(true)}
+              aria-label={`Abrir sacola${cartReady && cartCount > 0 ? ` (${cartCount} ${cartCount === 1 ? "item" : "itens"})` : ""}`}
+              className="relative rounded-lg p-2 hover:bg-white/10"
+            >
+              <ShoppingBag className="h-5 w-5" aria-hidden="true" />
+              {cartReady && cartCount > 0 && (
+                <motion.span
+                  key={cartCount}
+                  initial={{ scale: 1.5 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amarelo px-1 text-[10px] font-bold text-ink"
+                >
+                  {cartCount}
+                </motion.span>
               )}
             </button>
             <a
@@ -313,6 +336,7 @@ export default function Header() {
 
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
       <FavoritesDrawer open={favOpen} onClose={() => setFavOpen(false)} />
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>
   );
 }

@@ -2,9 +2,14 @@ import { site } from "@/config/site";
 import type { Product } from "@/lib/products/types";
 import { brl } from "@/lib/format";
 
-/** Monta o link wa.me com a mensagem codificada. Nunca abre automaticamente. */
+/**
+ * Monta o link wa.me com a mensagem codificada. Nunca abre automaticamente.
+ * O app do WhatsApp para Windows corrompe caracteres especiais vindos de
+ * link (emojis, travessão — viram "�"); trocamos por equivalentes simples.
+ */
 export function waLink(message: string): string {
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+  const safe = message.replace(/[—–]/g, "-").replace(/ /g, " ");
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(safe)}`;
 }
 
 export function waDefault(): string {
@@ -43,9 +48,13 @@ function productTitle(name: string): string {
   return name.replace(/\s*[—–-]\s*vers[ãa]o\s+.+$/i, "").trim();
 }
 
-/** Bloco "EMOJI RÓTULO \n valor" — a unidade visual da mensagem. */
-function block(emoji: string, label: string, value: string): string {
-  return `${emoji} ${label}\n${value}`;
+/**
+ * Bloco "*RÓTULO*\nvalor" — a unidade visual da mensagem. Usa o negrito
+ * nativo do WhatsApp em vez de emojis: o app do WhatsApp para Windows
+ * corrompe emojis vindos de links (viram "�"), acentos e asteriscos não.
+ */
+function block(label: string, value: string): string {
+  return `*${label}*\n${value}`;
 }
 
 /**
@@ -62,22 +71,21 @@ export function waProduct(
   const isPreOrder = availability?.kind === "encomenda";
 
   const greeting = isPreOrder
-    ? `Olá! Quero fazer uma encomenda na ${site.name} ⚽`
+    ? `Olá! Quero fazer uma encomenda na ${site.name}!`
     : isOrder
-      ? `Olá! Quero fazer um pedido na ${site.name} ⚽`
-      : `Olá! Vi este produto no site da ${site.name} ⚽`;
+      ? `Olá! Quero fazer um pedido na ${site.name}!`
+      : `Olá! Vi este produto no site da ${site.name}.`;
 
   const blocks: string[] = [greeting];
-  blocks.push(block("📦", "PRODUTO", productTitle(product.name)));
+  blocks.push(block("PRODUTO", productTitle(product.name)));
   blocks.push(
-    block("👕", "VERSÃO", versionLabels[product.version] ?? product.version)
+    block("VERSÃO", versionLabels[product.version] ?? product.version)
   );
-  if (size) blocks.push(block("📏", "TAMANHO", size));
+  if (size) blocks.push(block("TAMANHO", size));
 
   if (isOrder) {
     blocks.push(
       block(
-        "✅",
         "DISPONIBILIDADE",
         availability.low && availability.stock
           ? `Pronta entrega — últimas ${availability.stock} unidades`
@@ -85,33 +93,29 @@ export function waProduct(
       )
     );
   } else if (isPreOrder) {
-    blocks.push(block("🕒", "DISPONIBILIDADE", "Sob encomenda"));
+    blocks.push(block("DISPONIBILIDADE", "Sob encomenda"));
     if (availability.estimatedDelivery) {
-      blocks.push(block("📅", "PRAZO ESTIMADO", availability.estimatedDelivery));
+      blocks.push(block("PRAZO ESTIMADO", availability.estimatedDelivery));
     }
   }
 
   if (personalization?.wanted) {
-    blocks.push(block("✍️", "PERSONALIZAÇÃO", "Sim"));
-    if (personalization.name) blocks.push(block("🔤", "NOME", personalization.name));
+    blocks.push(block("PERSONALIZAÇÃO", "Sim"));
+    if (personalization.name) blocks.push(block("NOME", personalization.name));
     if (personalization.number)
-      blocks.push(block("🔢", "NÚMERO", personalization.number));
+      blocks.push(block("NÚMERO", personalization.number));
     if (personalization.notes)
-      blocks.push(block("📝", "OBSERVAÇÕES", personalization.notes));
+      blocks.push(block("OBSERVAÇÕES", personalization.notes));
     if (product.personalizationPrice) {
       blocks.push(
-        block(
-          "💵",
-          "ADICIONAL DE PERSONALIZAÇÃO",
-          brl(product.personalizationPrice)
-        )
+        block("ADICIONAL DE PERSONALIZAÇÃO", brl(product.personalizationPrice))
       );
     }
   } else {
-    blocks.push(block("✍️", "PERSONALIZAÇÃO", "Não"));
+    blocks.push(block("PERSONALIZAÇÃO", "Não"));
   }
 
-  blocks.push(block("💰", "VALOR", brl(product.price)));
+  blocks.push(block("VALOR", brl(product.price)));
 
   if (isOrder) {
     blocks.push(
@@ -171,7 +175,9 @@ const availabilityText: Record<CartMessageItem["availability"], string> = {
   "a-confirmar": "A confirmar no atendimento",
 };
 
-const DIVIDER = "━━━━━━━━━━━━━━";
+// Divisor em ASCII puro: traços/emojis especiais viram "�" no app do
+// WhatsApp para Windows quando chegam por link.
+const DIVIDER = "----------------";
 
 /**
  * Pedido consolidado da sacola — um bloco por item separado por divisor,
@@ -190,7 +196,7 @@ export function waCart(
   const mixed = hasReady && hasPreOrder;
 
   const itemBlocks = items.map((item, i) => {
-    const lines = [`📦 ITEM ${i + 1}`, ""];
+    const lines = [`*ITEM ${i + 1}*`, ""];
     lines.push(`Produto: ${productTitle(item.name)}`);
     if (item.version) {
       lines.push(`Versão: ${versionLabels[item.version] ?? item.version}`);
@@ -212,23 +218,23 @@ export function waCart(
 
   const parts: string[] = [
     allPreOrder
-      ? `Olá! Quero fazer uma encomenda na ${site.name} ⚽`
-      : `Olá! Quero fazer um pedido na ${site.name} ⚽`,
+      ? `Olá! Quero fazer uma encomenda na ${site.name}!`
+      : `Olá! Quero fazer um pedido na ${site.name}!`,
     DIVIDER,
   ];
   for (const itemBlock of itemBlocks) {
     parts.push(itemBlock, DIVIDER);
   }
-  parts.push(`🧾 TOTAL DO PEDIDO\n${brl(total)}`);
+  parts.push(block("TOTAL DO PEDIDO", brl(total)));
 
   if (mixed) {
     parts.push("O pedido possui itens com prazos diferentes.");
   }
 
-  if (customer?.name) parts.push(`👤 CLIENTE\n${customer.name}`);
-  if (customer?.city) parts.push(`📍 CIDADE\n${customer.city}`);
-  if (customer?.delivery) parts.push(`🚚 ENTREGA\n${customer.delivery}`);
-  if (customer?.notes) parts.push(`📝 OBSERVAÇÃO\n${customer.notes}`);
+  if (customer?.name) parts.push(block("CLIENTE", customer.name));
+  if (customer?.city) parts.push(block("CIDADE", customer.city));
+  if (customer?.delivery) parts.push(block("ENTREGA", customer.delivery));
+  if (customer?.notes) parts.push(block("OBSERVAÇÃO", customer.notes));
 
   parts.push(
     allPreOrder

@@ -29,7 +29,7 @@ export const site = {
   shippingText:
     "Enviamos para todo o Brasil. O valor e o prazo do frete são informados pelo atendimento no momento da confirmação do pedido.",
   paymentText:
-    "As formas de pagamento disponíveis são informadas pela equipe durante o atendimento no WhatsApp.",
+    "Aceitamos Pix e cartão de crédito. A chave Pix ou o link de pagamento do cartão são enviados pela equipe no atendimento, junto com as condições de parcelamento.",
 } as const;
 
 export type Site = typeof site;

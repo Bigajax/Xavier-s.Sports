@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Plus, Trash2, X } from "lucide-react";
 import type { Product } from "@/lib/products/types";
 import { saveProduct, type SaveProductInput } from "@/app/admin/produtos/actions";
+import ImagesEditor from "@/components/admin/ImagesEditor";
 import { toast } from "@/components/Toaster";
 
 type VariantDraft = {
@@ -36,6 +37,7 @@ export default function ProductForm({
   const [oldPrice, setOldPrice] = useState(
     product.oldPrice ? String(product.oldPrice) : ""
   );
+  const [images, setImages] = useState<string[]>(product.images);
   const [available, setAvailable] = useState(product.available);
   const [featured, setFeatured] = useState(product.featured);
   const [newArrival, setNewArrival] = useState(product.newArrival);
@@ -116,6 +118,7 @@ export default function ProductForm({
       description,
       price: priceValue,
       oldPrice: oldPriceValue,
+      images,
       available,
       featured,
       newArrival,
@@ -238,6 +241,13 @@ export default function ProductForm({
               />
             </div>
           </div>
+          <ImagesEditor
+            images={images}
+            onChange={(next) => {
+              setImages(next);
+              touch();
+            }}
+          />
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
             {(
               [

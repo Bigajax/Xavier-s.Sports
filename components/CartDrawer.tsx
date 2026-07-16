@@ -468,6 +468,32 @@ export default function CartDrawer({
                             />
                           </div>
                         ))}
+                        <div>
+                          <label
+                            htmlFor="pedido-payment"
+                            className="mb-0.5 block text-[10px] font-bold uppercase tracking-wide text-white/50"
+                          >
+                            Pagamento
+                          </label>
+                          <select
+                            id="pedido-payment"
+                            value={customer.payment ?? ""}
+                            onChange={(e) =>
+                              setCustomer((prev) => ({
+                                ...prev,
+                                payment: (e.target.value ||
+                                  undefined) as OrderCustomer["payment"],
+                              }))
+                            }
+                            className="w-full rounded-md border border-white/20 bg-white/10 px-2.5 py-1.5 text-xs text-white [&>option]:text-ink"
+                          >
+                            <option value="">A combinar</option>
+                            <option value="Pix">Pix</option>
+                            <option value="Cartão de crédito">
+                              Cartão de crédito
+                            </option>
+                          </select>
+                        </div>
                       </div>
                     </details>
                   )}
@@ -478,6 +504,7 @@ export default function CartDrawer({
                         name: customer.name?.trim() || undefined,
                         city: customer.city?.trim() || undefined,
                         delivery: customer.delivery?.trim() || undefined,
+                        payment: customer.payment,
                         notes: customer.notes?.trim() || undefined,
                       })}
                       target="_blank"

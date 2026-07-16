@@ -10,6 +10,7 @@ import {
 import { waProduct, type Personalization, type WaAvailability } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 import FavoriteButton from "@/components/FavoriteButton";
+import SizeGuideModal from "@/components/SizeGuideModal";
 import { useCart } from "@/lib/cart";
 import { toast } from "@/components/Toaster";
 
@@ -25,6 +26,7 @@ export default function ProductActions({ product }: { product: Product }) {
   const [pNumber, setPNumber] = useState("");
   const [pNotes, setPNotes] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
   const { add } = useCart();
 
   // Esgotado (nenhum tamanho comprável): CTA vira consulta de reposição.
@@ -123,12 +125,13 @@ export default function ProductActions({ product }: { product: Product }) {
             <h2 className="display-upright text-base text-ink">
               Selecione o tamanho
             </h2>
-            <a
-              href="/guia-de-tamanhos"
+            <button
+              type="button"
+              onClick={() => setGuideOpen(true)}
               className="text-xs font-semibold text-roxo hover:underline"
             >
               Guia de medidas
-            </a>
+            </button>
           </div>
           <p className="mt-1 text-xs text-steel">
             Ficou em dúvida? Consulte o guia de medidas antes de pedir.
@@ -138,20 +141,21 @@ export default function ProductActions({ product }: { product: Product }) {
               const avail = variantAvailability(v);
               const disabled = avail.kind === "indisponivel";
               const active = size === v.label;
-              const pill =
+              const lowPill =
                 avail.kind === "pronta-entrega" && avail.low
                   ? avail.stock === 1
                     ? "última unidade"
                     : `últimas ${avail.stock}`
-                  : avail.kind === "encomenda"
-                    ? "encomenda"
-                    : null;
+                  : null;
               return (
                 <button
                   key={v.label}
                   disabled={disabled}
                   onClick={() => setSize(active ? null : v.label)}
                   aria-pressed={active}
+                  aria-label={`Tamanho ${v.label}${
+                    avail.kind === "encomenda" ? " (sob encomenda)" : ""
+                  }`}
                   className={`relative min-w-12 rounded-lg border-2 px-3 py-2.5 text-sm font-bold transition-colors ${
                     disabled
                       ? "cursor-not-allowed border-cloud text-steel/50 line-through"
@@ -161,9 +165,18 @@ export default function ProductActions({ product }: { product: Product }) {
                   }`}
                 >
                   {v.label}
-                  {pill && (
+                  {lowPill && (
                     <span className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-amarelo px-1.5 text-[9px] font-bold normal-case text-ink">
-                      {pill}
+                      {lowPill}
+                    </span>
+                  )}
+                  {avail.kind === "encomenda" && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -right-1.5 -top-1.5 rounded-full bg-amarelo p-0.5"
+                      title="Sob encomenda"
+                    >
+                      <Clock className="h-2.5 w-2.5 text-ink" />
                     </span>
                   )}
                 </button>
@@ -327,16 +340,6 @@ export default function ProductActions({ product }: { product: Product }) {
           <ShoppingBag className="h-5 w-5" aria-hidden="true" />
           Adicionar à sacola
         </button>
-        <a
-          href={href}
-          onClick={guard}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-lg border-2 border-whats px-5 py-3.5 text-sm font-bold text-whats transition-colors hover:bg-whats hover:text-white"
-        >
-          <MessageCircle className="h-5 w-5" aria-hidden="true" />
-          Pedir pelo WhatsApp
-        </a>
         <FavoriteButton
           slug={product.slug}
           name={product.name}
@@ -381,6 +384,13 @@ export default function ProductActions({ product }: { product: Product }) {
           </span>
         </a>
       </div>
+
+      <SizeGuideModal
+        product={product}
+        selectedSize={size}
+        open={guideOpen}
+        onClose={() => setGuideOpen(false)}
+      />
     </div>
   );
 }

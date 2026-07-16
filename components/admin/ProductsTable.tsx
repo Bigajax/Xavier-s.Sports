@@ -8,6 +8,7 @@ import {
   PackageMinus,
   PackagePlus,
   Pencil,
+  Plus,
   Search,
   Trash2,
 } from "lucide-react";
@@ -23,6 +24,7 @@ import { deleteProduct, toggleAvailable } from "@/app/admin/produtos/actions";
 import { toast } from "@/components/Toaster";
 import ProductImage from "@/components/ProductImage";
 import ProductForm from "@/components/admin/ProductForm";
+import NewProductForm from "@/components/admin/NewProductForm";
 import StockDialog, { type StockAction } from "@/components/admin/StockDialog";
 
 type StatusFilter = "todos" | ProductStatus;
@@ -41,6 +43,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
   const [status, setStatus] = useState<StatusFilter>("todos");
   const [visibility, setVisibility] = useState<VisibilityFilter>("todos");
   const [editing, setEditing] = useState<Product | null>(null);
+  const [creating, setCreating] = useState(false);
   const [stockDialog, setStockDialog] = useState<{
     product: Product;
     action: StockAction;
@@ -126,6 +129,13 @@ export default function ProductsTable({ products }: { products: Product[] }) {
         <p className="ml-auto text-sm text-steel" aria-live="polite">
           {rows.length} {rows.length === 1 ? "produto" : "produtos"}
         </p>
+        <button
+          onClick={() => setCreating(true)}
+          className="tap flex items-center gap-2 rounded-lg bg-roxo px-4 py-2.5 text-sm font-bold text-white hover:bg-roxo-escuro"
+        >
+          <Plus className="h-4 w-4" aria-hidden="true" />
+          Cadastrar produto
+        </button>
       </div>
 
       {/* Tabela */}
@@ -280,6 +290,9 @@ export default function ProductsTable({ products }: { products: Product[] }) {
           onClose={() => setEditing(null)}
           onSaved={refresh}
         />
+      )}
+      {creating && (
+        <NewProductForm onClose={() => setCreating(false)} onSaved={refresh} />
       )}
       {stockDialog && (
         <StockDialog

@@ -10,6 +10,10 @@ export const faqGeral: Faq[] = [
     a: "Escolha a camisa no site, selecione o tamanho e toque em “Consultar disponibilidade”. O site monta uma mensagem completa e você envia pelo WhatsApp — a equipe confirma disponibilidade, pagamento e envio.",
   },
   {
+    q: "Quais são as formas de pagamento?",
+    a: "Pix e cartão de crédito. Após confirmar o pedido no WhatsApp, a equipe envia a chave Pix ou o link de pagamento do cartão, com as condições de parcelamento.",
+  },
+  {
     q: "Vocês enviam para todo o Brasil?",
     a: "Sim. O valor e o prazo do frete são informados pelo atendimento no momento da confirmação do pedido.",
   },

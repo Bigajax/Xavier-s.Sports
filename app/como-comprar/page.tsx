@@ -17,7 +17,7 @@ const steps = [
   { title: "Informe personalização, caso deseje", text: "Nome e número sujeitos à disponibilidade do modelo." },
   { title: "Envie a consulta pelo WhatsApp", text: "O site monta a mensagem completa com todos os detalhes." },
   { title: "Aguarde confirmação", text: "A equipe confirma estoque, valor final e condições." },
-  { title: "Escolha a forma de pagamento informada pela loja", text: "As opções são apresentadas no atendimento." },
+  { title: "Pague com Pix ou cartão", text: "A chave Pix ou o link do cartão são enviados no atendimento." },
   { title: "Receba o código de acompanhamento, quando aplicável", text: "Acompanhe a entrega até a sua casa." },
 ];
 

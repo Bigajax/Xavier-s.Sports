@@ -166,6 +166,7 @@ export type OrderCustomer = {
   name?: string;
   city?: string;
   delivery?: string;
+  payment?: "Pix" | "Cartão de crédito";
   notes?: string;
 };
 
@@ -234,6 +235,7 @@ export function waCart(
   if (customer?.name) parts.push(block("CLIENTE", customer.name));
   if (customer?.city) parts.push(block("CIDADE", customer.city));
   if (customer?.delivery) parts.push(block("ENTREGA", customer.delivery));
+  if (customer?.payment) parts.push(block("PAGAMENTO", customer.payment));
   if (customer?.notes) parts.push(block("OBSERVAÇÃO", customer.notes));
 
   parts.push(

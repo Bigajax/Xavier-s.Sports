@@ -2,6 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
 
 /**
  * Cliente Supabase de servidor com a sessão do admin (via cookies).
@@ -10,10 +11,7 @@ import { createServerClient } from "@supabase/ssr";
  */
 export async function supabaseServer() {
   const cookieStore = await cookies();
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  return createServerClient(supabaseUrl(), supabaseAnonKey(), {
       cookies: {
         getAll() {
           return cookieStore.getAll();

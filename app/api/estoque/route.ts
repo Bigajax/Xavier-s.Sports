@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
 
 /**
  * Estoque fresco por slug para a reconciliação da sacola — sem cache, porque
@@ -18,8 +19,8 @@ type VariantPayload = {
 };
 
 export async function GET(request: Request) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = supabaseUrl();
+  const anonKey = supabaseAnonKey();
   if (!url || !anonKey) {
     return NextResponse.json(
       { error: "Supabase não configurado" },

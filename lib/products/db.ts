@@ -2,6 +2,7 @@ import "server-only";
 
 import { unstable_cache } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
+import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
 import type { Product, Variant } from "@/lib/products/types";
 
 /**
@@ -16,22 +17,15 @@ import type { Product, Variant } from "@/lib/products/types";
 
 export const PRODUCTS_TAG = "products";
 
-function env(name: "NEXT_PUBLIC_SUPABASE_URL" | "NEXT_PUBLIC_SUPABASE_ANON_KEY"): string {
-  const value = process.env[name];
-  if (!value) {
+function anonClient() {
+  const url = supabaseUrl();
+  const key = supabaseAnonKey();
+  if (!url || !key) {
     throw new Error(
-      `Variável de ambiente ${name} não configurada. Copie .env.example para .env.local e preencha com os dados do projeto Supabase.`
+      "Variáveis NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY não configuradas. Copie .env.example para .env.local e preencha com os dados do projeto Supabase."
     );
   }
-  return value;
-}
-
-function anonClient() {
-  return createClient(
-    env("NEXT_PUBLIC_SUPABASE_URL"),
-    env("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
-    { auth: { persistSession: false } }
-  );
+  return createClient(url, key, { auth: { persistSession: false } });
 }
 
 type VariantRow = {

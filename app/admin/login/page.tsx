@@ -29,7 +29,9 @@ export default function AdminLoginPage() {
       setError(
         signInError.message === "Invalid login credentials"
           ? "E-mail ou senha incorretos."
-          : "Não foi possível entrar agora. Tente novamente em instantes."
+          : signInError.message === "Email not confirmed"
+            ? "E-mail ainda não confirmado — confirme o usuário no painel do Supabase."
+            : `Não foi possível entrar agora (${signInError.message}). Verifique a conexão e tente de novo.`
       );
       return;
     }

@@ -4,6 +4,7 @@ import { revalidateTag } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { supabaseServer } from "@/lib/supabase/server";
+import { supabaseUrl } from "@/lib/supabase/env";
 import { PRODUCTS_TAG } from "@/lib/products/db";
 import { norm } from "@/lib/catalog";
 
@@ -277,8 +278,8 @@ export async function uploadProductImage(
   try {
     await requireUser();
 
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+    const url = supabaseUrl();
     if (!serviceKey || !url) {
       return {
         ok: false,

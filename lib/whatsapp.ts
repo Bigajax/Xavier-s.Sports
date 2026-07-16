@@ -31,7 +31,7 @@ export type WaAvailability =
 
 /** Mensagem da página de produto — campos vazios são omitidos. */
 export function waProduct(
-  product: Pick<Product, "name" | "team" | "version">,
+  product: Pick<Product, "name" | "team" | "version" | "price">,
   size?: string,
   personalization?: Personalization,
   availability?: WaAvailability
@@ -62,6 +62,8 @@ export function waProduct(
     );
   }
 
+  parts.push(`Valor no site: ${brl(product.price)}.`);
+
   if (personalization?.wanted) {
     parts.push("Personalização: sim.");
     if (personalization.name) parts.push(`Nome: ${personalization.name}.`);
@@ -74,17 +76,17 @@ export function waProduct(
   if (availability?.kind === "pronta-entrega") {
     parts.push(
       size
-        ? "Quero fechar o pedido — pode confirmar o valor final, o pagamento e o envio?"
-        : "Pode confirmar os tamanhos disponíveis, o valor final e o envio?"
+        ? "Quero fechar o pedido — pode me passar o pagamento e o envio?"
+        : "Pode confirmar os tamanhos disponíveis e o envio?"
     );
   } else if (availability?.kind === "encomenda") {
     parts.push(
       size
-        ? "Quero encomendar — pode confirmar o pedido, o valor final e o prazo?"
-        : "Pode confirmar os tamanhos, o valor final e o prazo da encomenda?"
+        ? "Quero encomendar — pode confirmar o pedido e o prazo?"
+        : "Pode confirmar os tamanhos e o prazo da encomenda?"
     );
   } else {
-    parts.push("Poderia confirmar disponibilidade, valor final e prazo de envio?");
+    parts.push("Poderia confirmar a disponibilidade e o prazo de envio?");
   }
   return waLink(parts.join(" "));
 }

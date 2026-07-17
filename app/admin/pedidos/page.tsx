@@ -1,67 +1,80 @@
-/** Registro demonstrativo de consultas recebidas pelo WhatsApp. */
-const demoOrders = [
-  {
-    data: "2026-07-12",
-    cliente: "Consulta demonstrativa",
-    produto: "Camisa Portugal Home",
-    tamanho: "M",
-    origem: "Página de produto",
-    status: "Respondido",
-  },
-  {
-    data: "2026-07-11",
-    cliente: "Consulta demonstrativa",
-    produto: "Lista de favoritos (3 itens)",
-    tamanho: "—",
-    origem: "Favoritos",
-    status: "Convertido em pedido",
-  },
-  {
-    data: "2026-07-10",
-    cliente: "Consulta demonstrativa",
-    produto: "Camisa Corinthians Away — Listrada",
-    tamanho: "G",
-    origem: "Card do catálogo",
-    status: "Aguardando resposta",
-  },
-];
+import { ShoppingBag } from "lucide-react";
+import { supabaseServer } from "@/lib/supabase/server";
+import { getAdminCatalog } from "@/lib/products/db";
+import type { OrderRow } from "@/lib/crm";
+import OrdersBoard from "@/components/admin/OrdersBoard";
+import HelpButton from "@/components/admin/HelpButton";
 
-export default function AdminPedidos() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminPedidos() {
+  let orders: OrderRow[] = [];
+  let tablePending = false;
+  let catalog: Awaited<ReturnType<typeof getAdminCatalog>> = [];
+
+  try {
+    catalog = await getAdminCatalog();
+  } catch {
+    // Sem catálogo o pedido manual fica sem sugestões — ainda funciona.
+  }
+
+  try {
+    const supabase = await supabaseServer();
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*, order_items(*)")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (error) throw error;
+    orders = (data ?? []) as OrderRow[];
+  } catch (err) {
+    const message =
+      err && typeof err === "object" && "message" in err
+        ? String((err as { message: unknown }).message)
+        : String(err);
+    if (/orders|does not exist|schema cache/i.test(message)) {
+      tablePending = true;
+    }
+  }
+
   return (
     <div>
-      <h1 className="display text-3xl text-ink">Consultas do WhatsApp</h1>
-      <p className="mt-1 text-sm text-steel">
-        Exemplos ilustrativos de como as consultas serão organizadas. O
-        registro automático de consultas e o acompanhamento de pedidos serão
-        ativados em uma próxima atualização do painel.
-      </p>
-
-      <div className="mt-6 overflow-x-auto rounded-xl bg-white shadow-sm ring-1 ring-ink/5">
-        <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="bg-ink text-white">
-            <tr>
-              <th className="px-4 py-3">Data</th>
-              <th className="px-4 py-3">Cliente</th>
-              <th className="px-4 py-3">Produto</th>
-              <th className="px-4 py-3">Tamanho</th>
-              <th className="px-4 py-3">Origem</th>
-              <th className="px-4 py-3">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {demoOrders.map((o, i) => (
-              <tr key={i} className={i % 2 ? "bg-cloud/40" : "bg-white"}>
-                <td className="px-4 py-2.5">{o.data}</td>
-                <td className="px-4 py-2.5">{o.cliente}</td>
-                <td className="px-4 py-2.5 font-semibold">{o.produto}</td>
-                <td className="px-4 py-2.5">{o.tamanho}</td>
-                <td className="px-4 py-2.5">{o.origem}</td>
-                <td className="px-4 py-2.5">{o.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="display text-3xl text-ink">Pedidos</h1>
+          <p className="mt-1 text-sm text-steel">
+            Acompanhe cada pedido do primeiro contato à entrega. Marcar como
+            pago dá baixa no estoque uma única vez.
+          </p>
+        </div>
+        <HelpButton topic="pedidos" />
       </div>
+
+      {tablePending ? (
+        <div className="mt-6 rounded-xl border border-amarelo/50 bg-amarelo/10 p-6 text-center">
+          <ShoppingBag className="mx-auto h-8 w-8 text-ink/40" aria-hidden="true" />
+          <p className="mt-3 font-bold text-ink">
+            Os pedidos serão ativados após a atualização do banco de dados.
+          </p>
+          <p className="mt-1 text-sm text-steel">
+            Aplique a atualização (migration 0003) para criar pedidos, registrar
+            pagamentos e envios.
+          </p>
+        </div>
+      ) : (
+        <OrdersBoard
+          orders={orders}
+          products={catalog.map((p) => ({
+            id: p.id,
+            name: p.name,
+            sku: p.sku,
+            price: p.price,
+            variants: p.variants
+              .filter((v) => v.active)
+              .map((v) => ({ id: v.id, label: v.label, stock: v.stock })),
+          }))}
+        />
+      )}
     </div>
   );
 }

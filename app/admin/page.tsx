@@ -7,6 +7,7 @@ import {
   Clock,
 } from "lucide-react";
 import { getAdminCatalog } from "@/lib/products/db";
+import { supabaseServer } from "@/lib/supabase/server";
 import {
   deriveStatus,
   effectiveLowStock,
@@ -14,6 +15,38 @@ import {
 } from "@/lib/products/types";
 
 export const dynamic = "force-dynamic";
+
+/** Contagens do CRM — zeradas silenciosamente se a migration 0003 faltar. */
+async function crmCounts() {
+  try {
+    const supabase = await supabaseServer();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const [novasHoje, aguardando, aguardandoPagamento] = await Promise.all([
+      supabase
+        .from("whatsapp_leads")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", today.toISOString()),
+      supabase
+        .from("whatsapp_leads")
+        .select("id", { count: "exact", head: true })
+        .in("status", ["Nova consulta", "Aguardando resposta da loja"])
+        .is("archived_at", null),
+      supabase
+        .from("orders")
+        .select("id", { count: "exact", head: true })
+        .in("status", ["Aguardando confirmação", "Aguardando pagamento"]),
+    ]);
+    return {
+      ready: !novasHoje.error && !aguardandoPagamento.error,
+      novasHoje: novasHoje.count ?? 0,
+      aguardando: aguardando.count ?? 0,
+      aguardandoPagamento: aguardandoPagamento.count ?? 0,
+    };
+  } catch {
+    return { ready: false, novasHoje: 0, aguardando: 0, aguardandoPagamento: 0 };
+  }
+}
 
 function lowStockSizes(p: Product): string[] {
   const limit = effectiveLowStock(p);
@@ -35,6 +68,7 @@ export default async function AdminDashboard() {
   } catch {
     // Cards zerados; a página de produtos mostra o erro detalhado.
   }
+  const crm = await crmCounts();
 
   // Arquivados fora das contagens do dia a dia.
   const active = products.filter((p) => !p.archivedAt);
@@ -49,6 +83,28 @@ export default async function AdminDashboard() {
   const withDeadSizes = active.filter((p) => deadSizes(p).length > 0);
 
   const cards = [
+    ...(crm.ready
+      ? [
+          {
+            label: "Novas consultas hoje",
+            value: crm.novasHoje,
+            href: "/admin/consultas",
+            alert: false,
+          },
+          {
+            label: "Aguardando resposta",
+            value: crm.aguardando,
+            href: "/admin/consultas",
+            alert: crm.aguardando > 0,
+          },
+          {
+            label: "Pedidos aguardando pagamento",
+            value: crm.aguardandoPagamento,
+            href: "/admin/pedidos",
+            alert: crm.aguardandoPagamento > 0,
+          },
+        ]
+      : []),
     {
       label: "Estoque baixo",
       value: lowStock.length,
@@ -181,10 +237,12 @@ export default async function AdminDashboard() {
         )}
       </div>
 
-      <p className="mt-6 text-xs text-steel">
-        Os indicadores de consultas, pedidos e avaliações entram nas próximas
-        atualizações do painel, junto com o acompanhamento pelo WhatsApp.
-      </p>
+      {!crm.ready && (
+        <p className="mt-6 text-xs text-steel">
+          Os indicadores de consultas e pedidos aparecem após a atualização do
+          banco de dados (migration 0003).
+        </p>
+      )}
     </div>
   );
 }

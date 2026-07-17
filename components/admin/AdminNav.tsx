@@ -15,7 +15,9 @@ import {
   RefreshCcw,
   Settings,
   Shirt,
+  ShoppingBag,
   Star,
+  Users,
   X,
 } from "lucide-react";
 import { signOut } from "@/app/admin/actions";
@@ -28,7 +30,9 @@ const groups = [
   {
     heading: "Pedidos",
     items: [
-      { href: "/admin/pedidos", label: "Consultas do WhatsApp", icon: MessageSquareText },
+      { href: "/admin/consultas", label: "Consultas do WhatsApp", icon: MessageSquareText },
+      { href: "/admin/pedidos", label: "Pedidos", icon: ShoppingBag },
+      { href: "/admin/clientes", label: "Clientes", icon: Users },
     ],
   },
   {

@@ -267,6 +267,171 @@ function MovimentacoesHelp() {
   );
 }
 
+function Badge({ tone, children }: { tone: "roxo" | "ok" | "warn" | "off"; children: React.ReactNode }) {
+  const tones = {
+    roxo: "bg-roxo/10 text-roxo",
+    ok: "bg-whats/15 text-green-800",
+    warn: "bg-amarelo/30 text-ink",
+    off: "bg-cloud text-steel",
+  };
+  return (
+    <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${tones[tone]}`}>
+      {children}
+    </span>
+  );
+}
+
+function Flow({ steps }: { steps: { label: string; tone: "roxo" | "ok" | "warn" | "off" }[] }) {
+  return (
+    <div className="mt-3 flex flex-wrap items-center gap-1.5">
+      {steps.map((s, i) => (
+        <span key={s.label} className="flex items-center gap-1.5">
+          <Badge tone={s.tone}>{s.label}</Badge>
+          {i < steps.length - 1 && (
+            <ArrowRight className="h-3 w-3 text-steel/50" aria-hidden="true" />
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ConsultasHelp() {
+  return (
+    <div className="mt-4 space-y-5">
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>1 · De onde vêm as consultas</SectionTitle>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-lg bg-whats px-2.5 py-1.5 font-bold text-white">
+            Cliente toca no WhatsApp do site
+          </span>
+          <ArrowRight className="h-3.5 w-3.5 text-steel/50" aria-hidden="true" />
+          <Badge tone="roxo">Nova consulta</Badge>
+        </div>
+        <p className="mt-2 text-xs text-steel">
+          O card já chega com produto, tamanho e valor. O telefone NÃO vem
+          junto — quando a pessoa te chamar, preencha em{" "}
+          <strong>Dados e anotações</strong> (isso também cria o cliente).
+        </p>
+      </section>
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>2 · Acompanhe pelo status</SectionTitle>
+        <Flow
+          steps={[
+            { label: "Nova consulta", tone: "roxo" },
+            { label: "Em atendimento", tone: "ok" },
+            { label: "Interessado", tone: "ok" },
+            { label: "Convertido em pedido", tone: "ok" },
+          ]}
+        />
+        <p className="mt-2 text-xs text-steel">
+          “Aguardando resposta da loja” = a bola está com você. “Aguardando
+          resposta do cliente” = a bola está com ele.
+        </p>
+      </section>
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>3 · Virar pedido</SectionTitle>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-lg bg-roxo px-2.5 py-1.5 font-bold text-white">
+            Virar pedido
+          </span>
+          <ArrowRight className="h-3.5 w-3.5 text-steel/50" aria-hidden="true" />
+          <span className="rounded-lg border border-ink/10 bg-white px-2.5 py-1.5 font-semibold">
+            XS-0001 criado com o item da consulta
+          </span>
+        </div>
+        <p className="mt-2 text-xs text-steel">
+          Converta quando o cliente confirmar o interesse — o acompanhamento
+          continua na tela de Pedidos.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+function PedidosHelp() {
+  return (
+    <div className="mt-4 space-y-5">
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>1 · O caminho do pedido</SectionTitle>
+        <Flow
+          steps={[
+            { label: "Aguardando confirmação", tone: "roxo" },
+            { label: "Aguardando pagamento", tone: "warn" },
+            { label: "Pago", tone: "ok" },
+            { label: "Enviado", tone: "ok" },
+            { label: "Concluído", tone: "ok" },
+          ]}
+        />
+        <p className="mt-2 text-xs text-steel">
+          Um pedido nasce de uma consulta (“Virar pedido”) ou do botão{" "}
+          <strong>Criar pedido</strong> — inclusive para venda presencial.
+        </p>
+      </section>
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>2 · Pagar = baixar o estoque (uma vez só)</SectionTitle>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-lg bg-whats px-2.5 py-1.5 font-bold text-white">
+            Marcar como pago
+          </span>
+          <ArrowRight className="h-3.5 w-3.5 text-steel/50" aria-hidden="true" />
+          <span className="rounded-lg border border-ink/10 bg-white px-2.5 py-1.5 font-semibold tabular-nums">
+            −1 no estoque · movimentação “Venda · XS-0001”
+          </span>
+        </div>
+        <p className="mt-2 text-xs text-steel">
+          A baixa acontece UMA única vez — o selo{" "}
+          <strong className="text-whats">✓ estoque baixado</strong> mostra que
+          já foi feita; cliques repetidos não duplicam. Item sem saldo ou sem
+          vínculo gera um aviso para você resolver manualmente.
+        </p>
+      </section>
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>3 · Cancelamento sem surpresa</SectionTitle>
+        <p className="mt-2 text-xs text-steel">
+          Ao cancelar um pedido pago, o painel pergunta se os produtos voltam
+          ao estoque — cada devolução gera uma movimentação de entrada, nada
+          acontece em silêncio.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+function ClientesHelp() {
+  return (
+    <div className="mt-4 space-y-5">
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>1 · O telefone é a identidade</SectionTitle>
+        <p className="mt-2 text-xs text-steel">
+          Dois cadastros com o mesmo WhatsApp não existem: o painel reconhece o
+          número (mesmo escrito diferente) e mantém um cliente só.
+        </p>
+      </section>
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>2 · Clientes se criam sozinhos</SectionTitle>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-lg border border-ink/10 bg-white px-2.5 py-1.5 font-semibold">
+            WhatsApp preenchido na consulta ou no pedido
+          </span>
+          <ArrowRight className="h-3.5 w-3.5 text-steel/50" aria-hidden="true" />
+          <Badge tone="ok">Cliente criado</Badge>
+        </div>
+        <p className="mt-2 text-xs text-steel">
+          Você também pode cadastrar manualmente com endereço e observações.
+        </p>
+      </section>
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>3 · Histórico automático</SectionTitle>
+        <p className="mt-2 text-xs text-steel">
+          Cada cartão mostra quantos pedidos o cliente fez e o total gasto em
+          compras pagas — cancelados ficam de fora da conta.
+        </p>
+      </section>
+    </div>
+  );
+}
+
 const topics = {
   produtos: {
     intro:
@@ -276,6 +441,18 @@ const topics = {
   movimentacoes: {
     intro: "O extrato do seu estoque — cada alteração vira um registro aqui.",
     body: <MovimentacoesHelp />,
+  },
+  consultas: {
+    intro: "Quem tocou no WhatsApp do site aparece aqui — do primeiro clique ao pedido.",
+    body: <ConsultasHelp />,
+  },
+  pedidos: {
+    intro: "Do combinado no WhatsApp à entrega — com estoque sempre em dia.",
+    body: <PedidosHelp />,
+  },
+  clientes: {
+    intro: "Sua carteira de clientes, sem duplicados e com histórico.",
+    body: <ClientesHelp />,
   },
 };
 

@@ -12,6 +12,7 @@ import { brl } from "@/lib/format";
 import FavoriteButton from "@/components/FavoriteButton";
 import SizeGuideModal from "@/components/SizeGuideModal";
 import { useCart } from "@/lib/cart";
+import { trackLead } from "@/lib/trackLead";
 import { toast } from "@/components/Toaster";
 
 /**
@@ -89,7 +90,21 @@ export default function ProductActions({ product }: { product: Product }) {
     if (wantsPersonalization && !confirmed) {
       e.preventDefault();
       toast("Confirme os dados da personalização");
+      return;
     }
+    // Consulta iniciada — registra para o painel (não bloqueia o clique).
+    trackLead({
+      productId: product.id,
+      productName: product.name,
+      productSku: product.sku,
+      version: product.version,
+      size: size ?? undefined,
+      personalization: wantsPersonalization
+        ? [pName.trim(), pNumber.trim()].filter(Boolean).join(" ") || "Sim"
+        : undefined,
+      shownPrice: product.price,
+      origin: "produto",
+    });
   };
 
   // A mensagem reflete a disponibilidade que o site já conhece.

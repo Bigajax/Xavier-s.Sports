@@ -25,6 +25,7 @@ import {
   type OrderCustomer,
 } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
+import { trackLead } from "@/lib/trackLead";
 import { toast } from "@/components/Toaster";
 
 type Line = { item: CartItem; product: Product };
@@ -509,6 +510,17 @@ export default function CartDrawer({
                       })}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackLead({
+                          productName:
+                            messageItems.length === 1
+                              ? messageItems[0].name
+                              : `Pedido com ${messageItems.length} itens`,
+                          size: messageItems.length === 1 ? messageItems[0].size : undefined,
+                          shownPrice: messageTotal,
+                          origin: "sacola",
+                        })
+                      }
                       className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"
                     >
                       <MessageCircle className="h-5 w-5" aria-hidden="true" />

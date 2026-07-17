@@ -5,11 +5,11 @@ import { leagues } from "@/data/leagues";
 export default function AdminConteudo() {
   return (
     <div>
-      <h1 className="display text-3xl text-ink">Times, categorias e banners</h1>
+      <h1 className="display text-3xl text-ink">Times e categorias</h1>
       <p className="mt-1 text-sm text-steel">
-        Nesta versão, o conteúdo estrutural vive em arquivos editáveis — cada
-        bloco abaixo indica onde alterar. Na migração para Supabase, estas
-        listas viram tabelas editáveis pelo painel.
+        Estrutura atual do catálogo. A edição de times, categorias, banners e
+        textos do site será ativada em uma próxima atualização do painel — por
+        enquanto, solicite alterações ao responsável técnico.
       </p>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
@@ -18,7 +18,7 @@ export default function AdminConteudo() {
             Times e seleções ({teams.length})
           </h2>
           <p className="mt-1 text-xs text-steel">
-            Editar em <code>data/teams.ts</code> — nome, cores, país e liga.
+            Clubes e seleções disponíveis para vincular aos produtos.
           </p>
           <ul className="mt-3 max-h-64 space-y-1 overflow-y-auto text-sm">
             {teams.map((t) => (
@@ -42,7 +42,7 @@ export default function AdminConteudo() {
             Categorias ({categories.length})
           </h2>
           <p className="mt-1 text-xs text-steel">
-            Editar em <code>data/categories.ts</code> — nome, descrição e filtros.
+            Categorias exibidas na loja e usadas como filtros do catálogo.
           </p>
           <ul className="mt-3 space-y-1 text-sm">
             {categories.map((c) => (
@@ -57,7 +57,7 @@ export default function AdminConteudo() {
               Campeonatos ({leagues.length})
             </h2>
             <p className="mt-1 text-xs text-steel">
-              Editar em <code>data/leagues.ts</code>.
+              Usados para organizar e filtrar o catálogo.
             </p>
             <ul className="mt-3 space-y-1 text-sm">
               {leagues.map((l) => (
@@ -68,9 +68,8 @@ export default function AdminConteudo() {
           <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-ink/5">
             <h2 className="display-upright text-lg text-ink">Hero e banners</h2>
             <p className="mt-1 text-xs text-steel">
-              Textos do hero em <code>components/Hero.tsx</code>; imagens em{" "}
-              <code>public/images/produtos</code>. Frases da barra superior em{" "}
-              <code>components/TopBar.tsx</code>.
+              A edição do banner principal, dos avisos do topo e das imagens da
+              página inicial será ativada em breve nesta área.
             </p>
           </div>
         </div>

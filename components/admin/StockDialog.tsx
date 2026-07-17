@@ -3,14 +3,20 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import type { Product } from "@/lib/products/types";
-import { addStock, registerSale } from "@/app/admin/produtos/actions";
+import { registerEntry, registerExit } from "@/app/admin/produtos/actions";
+import {
+  ENTRY_REASONS,
+  EXIT_REASONS,
+  type EntryReason,
+  type ExitReason,
+} from "@/lib/stock";
 import { toast } from "@/components/Toaster";
 
-export type StockAction = "venda" | "entrada";
+export type StockAction = "saida" | "entrada";
 
 /**
- * Registrar venda (baixa estoque) ou adicionar estoque (entrada), com
- * confirmação explícita antes de alterar o saldo.
+ * Registrar saída (baixa estoque) ou entrada, com motivo obrigatório,
+ * confirmação explícita e movimentação gravada no histórico.
  */
 export default function StockDialog({
   product,
@@ -23,23 +29,45 @@ export default function StockDialog({
   onClose: () => void;
   onDone: () => void;
 }) {
+  const isExit = action === "saida";
   const activeVariants = product.variants.filter((v) => v.active);
-  const [variantId, setVariantId] = useState(activeVariants[0]?.id ?? "");
+  const selectable = isExit
+    ? activeVariants
+    : activeVariants; /* entrada aceita qualquer tamanho ativo */
+  const firstSelectable = isExit
+    ? activeVariants.find((v) => v.stock > 0)
+    : activeVariants[0];
+  const [variantId, setVariantId] = useState(firstSelectable?.id ?? "");
   const [qty, setQty] = useState(1);
+  const [reason, setReason] = useState<string>(
+    isExit ? EXIT_REASONS[0] : ENTRY_REASONS[0]
+  );
+  const [relatedOrder, setRelatedOrder] = useState("");
+  const [notes, setNotes] = useState("");
   const [confirming, setConfirming] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const variant = product.variants.find((v) => v.id === variantId);
-  const isSale = action === "venda";
-  const valid =
-    !!variant && qty >= 1 && (!isSale || qty <= variant.stock);
+  const valid = !!variant && qty >= 1 && (!isExit || qty <= variant.stock);
+  const reasons = isExit ? EXIT_REASONS : ENTRY_REASONS;
 
   const submit = async () => {
     if (!variant || busy) return;
     setBusy(true);
-    const result = isSale
-      ? await registerSale(variant.id, qty)
-      : await addStock(variant.id, qty);
+    const result = isExit
+      ? await registerExit({
+          variantId: variant.id,
+          qty,
+          reason: reason as ExitReason,
+          relatedOrder: relatedOrder.trim() || undefined,
+          notes: notes.trim() || undefined,
+        })
+      : await registerEntry({
+          variantId: variant.id,
+          qty,
+          reason: reason as EntryReason,
+          notes: notes.trim() || undefined,
+        });
     setBusy(false);
     if (!result.ok) {
       toast(result.error);
@@ -47,8 +75,8 @@ export default function StockDialog({
       return;
     }
     toast(
-      isSale
-        ? `Venda registrada — estoque ${variant.label}: ${result.newStock}`
+      isExit
+        ? `Saída registrada — estoque ${variant.label}: ${result.newStock}`
         : `Entrada registrada — estoque ${variant.label}: ${result.newStock}`
     );
     onDone();
@@ -57,16 +85,16 @@ export default function StockDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/60 p-4"
+      className="fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto bg-ink/60 p-4"
       role="dialog"
       aria-modal="true"
-      aria-label={isSale ? "Registrar venda" : "Adicionar estoque"}
+      aria-label={isExit ? "Registrar saída" : "Registrar entrada"}
     >
-      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <div className="my-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="display text-2xl text-ink">
-              {isSale ? "Registrar venda" : "Adicionar estoque"}
+              {isExit ? "Registrar saída" : "Registrar entrada"}
             </h2>
             <p className="mt-0.5 text-sm text-steel">{product.name}</p>
           </div>
@@ -100,16 +128,21 @@ export default function StockDialog({
                   }}
                   className="w-full rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm"
                 >
-                  {activeVariants.map((v) => (
-                    <option key={v.id} value={v.id}>
+                  {selectable.map((v) => (
+                    <option
+                      key={v.id}
+                      value={v.id}
+                      disabled={isExit && v.stock === 0}
+                    >
                       {v.label} — {v.stock} em estoque
+                      {isExit && v.stock === 0 ? " (sem saldo)" : ""}
                     </option>
                   ))}
                 </select>
               </div>
               <div>
                 <label htmlFor="stock-qty" className="mb-1 block text-xs font-bold text-ink">
-                  {isSale ? "Quantidade vendida" : "Quantidade recebida"}
+                  {isExit ? "Quantidade da saída" : "Quantidade recebida"}
                 </label>
                 <input
                   id="stock-qty"
@@ -125,22 +158,74 @@ export default function StockDialog({
               </div>
             </div>
 
+            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div>
+                <label htmlFor="stock-motivo" className="mb-1 block text-xs font-bold text-ink">
+                  Motivo
+                </label>
+                <select
+                  id="stock-motivo"
+                  value={reason}
+                  onChange={(e) => {
+                    setReason(e.target.value);
+                    setConfirming(false);
+                  }}
+                  className="w-full rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm"
+                >
+                  {reasons.map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {isExit && (
+                <div>
+                  <label htmlFor="stock-pedido" className="mb-1 block text-xs font-bold text-ink">
+                    Pedido relacionado (opcional)
+                  </label>
+                  <input
+                    id="stock-pedido"
+                    value={relatedOrder}
+                    onChange={(e) => setRelatedOrder(e.target.value)}
+                    placeholder="Ex.: WA-123"
+                    className="w-full rounded-lg border border-ink/15 px-3 py-2.5 text-sm"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="mt-3">
+              <label htmlFor="stock-obs" className="mb-1 block text-xs font-bold text-ink">
+                Observação (opcional)
+              </label>
+              <input
+                id="stock-obs"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                maxLength={200}
+                placeholder={
+                  isExit ? "Ex.: cliente da loja física" : "Ex.: nota fiscal 123"
+                }
+                className="w-full rounded-lg border border-ink/15 px-3 py-2.5 text-sm"
+              />
+            </div>
+
             {variant && (
               <p className="mt-3 rounded-lg bg-cloud px-3 py-2.5 text-sm text-ink/80">
                 Estoque atual do {variant.label}:{" "}
                 <strong className="tabular-nums">{variant.stock}</strong> → novo
                 estoque:{" "}
                 <strong className="tabular-nums">
-                  {isSale ? variant.stock - qty : variant.stock + qty}
+                  {isExit ? variant.stock - qty : variant.stock + qty}
                 </strong>
               </p>
             )}
 
-            {isSale && variant && qty > variant.stock && (
+            {isExit && variant && qty > variant.stock && (
               <p className="mt-2 text-sm font-semibold text-promo">
                 Estoque insuficiente: o tamanho {variant.label} tem apenas{" "}
-                {variant.stock}{" "}
-                {variant.stock === 1 ? "unidade" : "unidades"}.
+                {variant.stock} {variant.stock === 1 ? "unidade" : "unidades"}.
               </p>
             )}
 
@@ -150,18 +235,18 @@ export default function StockDialog({
                 disabled={!valid}
                 className="tap mt-5 w-full rounded-lg bg-roxo px-4 py-3 text-sm font-bold text-white hover:bg-roxo-escuro disabled:opacity-50"
               >
-                {isSale ? "Registrar venda" : "Adicionar unidades"}
+                {isExit ? "Registrar saída" : "Adicionar unidades"}
               </button>
             ) : (
               <div className="mt-5 rounded-lg border border-roxo/30 bg-roxo/5 p-4">
                 <p className="text-sm font-semibold text-ink">
-                  {isSale
-                    ? `Deseja registrar esta venda e reduzir ${qty} ${
+                  {isExit
+                    ? `Registrar saída de ${qty} ${
                         qty === 1 ? "unidade" : "unidades"
-                      } do estoque ${variant?.label}?`
-                    : `Deseja somar ${qty} ${
+                      } do tamanho ${variant?.label} (${reason})?`
+                    : `Somar ${qty} ${
                         qty === 1 ? "unidade" : "unidades"
-                      } ao estoque ${variant?.label}?`}
+                      } ao tamanho ${variant?.label} (${reason})?`}
                 </p>
                 <div className="mt-3 flex gap-2">
                   <button

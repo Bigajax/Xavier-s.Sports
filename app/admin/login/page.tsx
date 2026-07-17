@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
         signInError.message === "Invalid login credentials"
           ? "E-mail ou senha incorretos."
           : signInError.message === "Email not confirmed"
-            ? "E-mail ainda não confirmado — confirme o usuário no painel do Supabase."
+            ? "E-mail ainda não confirmado — fale com o responsável técnico."
             : `Não foi possível entrar agora (${signInError.message}). Verifique a conexão e tente de novo.`
       );
       return;
@@ -124,9 +124,9 @@ export default function AdminLoginPage() {
           </button>
 
           <p className="text-center text-xs leading-relaxed text-steel">
-            Esqueceu a senha? Redefina no painel do Supabase
+            Esqueceu a senha? Fale com o responsável técnico
             <br />
-            (Authentication → Users).
+            para redefinir o seu acesso.
           </p>
         </form>
 

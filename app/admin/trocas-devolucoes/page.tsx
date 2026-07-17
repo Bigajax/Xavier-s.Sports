@@ -51,8 +51,8 @@ export default function AdminTrocas() {
         <div>
           <h1 className="display text-3xl text-ink">Trocas e devoluções</h1>
           <p className="mt-1 text-sm text-steel">
-            Registros demonstrativos salvos neste navegador. Recusas exigem
-            justificativa interna.
+            Os registros ficam salvos apenas neste dispositivo por enquanto.
+            Recusas exigem justificativa interna.
           </p>
         </div>
         <button

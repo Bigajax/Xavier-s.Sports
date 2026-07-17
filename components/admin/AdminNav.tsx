@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
+  History,
   Image as ImageIcon,
   LayoutDashboard,
   LogOut,
@@ -19,14 +20,43 @@ import {
 } from "lucide-react";
 import { signOut } from "@/app/admin/actions";
 
-const items = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/produtos", label: "Produtos", icon: Shirt },
-  { href: "/admin/conteudo", label: "Times & banners", icon: ImageIcon },
-  { href: "/admin/pedidos", label: "Pedidos WhatsApp", icon: MessageSquareText },
-  { href: "/admin/trocas-devolucoes", label: "Trocas e devoluções", icon: RefreshCcw },
-  { href: "/admin/avaliacoes", label: "Avaliações", icon: Star },
-  { href: "/admin/configuracoes", label: "Configurações", icon: Settings },
+const groups = [
+  {
+    heading: "Visão geral",
+    items: [{ href: "/admin", label: "Dashboard", icon: LayoutDashboard }],
+  },
+  {
+    heading: "Pedidos",
+    items: [
+      { href: "/admin/pedidos", label: "Consultas do WhatsApp", icon: MessageSquareText },
+    ],
+  },
+  {
+    heading: "Produtos e estoque",
+    items: [
+      { href: "/admin/produtos", label: "Produtos", icon: Shirt },
+      { href: "/admin/movimentacoes", label: "Movimentações", icon: History },
+    ],
+  },
+  {
+    heading: "Atendimento",
+    items: [
+      { href: "/admin/trocas-devolucoes", label: "Trocas e devoluções", icon: RefreshCcw },
+      { href: "/admin/avaliacoes", label: "Avaliações", icon: Star },
+    ],
+  },
+  {
+    heading: "Conteúdo do site",
+    items: [
+      { href: "/admin/conteudo", label: "Times e categorias", icon: ImageIcon },
+    ],
+  },
+  {
+    heading: "Configurações",
+    items: [
+      { href: "/admin/configuracoes", label: "Dados da loja", icon: Settings },
+    ],
+  },
 ];
 
 function NavLinks({
@@ -38,31 +68,40 @@ function NavLinks({
 }) {
   return (
     <>
-      <ul className="flex-1 space-y-1 px-2">
-        {items.map((item) => {
-          const active =
-            item.href === "/admin"
-              ? pathname === "/admin"
-              : pathname.startsWith(item.href);
-          return (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                onClick={onNavigate}
-                aria-current={active ? "page" : undefined}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors ${
-                  active
-                    ? "bg-roxo text-white"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                <item.icon className="h-4 w-4" aria-hidden="true" />
-                {item.label}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="flex-1 space-y-4 overflow-y-auto px-2">
+        {groups.map((group) => (
+          <div key={group.heading}>
+            <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-white/40">
+              {group.heading}
+            </p>
+            <ul className="space-y-1">
+              {group.items.map((item) => {
+                const active =
+                  item.href === "/admin"
+                    ? pathname === "/admin"
+                    : pathname.startsWith(item.href);
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={onNavigate}
+                      aria-current={active ? "page" : undefined}
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors ${
+                        active
+                          ? "bg-roxo text-white"
+                          : "text-white/70 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      <item.icon className="h-4 w-4" aria-hidden="true" />
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
       <div className="space-y-1 p-2">
         <Link
           href="/"

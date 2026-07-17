@@ -46,6 +46,10 @@ export type Product = {
   onSale: boolean;
   available: boolean;
   tags: string[];
+  /** Arquivado: fora da vitrine e da listagem padrão do painel. */
+  archivedAt?: string | null;
+  /** Limite de "estoque baixo" deste produto; sem valor usa o global. */
+  lowStockThreshold?: number | null;
 };
 
 // ---------- Disponibilidade ----------
@@ -53,7 +57,12 @@ export type Product = {
 export type ProductStatus = "pronta-entrega" | "sob-encomenda" | "esgotado";
 
 /** Estoque igual ou abaixo disso mostra "Últimas N unidades". */
-export const LOW_STOCK_THRESHOLD = 3;
+export const LOW_STOCK_THRESHOLD = 2;
+
+/** Limite efetivo de estoque baixo: o do produto, ou o global. */
+export function effectiveLowStock(p: Product): number {
+  return p.lowStockThreshold ?? LOW_STOCK_THRESHOLD;
+}
 
 export const statusLabel: Record<ProductStatus, string> = {
   "pronta-entrega": "Pronta entrega",
@@ -131,6 +140,26 @@ export function availabilitySummary(p: Product): AvailabilitySummary {
     return { kind: "sob-encomenda", text: "Por encomenda", detail: shared };
   }
   return { kind: "esgotado", text: "Esgotado — consulte reposição" };
+}
+
+/**
+ * Rótulo de status para o painel: mais preciso que a vitrine, distinguindo
+ * "pronta entrega + encomenda" e contando os tamanhos disponíveis.
+ */
+export function adminStatusLabel(p: Product): string {
+  const active = p.variants.filter((v) => v.active);
+  const inStock = active.filter((v) => v.stock > 0);
+  const preOrderEmpty = active.filter((v) => v.stock === 0 && v.allowPreOrder);
+  if (inStock.length > 0 && preOrderEmpty.length > 0) {
+    return "Pronta entrega + encomenda";
+  }
+  if (inStock.length > 0) {
+    return inStock.length === 1
+      ? "Pronta entrega em 1 tamanho"
+      : `Pronta entrega em ${inStock.length} tamanhos`;
+  }
+  if (preOrderEmpty.length > 0) return "Somente encomenda";
+  return "Esgotado";
 }
 
 // ---------- Helpers de consulta (recebem a lista, não importam mais o array) ----------

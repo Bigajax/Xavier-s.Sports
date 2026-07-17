@@ -70,6 +70,8 @@ export type ProductRow = {
   on_sale: boolean;
   available: boolean;
   tags: string[];
+  archived_at?: string | null;
+  low_stock_threshold?: number | null;
   product_variants: VariantRow[];
 };
 
@@ -124,6 +126,8 @@ export function mapRow(row: ProductRow): Product {
     onSale: row.on_sale,
     available: row.available,
     tags: row.tags ?? [],
+    archivedAt: row.archived_at ?? null,
+    lowStockThreshold: row.low_stock_threshold ?? null,
   };
 }
 
@@ -134,7 +138,9 @@ async function fetchCatalog(): Promise<Product[]> {
     .eq("available", true)
     .order("created_at", { ascending: true });
   if (error) throw new Error(`Erro ao carregar o catálogo: ${error.message}`);
-  return (data as ProductRow[]).map(mapRow);
+  // Arquivados nunca aparecem na vitrine (filtro em memória para funcionar
+  // antes e depois da migration que cria a coluna archived_at).
+  return (data as ProductRow[]).map(mapRow).filter((p) => !p.archivedAt);
 }
 
 /** Catálogo completo visível na vitrine (available = true). */

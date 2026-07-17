@@ -29,11 +29,11 @@ const demoOrders = [
 export default function AdminPedidos() {
   return (
     <div>
-      <h1 className="display text-3xl text-ink">Pedidos por WhatsApp</h1>
+      <h1 className="display text-3xl text-ink">Consultas do WhatsApp</h1>
       <p className="mt-1 text-sm text-steel">
-        Exemplo de como as consultas recebidas podem ser organizadas. Dados
-        simulados — na versão com Supabase, cada clique de CTA pode gerar um
-        registro automático.
+        Exemplos ilustrativos de como as consultas serão organizadas. O
+        registro automático de consultas e o acompanhamento de pedidos serão
+        ativados em uma próxima atualização do painel.
       </p>
 
       <div className="mt-6 overflow-x-auto rounded-xl bg-white shadow-sm ring-1 ring-ink/5">

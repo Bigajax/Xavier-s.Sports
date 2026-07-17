@@ -1,10 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  AlertTriangle,
+  Archive,
+  ArchiveRestore,
+  Clock,
+  Copy,
+  ExternalLink,
   Eye,
   EyeOff,
+  History,
+  MoreVertical,
   PackageMinus,
   PackagePlus,
   Pencil,
@@ -13,22 +21,29 @@ import {
   Trash2,
 } from "lucide-react";
 import {
+  adminStatusLabel,
   deriveStatus,
-  statusLabel,
+  effectiveLowStock,
   type Product,
   type ProductStatus,
 } from "@/lib/products/types";
 import { norm } from "@/lib/catalog";
 import { brl } from "@/lib/format";
-import { deleteProduct, toggleAvailable } from "@/app/admin/produtos/actions";
+import {
+  archiveProduct,
+  deleteProduct,
+  duplicateProduct,
+  toggleAvailable,
+  unarchiveProduct,
+} from "@/app/admin/produtos/actions";
 import { toast } from "@/components/Toaster";
 import ProductImage from "@/components/ProductImage";
 import ProductForm from "@/components/admin/ProductForm";
-import NewProductForm from "@/components/admin/NewProductForm";
+import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import StockDialog, { type StockAction } from "@/components/admin/StockDialog";
 
-type StatusFilter = "todos" | ProductStatus;
-type VisibilityFilter = "todos" | "ativo" | "oculto";
+type StatusFilter = "todos" | ProductStatus | "estoque-baixo";
+type VisibilityFilter = "todos" | "ativo" | "oculto" | "arquivados";
 
 const statusTone: Record<ProductStatus, string> = {
   "pronta-entrega": "bg-whats/15 text-green-800",
@@ -36,14 +51,43 @@ const statusTone: Record<ProductStatus, string> = {
   esgotado: "bg-promo/15 text-promo",
 };
 
+/** Produto com algum tamanho ativo em estoque baixo (mas não zerado). */
+function hasLowStock(p: Product): boolean {
+  const limit = effectiveLowStock(p);
+  return p.variants.some((v) => v.active && v.stock > 0 && v.stock <= limit);
+}
+
 /** Lista de produtos e estoque do painel — dados vindos do Supabase. */
-export default function ProductsTable({ products }: { products: Product[] }) {
+export default function ProductsTable({
+  products,
+  initialFilter,
+}: {
+  products: Product[];
+  initialFilter?: string;
+}) {
   const router = useRouter();
   const [q, setQ] = useState("");
-  const [status, setStatus] = useState<StatusFilter>("todos");
-  const [visibility, setVisibility] = useState<VisibilityFilter>("todos");
+  const [status, setStatus] = useState<StatusFilter>(
+    ["estoque-baixo", "esgotado", "sob-encomenda", "pronta-entrega"].includes(
+      initialFilter ?? ""
+    )
+      ? (initialFilter as StatusFilter)
+      : "todos"
+  );
+  const [visibility, setVisibility] = useState<VisibilityFilter>(
+    initialFilter === "arquivados"
+      ? "arquivados"
+      : initialFilter === "oculto"
+        ? "oculto"
+        : "todos"
+  );
   const [editing, setEditing] = useState<Product | null>(null);
   const [creating, setCreating] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState<Product | null>(null);
+  const [confirmArchive, setConfirmArchive] = useState<Product | null>(null);
+  const [busyAction, setBusyAction] = useState(false);
+  const [menuFor, setMenuFor] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [stockDialog, setStockDialog] = useState<{
     product: Product;
     action: StockAction;
@@ -51,11 +95,31 @@ export default function ProductsTable({ products }: { products: Product[] }) {
 
   const refresh = () => router.refresh();
 
+  // Fecha o menu "mais ações" ao clicar fora.
+  useEffect(() => {
+    if (!menuFor) return;
+    const onClick = (e: MouseEvent) => {
+      if (!menuRef.current?.contains(e.target as Node)) setMenuFor(null);
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [menuFor]);
+
   const rows = useMemo(() => {
     return products.filter((p) => {
+      const archived = Boolean(p.archivedAt);
+      if (visibility === "arquivados") {
+        if (!archived) return false;
+      } else if (archived) {
+        return false;
+      }
       if (q.trim() && !norm(`${p.name} ${p.team} ${p.sku}`).includes(norm(q)))
         return false;
-      if (status !== "todos" && deriveStatus(p.variants) !== status) return false;
+      if (status === "estoque-baixo") {
+        if (!hasLowStock(p)) return false;
+      } else if (status !== "todos" && deriveStatus(p.variants) !== status) {
+        return false;
+      }
       if (visibility === "ativo" && !p.available) return false;
       if (visibility === "oculto" && p.available) return false;
       return true;
@@ -72,25 +136,144 @@ export default function ProductsTable({ products }: { products: Product[] }) {
     refresh();
   };
 
-  const onDelete = async (p: Product) => {
-    if (
-      !window.confirm(
-        `Excluir "${p.name}" definitivamente? Os tamanhos e estoques deste produto também serão removidos.`
-      )
-    )
-      return;
-    const result = await deleteProduct(p.id);
+  const onDuplicate = async (p: Product) => {
+    setBusyAction(true);
+    const result = await duplicateProduct(p.id);
+    setBusyAction(false);
     if (!result.ok) {
       toast(result.error);
       return;
     }
-    toast("Produto excluído");
+    toast("Cópia criada oculta e com estoque zerado — edite e publique.");
     refresh();
   };
 
-  /** Ações da linha — compartilhadas entre a tabela e os cards do celular. */
-  const actionsFor = (p: Product) => (
-    <div className="flex items-center gap-1">
+  const onArchiveConfirmed = async () => {
+    if (!confirmArchive) return;
+    setBusyAction(true);
+    const result = confirmArchive.archivedAt
+      ? await unarchiveProduct(confirmArchive.id)
+      : await archiveProduct(confirmArchive.id);
+    setBusyAction(false);
+    setConfirmArchive(null);
+    if (!result.ok) {
+      toast(result.error);
+      return;
+    }
+    toast(
+      confirmArchive.archivedAt
+        ? "Produto restaurado — ele volta oculto; publique quando quiser."
+        : "Produto arquivado — fora da vitrine e da listagem padrão."
+    );
+    refresh();
+  };
+
+  const onDeleteConfirmed = async () => {
+    if (!confirmDelete) return;
+    setBusyAction(true);
+    const result = await deleteProduct(confirmDelete.id);
+    setBusyAction(false);
+    setConfirmDelete(null);
+    if (!result.ok) {
+      toast(result.error);
+      return;
+    }
+    toast("Produto excluído definitivamente");
+    refresh();
+  };
+
+  /**
+   * Menu "mais ações": gaveta que sobe de baixo no celular (com fundo
+   * escurecido) e dropdown ao lado do botão no desktop.
+   */
+  const moreMenu = (p: Product, dropUp = false) => (
+    <>
+      <button
+        aria-label="Fechar menu"
+        onClick={() => setMenuFor(null)}
+        className="fixed inset-0 z-40 cursor-default bg-ink/50 md:hidden"
+      />
+      <div
+        ref={menuRef}
+        className={`fixed inset-x-2 bottom-2 z-50 overflow-hidden rounded-2xl bg-white py-1 shadow-2xl ring-1 ring-ink/10 md:absolute md:inset-auto md:right-0 md:z-20 md:w-56 md:rounded-xl md:shadow-xl ${
+          dropUp ? "md:bottom-full md:mb-1" : "md:top-full md:mt-1"
+        }`}
+        role="menu"
+      >
+        <p className="border-b border-ink/5 px-3.5 py-2.5 text-xs font-bold text-steel md:hidden">
+          {p.name}
+        </p>
+        {[
+          {
+            label: "Registrar saída",
+            icon: PackageMinus,
+            mobileOnly: true,
+            run: () => setStockDialog({ product: p, action: "saida" }),
+          },
+          {
+            label: "Registrar entrada",
+            icon: PackagePlus,
+            mobileOnly: true,
+            run: () => setStockDialog({ product: p, action: "entrada" }),
+          },
+          {
+            label: "Histórico de estoque",
+            icon: History,
+            run: () => router.push(`/admin/movimentacoes?produto=${p.id}`),
+          },
+          {
+            label: "Duplicar produto",
+            icon: Copy,
+            run: () => onDuplicate(p),
+          },
+          ...(p.available && !p.archivedAt
+            ? [
+                {
+                  label: "Ver no site",
+                  icon: ExternalLink,
+                  run: () => window.open(`/produto/${p.slug}`, "_blank"),
+                },
+              ]
+            : []),
+          {
+            label: p.available ? "Ocultar da vitrine" : "Publicar na vitrine",
+            icon: p.available ? EyeOff : Eye,
+            run: () => onToggle(p),
+          },
+          {
+            label: p.archivedAt ? "Restaurar produto" : "Arquivar produto",
+            icon: p.archivedAt ? ArchiveRestore : Archive,
+            run: () => setConfirmArchive(p),
+          },
+          {
+            label: "Excluir definitivamente",
+            icon: Trash2,
+            danger: true,
+            run: () => setConfirmDelete(p),
+          },
+        ].map((item) => (
+          <button
+            key={item.label}
+            role="menuitem"
+            onClick={() => {
+              setMenuFor(null);
+              item.run();
+            }}
+            className={`flex w-full items-center gap-2.5 px-3.5 py-3 text-left text-sm font-semibold hover:bg-cloud md:py-2.5 ${
+              "danger" in item && item.danger ? "text-promo" : "text-ink"
+            } ${"mobileOnly" in item && item.mobileOnly ? "md:hidden" : ""}`}
+          >
+            <item.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+
+  /** Ações da linha — ícones principais + menu "mais ações". */
+  const actionsFor = (p: Product, dropUp = false) => (
+    <div className="relative flex items-center gap-1">
       <button
         onClick={() => setEditing(p)}
         title="Editar produto e estoque"
@@ -100,74 +283,91 @@ export default function ProductsTable({ products }: { products: Product[] }) {
         <Pencil className="h-4 w-4" aria-hidden="true" />
       </button>
       <button
-        onClick={() => setStockDialog({ product: p, action: "venda" })}
-        title="Registrar venda (baixa estoque)"
-        aria-label={`Registrar venda de ${p.name}`}
+        onClick={() => setStockDialog({ product: p, action: "saida" })}
+        title="Registrar saída (baixa estoque)"
+        aria-label={`Registrar saída de ${p.name}`}
         className="tap rounded-lg p-2 text-steel hover:bg-cloud hover:text-roxo"
       >
         <PackageMinus className="h-4 w-4" aria-hidden="true" />
       </button>
       <button
         onClick={() => setStockDialog({ product: p, action: "entrada" })}
-        title="Adicionar estoque (entrada)"
-        aria-label={`Adicionar estoque de ${p.name}`}
+        title="Registrar entrada de estoque"
+        aria-label={`Registrar entrada de ${p.name}`}
         className="tap rounded-lg p-2 text-steel hover:bg-cloud hover:text-roxo"
       >
         <PackagePlus className="h-4 w-4" aria-hidden="true" />
       </button>
       <button
-        onClick={() => onToggle(p)}
-        title={p.available ? "Ocultar da vitrine" : "Publicar na vitrine"}
-        aria-label={`${p.available ? "Ocultar" : "Publicar"} ${p.name}`}
+        onClick={() => setMenuFor(menuFor === p.id ? null : p.id)}
+        title="Mais ações"
+        aria-label={`Mais ações para ${p.name}`}
+        aria-expanded={menuFor === p.id}
         className="tap rounded-lg p-2 text-steel hover:bg-cloud hover:text-roxo"
       >
-        {p.available ? (
-          <EyeOff className="h-4 w-4" aria-hidden="true" />
-        ) : (
-          <Eye className="h-4 w-4" aria-hidden="true" />
-        )}
+        <MoreVertical className="h-4 w-4" aria-hidden="true" />
       </button>
-      <button
-        onClick={() => onDelete(p)}
-        title="Excluir produto"
-        aria-label={`Excluir ${p.name}`}
-        className="tap rounded-lg p-2 text-steel hover:bg-cloud hover:text-promo"
-      >
-        <Trash2 className="h-4 w-4" aria-hidden="true" />
-      </button>
+      {menuFor === p.id && moreMenu(p, dropUp)}
     </div>
   );
 
-  /** Chips de estoque por tamanho — idem. */
-  const variantChips = (p: Product) => (
-    <span className="flex flex-wrap gap-1">
-      {p.variants.map((v) => (
-        <span
-          key={v.id}
-          title={
-            !v.active
-              ? `${v.label}: tamanho desativado`
-              : v.stock > 0
-                ? `${v.label}: ${v.stock} em estoque`
-                : v.allowPreOrder
-                  ? `${v.label}: sob encomenda${v.estimatedDelivery ? ` (${v.estimatedDelivery})` : ""}`
-                  : `${v.label}: indisponível`
-          }
-          className={`tabular-nums rounded px-1.5 py-0.5 text-xs font-bold ${
-            !v.active
-              ? "bg-cloud text-steel/50 line-through"
-              : v.stock > 0
-                ? "bg-whats/15 text-green-800"
-                : v.allowPreOrder
-                  ? "bg-amarelo/30 text-ink"
-                  : "bg-cloud text-steel"
-          }`}
-        >
-          {v.label}: {v.stock}
-        </span>
-      ))}
-    </span>
-  );
+  /** Chips de estoque por tamanho, com aviso textual de baixo/esgotado. */
+  const variantChips = (p: Product) => {
+    const limit = effectiveLowStock(p);
+    return (
+      <span className="flex flex-wrap gap-1">
+        {p.variants.map((v) => {
+          const low = v.active && v.stock > 0 && v.stock <= limit;
+          const out = v.active && v.stock === 0 && !v.allowPreOrder;
+          return (
+            <span
+              key={v.id}
+              title={
+                !v.active
+                  ? `${v.label}: tamanho desativado`
+                  : v.stock > 0
+                    ? `${v.label}: ${v.stock} em estoque${low ? " (estoque baixo)" : ""}`
+                    : v.allowPreOrder
+                      ? `${v.label}: sob encomenda${v.estimatedDelivery ? ` (${v.estimatedDelivery})` : ""}`
+                      : `${v.label}: esgotado`
+              }
+              className={`inline-flex items-center gap-0.5 tabular-nums rounded px-1.5 py-0.5 text-xs font-bold ${
+                !v.active
+                  ? "bg-cloud text-steel/50 line-through"
+                  : low
+                    ? "bg-amarelo/40 text-ink"
+                    : v.stock > 0
+                      ? "bg-whats/15 text-green-800"
+                      : v.allowPreOrder
+                        ? "bg-amarelo/20 text-ink"
+                        : "bg-promo/15 text-promo"
+              }`}
+            >
+              {v.label}: {v.stock}
+              {low && <AlertTriangle className="h-3 w-3" aria-label="estoque baixo" />}
+              {out && <span className="text-[9px] uppercase">esg.</span>}
+              {v.active && v.stock === 0 && v.allowPreOrder && (
+                <Clock className="h-3 w-3" aria-label="sob encomenda" />
+              )}
+            </span>
+          );
+        })}
+      </span>
+    );
+  };
+
+  const statusBadge = (p: Product) => {
+    const st = deriveStatus(p.variants);
+    return (
+      <span
+        className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-bold ${
+          p.archivedAt ? "bg-cloud text-steel" : statusTone[st]
+        }`}
+      >
+        {p.archivedAt ? "Arquivado" : p.available ? adminStatusLabel(p) : "Oculto"}
+      </span>
+    );
+  };
 
   return (
     <div>
@@ -189,7 +389,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
           </div>
           <button
             onClick={() => setCreating(true)}
-            className="tap flex shrink-0 items-center gap-2 rounded-lg bg-roxo px-4 py-2.5 text-sm font-bold text-white hover:bg-roxo-escuro"
+            className="tap flex w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-roxo px-4 py-2.5 text-sm font-bold text-white hover:bg-roxo-escuro sm:w-auto"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
             Cadastrar produto
@@ -204,6 +404,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
           >
             <option value="todos">Todas as disponibilidades</option>
             <option value="pronta-entrega">Pronta entrega</option>
+            <option value="estoque-baixo">Estoque baixo</option>
             <option value="sob-encomenda">Sob encomenda</option>
             <option value="esgotado">Esgotado</option>
           </select>
@@ -216,6 +417,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
             <option value="todos">Publicados e ocultos</option>
             <option value="ativo">Somente publicados</option>
             <option value="oculto">Somente ocultos</option>
+            <option value="arquivados">Arquivados</option>
           </select>
           <p className="ml-auto shrink-0 text-sm text-steel" aria-live="polite">
             {rows.length} {rows.length === 1 ? "produto" : "produtos"}
@@ -230,48 +432,59 @@ export default function ProductsTable({ products }: { products: Product[] }) {
             Nenhum produto encontrado com esses filtros.
           </li>
         ) : (
-          rows.map((p) => {
-            const st = deriveStatus(p.variants);
-            return (
-              <li
-                key={p.id}
-                className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-ink/5"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-cloud">
-                    <ProductImage product={p} sizes="56px" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="line-clamp-2 text-sm font-semibold leading-snug text-ink">
-                      {p.name}
-                    </p>
-                    <p className="text-xs text-steel">
-                      {p.team} · {p.sku}
-                      {!p.available && " · oculto"}
-                    </p>
-                    <div className="mt-1 flex flex-wrap items-center gap-2">
-                      <span className="tabular-nums text-sm font-bold text-ink">
-                        {brl(p.price)}
-                      </span>
-                      <span
-                        className={`whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-bold ${statusTone[st]}`}
-                      >
-                        {statusLabel[st]}
-                      </span>
-                    </div>
+          rows.map((p) => (
+            <li
+              key={p.id}
+              className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-ink/5"
+            >
+              <div className="flex items-start gap-3">
+                <span className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-cloud">
+                  <ProductImage product={p} sizes="56px" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="line-clamp-2 text-sm font-semibold leading-snug text-ink">
+                    {p.name}
+                  </p>
+                  <p className="text-xs text-steel">
+                    {p.team} · {p.sku}
+                  </p>
+                  <div className="mt-1 flex flex-wrap items-center gap-2">
+                    <span className="tabular-nums text-sm font-bold text-ink">
+                      {brl(p.price)}
+                    </span>
+                    {statusBadge(p)}
                   </div>
                 </div>
-                <div className="mt-2">{variantChips(p)}</div>
-                <div className="mt-2 flex items-center justify-between border-t border-ink/5 pt-2">
-                  <span className="text-xs text-steel">
-                    Total:{" "}
+              </div>
+              <div className="mt-2">{variantChips(p)}</div>
+              <div className="mt-2 border-t border-ink/5 pt-2">
+                <p className="text-xs text-steel">
+                  Total em estoque:{" "}
+                  <span className="font-bold text-ink">
                     {p.variants.reduce((sum, v) => sum + (v.active ? v.stock : 0), 0)}
                   </span>
-                  {actionsFor(p)}
+                </p>
+                <div className="relative mt-2 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setEditing(p)}
+                    className="tap flex items-center justify-center gap-2 rounded-lg bg-roxo px-3 py-2.5 text-sm font-bold text-white"
+                  >
+                    <Pencil className="h-4 w-4" aria-hidden="true" />
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => setMenuFor(menuFor === p.id ? null : p.id)}
+                    aria-expanded={menuFor === p.id}
+                    className="tap flex items-center justify-center gap-2 rounded-lg border-2 border-ink/15 px-3 py-2.5 text-sm font-bold text-ink"
+                  >
+                    <MoreVertical className="h-4 w-4" aria-hidden="true" />
+                    Mais ações
+                  </button>
+                  {menuFor === p.id && moreMenu(p)}
                 </div>
-              </li>
-            );
-          })
+              </div>
+            </li>
+          ))
         )}
       </ul>
 
@@ -296,7 +509,6 @@ export default function ProductsTable({ products }: { products: Product[] }) {
               </tr>
             ) : (
               rows.map((p, i) => {
-                const st = deriveStatus(p.variants);
                 const totalStock = p.variants.reduce(
                   (sum, v) => sum + (v.active ? v.stock : 0),
                   0
@@ -314,7 +526,6 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                           </span>
                           <span className="block text-xs text-steel">
                             {p.team} · {p.sku}
-                            {!p.available && " · oculto"}
                           </span>
                         </span>
                       </div>
@@ -328,14 +539,10 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                         Total: {totalStock}
                       </span>
                     </td>
+                    <td className="px-4 py-2.5">{statusBadge(p)}</td>
                     <td className="px-4 py-2.5">
-                      <span
-                        className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-bold ${statusTone[st]}`}
-                      >
-                        {statusLabel[st]}
-                      </span>
+                      {actionsFor(p, rows.length > 4 && i >= rows.length - 3)}
                     </td>
-                    <td className="px-4 py-2.5">{actionsFor(p)}</td>
                   </tr>
                 );
               })
@@ -352,7 +559,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
         />
       )}
       {creating && (
-        <NewProductForm onClose={() => setCreating(false)} onSaved={refresh} />
+        <ProductForm onClose={() => setCreating(false)} onSaved={refresh} />
       )}
       {stockDialog && (
         <StockDialog
@@ -360,6 +567,31 @@ export default function ProductsTable({ products }: { products: Product[] }) {
           action={stockDialog.action}
           onClose={() => setStockDialog(null)}
           onDone={refresh}
+        />
+      )}
+      {confirmDelete && (
+        <ConfirmDialog
+          title="Excluir produto?"
+          message={`"${confirmDelete.name}" será excluído definitivamente, junto com os tamanhos e estoques. Se quiser apenas tirá-lo da loja, prefira arquivar.`}
+          confirmLabel="Excluir definitivamente"
+          danger
+          busy={busyAction}
+          onConfirm={onDeleteConfirmed}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
+      {confirmArchive && (
+        <ConfirmDialog
+          title={confirmArchive.archivedAt ? "Restaurar produto?" : "Arquivar produto?"}
+          message={
+            confirmArchive.archivedAt
+              ? `"${confirmArchive.name}" volta para a listagem como oculto — publique quando quiser.`
+              : `"${confirmArchive.name}" sai da vitrine e da listagem padrão, mas nada é apagado. Você pode restaurá-lo no filtro "Arquivados".`
+          }
+          confirmLabel={confirmArchive.archivedAt ? "Restaurar" : "Arquivar"}
+          busy={busyAction}
+          onConfirm={onArchiveConfirmed}
+          onCancel={() => setConfirmArchive(null)}
         />
       )}
     </div>

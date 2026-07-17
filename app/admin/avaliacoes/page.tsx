@@ -95,7 +95,7 @@ export default function AdminAvaliacoes() {
             className={field}
           />
           <p className="text-xs text-steel">
-            Foto do cliente: anexar na versão com banco de dados (Supabase).
+            O envio de foto do cliente será ativado em uma próxima atualização.
           </p>
           <button className="w-full rounded-lg bg-roxo px-4 py-2.5 text-sm font-bold text-white">
             Cadastrar avaliação

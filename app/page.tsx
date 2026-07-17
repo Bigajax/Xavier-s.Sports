@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import HomeSearch from "@/components/HomeSearch";
 import HowItWorks from "@/components/HowItWorks";
 import WhyXaviers from "@/components/WhyXaviers";
+import SocialProof from "@/components/SocialProof";
 import ProductCarousel from "@/components/ProductCarousel";
 import RetroSection from "@/components/RetroSection";
 import InstagramGrid from "@/components/InstagramGrid";
@@ -257,6 +258,9 @@ export default async function HomePage() {
           </a>
         </div>
       </section>
+
+      {/* Avaliações reais aprovadas no painel (some se não houver nenhuma) */}
+      <SocialProof />
 
       {/* Por que comprar com a Xavier's */}
       <WhyXaviers />

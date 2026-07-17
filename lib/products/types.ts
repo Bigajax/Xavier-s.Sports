@@ -93,6 +93,46 @@ export function purchasableVariants(p: Product): Variant[] {
   );
 }
 
+export type AvailabilitySummary = {
+  kind: ProductStatus;
+  /** Texto pronto para o card, ex.: "P, M e G a pronta entrega". */
+  text: string;
+  /** Prazo da encomenda, só quando todos os tamanhos compartilham o mesmo. */
+  detail?: string;
+};
+
+/**
+ * Resumo de disponibilidade específico para cards e listas: quais tamanhos
+ * saem agora, ou se o produto é encomenda/esgotado.
+ */
+export function availabilitySummary(p: Product): AvailabilitySummary {
+  const inStock = p.variants.filter((v) => v.active && v.stock > 0);
+  if (inStock.length === 1) {
+    return {
+      kind: "pronta-entrega",
+      text: `Tamanho ${inStock[0].label} a pronta entrega`,
+    };
+  }
+  if (inStock.length > 0 && inStock.length <= 3) {
+    const labels = inStock.map((v) => v.label);
+    const list = `${labels.slice(0, -1).join(", ")} e ${labels[labels.length - 1]}`;
+    return { kind: "pronta-entrega", text: `${list} a pronta entrega` };
+  }
+  if (inStock.length > 3) {
+    return {
+      kind: "pronta-entrega",
+      text: `${inStock.length} tamanhos a pronta entrega`,
+    };
+  }
+  const preOrder = p.variants.filter((v) => v.active && v.allowPreOrder);
+  if (preOrder.length > 0) {
+    const deliveries = new Set(preOrder.map((v) => v.estimatedDelivery));
+    const shared = deliveries.size === 1 ? preOrder[0].estimatedDelivery : undefined;
+    return { kind: "sob-encomenda", text: "Por encomenda", detail: shared };
+  }
+  return { kind: "esgotado", text: "Esgotado — consulte reposição" };
+}
+
 // ---------- Helpers de consulta (recebem a lista, não importam mais o array) ----------
 
 export function findProduct(all: Product[], slug: string): Product | undefined {

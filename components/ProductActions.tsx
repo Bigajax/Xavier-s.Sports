@@ -64,7 +64,7 @@ export default function ProductActions({ product }: { product: Product }) {
           ? { availability: "pronta-entrega" }
           : undefined
     );
-    toast("Adicionada à sacola 🛍️");
+    toast("Adicionada ao seu pedido 🛍️");
   };
 
   const personalization: Personalization = {
@@ -120,7 +120,7 @@ export default function ProductActions({ product }: { product: Product }) {
     <div>
       {/* Tamanhos */}
       {product.variants.length > 0 && (
-        <div id="tamanhos" className="mt-6">
+        <div id="tamanhos" className="mt-6 scroll-mt-24">
           <div className="flex items-center justify-between">
             <h2 className="display-upright text-base text-ink">
               Selecione o tamanho
@@ -185,7 +185,16 @@ export default function ProductActions({ product }: { product: Product }) {
           </div>
 
           {/* Disponibilidade do tamanho selecionado */}
-          <div className="mt-3" aria-live="polite">
+          <div
+            className={`mt-3 ${
+              selectedAvail?.kind === "pronta-entrega"
+                ? "rounded-lg bg-whats/10 p-2.5"
+                : selectedAvail?.kind === "encomenda"
+                  ? "rounded-lg bg-amarelo/15 p-2.5"
+                  : ""
+            }`}
+            aria-live="polite"
+          >
             {soldOut ? (
               <p className="text-sm font-semibold text-steel">
                 Todos os tamanhos estão esgotados — consulte a reposição pelo
@@ -338,7 +347,7 @@ export default function ProductActions({ product }: { product: Product }) {
           className="flex items-center gap-2 rounded-lg border-2 border-ink/15 px-5 py-3.5 text-sm font-bold text-ink transition-colors hover:border-roxo hover:text-roxo disabled:cursor-not-allowed disabled:border-cloud disabled:text-steel/50 disabled:hover:border-cloud disabled:hover:text-steel/50"
         >
           <ShoppingBag className="h-5 w-5" aria-hidden="true" />
-          Adicionar à sacola
+          Adicionar ao meu pedido
         </button>
         <FavoriteButton
           slug={product.slug}
@@ -354,14 +363,17 @@ export default function ProductActions({ product }: { product: Product }) {
 
       {/* CTA fixo mobile */}
       <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2 border-t border-ink/10 bg-white p-3 md:hidden">
-        <FavoriteButton
-          slug={product.slug}
-          name={product.name}
-          className="border border-ink/10"
-        />
+        <div className="min-w-0 shrink-0 pr-1">
+          <p className="text-[11px] leading-tight text-steel">
+            {size ? `Tam. ${size}` : "Escolha o tamanho"}
+          </p>
+          <p className="tabular-nums text-sm font-bold leading-tight text-ink">
+            {brl(product.price)}
+          </p>
+        </div>
         <button
           onClick={addToBag}
-          aria-label={`Adicionar ${product.name} à sacola`}
+          aria-label={`Adicionar ${product.name} ao meu pedido`}
           className="tap flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink/10 bg-white/90 shadow-md"
         >
           <ShoppingBag className="h-5 w-5 text-ink" aria-hidden="true" />

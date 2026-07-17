@@ -3,14 +3,16 @@ export default function SectionHeading({
   title,
   subtitle,
   tone = "light",
+  align = "left",
 }: {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   tone?: "light" | "dark";
+  align?: "left" | "center";
 }) {
   return (
-    <div className="max-w-2xl">
+    <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && (
         <p
           className={`xavier-eyebrow ${

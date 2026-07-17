@@ -11,7 +11,6 @@ import {
   MessageCircle,
   Search,
   ShoppingBag,
-  UserRound,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -25,7 +24,6 @@ import { teamCrest } from "@/data/teams";
 import { useFavorites } from "@/lib/favorites";
 import { useCart } from "@/lib/cart";
 import { waDefault } from "@/lib/whatsapp";
-import { toast } from "@/components/Toaster";
 
 export default function Header() {
   const pathname = usePathname();
@@ -159,10 +157,19 @@ export default function Header() {
 
           {/* ações à direita */}
           <div className="flex items-center gap-1">
+            {/* busca desktop: campo visível que abre o modal */}
             <button
               onClick={() => setSearchOpen(true)}
               aria-label="Buscar camisas"
-              className="rounded-lg p-2 hover:bg-white/10"
+              className="mr-1 hidden w-44 items-center gap-2 rounded-lg bg-white/10 px-3 py-2 text-sm text-white/60 transition-colors hover:bg-white/15 hover:text-white/80 lg:flex xl:w-56"
+            >
+              <Search className="h-4 w-4 shrink-0" aria-hidden="true" />
+              <span className="truncate">Buscar camisas…</span>
+            </button>
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label="Buscar camisas"
+              className="rounded-lg p-2 hover:bg-white/10 lg:hidden"
             >
               <Search className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -180,7 +187,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => setCartOpen(true)}
-              aria-label={`Abrir sacola${cartReady && cartCount > 0 ? ` (${cartCount} ${cartCount === 1 ? "item" : "itens"})` : ""}`}
+              aria-label={`Abrir meu pedido${cartReady && cartCount > 0 ? ` (${cartCount} ${cartCount === 1 ? "item" : "itens"})` : ""}`}
               className="relative rounded-lg p-2 hover:bg-white/10"
             >
               <ShoppingBag className="h-5 w-5" aria-hidden="true" />
@@ -194,22 +201,6 @@ export default function Header() {
                   {cartCount}
                 </motion.span>
               )}
-            </button>
-            <a
-              href={waDefault()}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Falar com a Xavier's Sports no WhatsApp"
-              className="hidden rounded-lg p-2 hover:bg-white/10 sm:block"
-            >
-              <MessageCircle className="h-5 w-5 text-whats" aria-hidden="true" />
-            </a>
-            <button
-              onClick={() => toast("Área de conta em breve — peça pelo WhatsApp.")}
-              aria-label="Minha conta (em breve)"
-              className="hidden rounded-lg p-2 hover:bg-white/10 lg:block"
-            >
-              <UserRound className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -252,7 +243,7 @@ export default function Header() {
                   {mainNav.map((item) => (
                     <li
                       key={item.href}
-                      className={item.href === "/" || item.href === "/como-comprar" ? "col-span-2" : ""}
+                      className={item.href === "/catalogo" || item.href === "/como-comprar" ? "col-span-2" : ""}
                     >
                       <Link
                         href={item.href}

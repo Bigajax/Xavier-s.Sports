@@ -199,7 +199,7 @@ export default function CartDrawer({
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[55] bg-ink/70"
             onClick={onClose}
-            aria-label="Fechar sacola"
+            aria-label="Fechar meu pedido"
           />
           <motion.aside
             initial={{ x: "100%" }}
@@ -209,7 +209,7 @@ export default function CartDrawer({
             className="fixed inset-y-0 right-0 z-[56] flex w-[88%] max-w-sm flex-col bg-ink text-white"
             role="dialog"
             aria-modal="true"
-            aria-label="Sacola"
+            aria-label="Meu pedido"
           >
             <div className="flex items-center justify-between border-b border-white/10 p-4">
               <p className="display flex items-center gap-2 text-2xl">
@@ -217,7 +217,7 @@ export default function CartDrawer({
                   className="h-5 w-5 text-amarelo"
                   aria-hidden="true"
                 />
-                Sacola
+                Meu pedido
                 {lines.length > 0 && (
                   <span className="text-base text-white/60">
                     ({lines.reduce((s, l) => s + l.item.qty, 0)})
@@ -226,7 +226,7 @@ export default function CartDrawer({
               </p>
               <button
                 onClick={onClose}
-                aria-label="Fechar sacola"
+                aria-label="Fechar meu pedido"
                 className="rounded-lg p-2 hover:bg-white/10"
               >
                 <X className="h-6 w-6" aria-hidden="true" />
@@ -251,8 +251,8 @@ export default function CartDrawer({
                   aria-hidden="true"
                 />
                 <p className="text-white/70">
-                  Sua sacola está vazia. Adicione camisas e envie o pedido
-                  completo de uma vez.
+                  Seu pedido está vazio. Adicione camisas e envie tudo de uma
+                  vez pelo WhatsApp.
                 </p>
                 <Link
                   href="/catalogo"
@@ -394,7 +394,7 @@ export default function CartDrawer({
                         </div>
                         <button
                           onClick={() => remove(item.slug, item.size)}
-                          aria-label={`Remover ${p.name} da sacola`}
+                          aria-label={`Remover ${p.name} do pedido`}
                           className="rounded-lg p-2 text-white/50 hover:bg-white/10 hover:text-white"
                         >
                           <X className="h-4 w-4" aria-hidden="true" />
@@ -512,12 +512,12 @@ export default function CartDrawer({
                       className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"
                     >
                       <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                      Finalizar pedido pelo WhatsApp
+                      Enviar pedido pelo WhatsApp
                     </a>
                     ) : (
                     <p className="rounded-xl bg-white/5 px-4 py-3 text-center text-sm text-white/60">
-                      Os itens da sacola estão indisponíveis — remova-os ou
-                      troque o tamanho para finalizar.
+                      Os itens do pedido estão indisponíveis — remova-os ou
+                      troque o tamanho para enviar.
                     </p>
                   )}
                   <p className="text-center text-xs text-white/50">

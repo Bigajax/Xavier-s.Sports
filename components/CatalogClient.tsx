@@ -115,6 +115,7 @@ export default function CatalogClient({
     if (time) f.teamSlug = time;
     const decada = params.get("decada");
     if (decada) f.decade = decada;
+    if (params.get("disponibilidade") === "pronta") f.onlyReadyToShip = true;
     return f;
   }, [params]);
 

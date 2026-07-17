@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import HeroVideos from "@/components/HeroVideos";
 import { waGeneric } from "@/lib/whatsapp";
@@ -29,12 +28,12 @@ export default function Hero() {
             para todo o Brasil.
           </p>
           <div className="rise-in rise-d3 mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/catalogo"
+            <a
+              href="#busca"
               className="tap xavier-tag bg-amarelo px-7 py-3.5 text-base text-ink transition-transform hover:scale-[1.03]"
             >
-              <span>Explorar camisas</span>
-            </Link>
+              <span>Encontrar minha camisa</span>
+            </a>
             <a
               href={waGeneric()}
               target="_blank"
@@ -46,7 +45,7 @@ export default function Hero() {
             </a>
           </div>
           <p className="rise-in rise-d4 mt-4 text-sm text-white/50">
-            Consulte tamanhos, modelos e disponibilidade com nossa equipe.
+            Consulte tamanhos e disponibilidade sem compromisso.
           </p>
         </div>
 

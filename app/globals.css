@@ -335,6 +335,10 @@ body.loading {
   outline-offset: 2px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   background: #ffffff;

@@ -3,7 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { getCatalog, getProduct } from "@/lib/products/db";
-import { deriveStatus, related, statusLabel } from "@/lib/products/types";
+import {
+  availabilitySummary,
+  deriveStatus,
+  productsByTeam,
+  related,
+} from "@/lib/products/types";
 import { brl, installmentText, discountPct } from "@/lib/format";
 import { site } from "@/config/site";
 import ProductGallery from "@/components/ProductGallery";
@@ -11,6 +16,8 @@ import ProductActions from "@/components/ProductActions";
 import ProductGrid from "@/components/ProductGrid";
 import RegisterView from "@/components/RegisterView";
 import RecentlyViewed from "@/components/RecentlyViewed";
+import TrustStrip from "@/components/TrustStrip";
+import HowToBuyCompact from "@/components/HowToBuyCompact";
 
 export async function generateMetadata({
   params,
@@ -85,12 +92,24 @@ export default async function ProdutoPage({
 
   const catalog = await getCatalog();
   const status = deriveStatus(product.variants);
+  const avail = availabilitySummary(product);
   const off = discountPct(product.price, product.oldPrice);
   const parcel = installmentText(product.price, product.installments);
   const teamHref =
     product.teamType === "clube"
       ? `/clubes/${product.teamSlug}`
       : `/selecoes/${product.teamSlug}`;
+
+  // "Outras camisas do {time}" quando o time tem catálogo; senão relacionados.
+  const sameTeam = productsByTeam(catalog, product.teamSlug).filter(
+    (p) => p.slug !== product.slug
+  );
+  const relatedProducts =
+    sameTeam.length >= 3 ? sameTeam.slice(0, 4) : related(product, catalog, 4);
+  const relatedTitle =
+    sameTeam.length >= 3
+      ? `Outras camisas do ${product.team}`
+      : "Você também pode gostar";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -149,29 +168,44 @@ export default async function ProdutoPage({
           <ProductGallery product={product} />
 
           <div>
+            {/* status em destaque — a primeira coisa que o cliente lê */}
+            <p>
+              <span
+                className={`xavier-tag px-3 py-1.5 text-xs ${
+                  status === "pronta-entrega"
+                    ? "bg-whats text-white"
+                    : status === "sob-encomenda"
+                      ? "bg-amarelo text-ink"
+                      : "bg-ink/80 text-white"
+                }`}
+              >
+                <span>
+                  {status === "pronta-entrega"
+                    ? "Pronta entrega"
+                    : status === "sob-encomenda"
+                      ? `Disponível por encomenda${avail.detail ? ` — ${avail.detail}` : ""}`
+                      : "Esgotado — consulte reposição"}
+                </span>
+              </span>
+            </p>
+
             <Link
               href={teamHref}
-              className="text-sm font-bold uppercase tracking-wide text-roxo hover:underline"
+              className="mt-4 inline-block text-sm font-bold uppercase tracking-wide text-roxo hover:underline"
             >
               {product.team}
             </Link>
-            <h1 className="display mt-2 text-3xl leading-tight text-ink sm:text-4xl">
+            <h1 className="display mt-1 text-3xl leading-tight text-ink sm:text-4xl">
               {product.name}
             </h1>
+            <p className="mt-2 text-sm font-bold text-ink">
+              Versão {versionLabels[product.version]}
+              {product.season ? (
+                <span className="font-normal text-steel"> · {product.season}</span>
+              ) : null}
+            </p>
 
-            <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-steel">
-              {product.season && (
-                <div className="flex gap-1">
-                  <dt>Temporada:</dt>
-                  <dd className="font-semibold text-ink">{product.season}</dd>
-                </div>
-              )}
-              <div className="flex gap-1">
-                <dt>Versão:</dt>
-                <dd className="font-semibold text-ink">
-                  {versionLabels[product.version]}
-                </dd>
-              </div>
+            <dl className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-steel">
               <div className="flex gap-1">
                 <dt>Público:</dt>
                 <dd className="font-semibold text-ink">
@@ -183,10 +217,6 @@ export default async function ProdutoPage({
                 <dd className="font-semibold text-ink">
                   {product.sleeve === "curta" ? "Curta" : "Longa"}
                 </dd>
-              </div>
-              <div className="flex gap-1">
-                <dt>Código:</dt>
-                <dd className="font-semibold text-ink">{product.sku}</dd>
               </div>
             </dl>
 
@@ -206,38 +236,42 @@ export default async function ProdutoPage({
               )}
             </div>
             {parcel && <p className="mt-1 text-sm text-steel">{parcel}</p>}
-            <p className="mt-3">
-              <span
-                className={`xavier-tag px-2.5 py-1 text-xs ${
-                  status === "pronta-entrega"
-                    ? "bg-whats text-white"
-                    : status === "sob-encomenda"
-                      ? "bg-amarelo text-ink"
-                      : "bg-ink/80 text-white"
-                }`}
-              >
-                <span>{statusLabel[status]}</span>
-              </span>
-            </p>
             <p className="mt-2 text-xs text-steel">
               Preço demonstrativo — valor final confirmado no atendimento.
             </p>
 
+            {product.description && (
+              <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-steel">
+                {product.description}
+              </p>
+            )}
+
             <ProductActions product={product} />
+
+            {/* confiança + como funciona, perto da decisão */}
+            <div className="mt-6">
+              <TrustStrip />
+            </div>
+            <HowToBuyCompact />
 
             {/* Acordeões */}
             <div className="mt-8">
-              <Accordion title="Detalhes da camisa" open>
+              <Accordion title="Detalhes e composição" open>
                 <p>{product.description}</p>
                 <p>
                   Cores: {product.colors.join(", ")}.
                   {product.material ? ` Material: ${product.material}.` : ""}
                 </p>
-              </Accordion>
-              <Accordion title="Guia de tamanhos">
                 <p>
-                  As medidas podem variar entre modelos e versões. Compare com
-                  uma peça que você já utiliza.
+                  {product.season ? `Temporada: ${product.season}. ` : ""}
+                  Código: {product.sku}.
+                </p>
+              </Accordion>
+              <Accordion title="Medidas">
+                <p>
+                  As medidas podem variar entre modelos e versões. A versão
+                  jogador possui modelagem mais ajustada — em caso de dúvida,
+                  compare com uma peça que você já utiliza.
                 </p>
                 <p>
                   <Link href="/guia-de-tamanhos" className="font-semibold text-roxo hover:underline">
@@ -245,31 +279,11 @@ export default async function ProdutoPage({
                   </Link>
                 </p>
               </Accordion>
-              <Accordion title="Personalização">
-                <p>
-                  {product.personalizationAvailable
-                    ? "Este modelo aceita consulta de personalização com nome e número. A aplicação, a fonte e o prazo dependem de confirmação da equipe."
-                    : "Este modelo não possui personalização disponível no momento."}
-                </p>
-                <p>
-                  Peças personalizadas podem ter condições específicas para
-                  troca e devolução.
-                </p>
-              </Accordion>
-              <Accordion title="Como comprar">
-                <p>
-                  Selecione o tamanho, toque em “Consultar disponibilidade” e
-                  envie a mensagem gerada pelo WhatsApp. A equipe confirma
-                  estoque, valor final, pagamento e envio.
-                </p>
-              </Accordion>
-              <Accordion title="Pagamento">
+              <Accordion title="Pagamento e envio">
                 <p>{site.paymentText}</p>
-              </Accordion>
-              <Accordion title="Envio">
                 <p>{site.shippingText}</p>
               </Accordion>
-              <Accordion title="Trocas">
+              <Accordion title="Trocas e cuidados">
                 <p>
                   Trocas de tamanho estão sujeitas à disponibilidade e às
                   condições da política da loja.{" "}
@@ -277,27 +291,29 @@ export default async function ProdutoPage({
                     Ver política de trocas →
                   </Link>
                 </p>
-              </Accordion>
-              {product.careInstructions && (
-                <Accordion title="Cuidados com a peça">
+                <p>
+                  Peças personalizadas podem ter condições específicas para
+                  troca e devolução.
+                </p>
+                {product.careInstructions && (
                   <ul className="list-disc space-y-1 pl-4">
                     {product.careInstructions.map((c) => (
                       <li key={c}>{c}</li>
                     ))}
                   </ul>
-                </Accordion>
-              )}
+                )}
+              </Accordion>
             </div>
           </div>
         </div>
 
         {/* Relacionados */}
-        <section className="mt-16">
+        <section className="mt-10 md:mt-12">
           <h2 className="display text-3xl text-ink">
-            <span className="swoosh">Você também pode gostar</span>
+            <span className="swoosh">{relatedTitle}</span>
           </h2>
           <div className="mt-6">
-            <ProductGrid products={related(product, catalog, 4)} />
+            <ProductGrid products={relatedProducts} />
           </div>
         </section>
       </div>

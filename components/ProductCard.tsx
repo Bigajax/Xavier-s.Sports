@@ -1,54 +1,31 @@
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { Clock } from "lucide-react";
 import {
-  deriveStatus,
-  purchasableVariants,
-  statusLabel,
+  availabilitySummary,
   type Product,
-  type ProductStatus,
 } from "@/lib/products/types";
 import { brl, installmentText, discountPct } from "@/lib/format";
-import { waProduct } from "@/lib/whatsapp";
 import ProductImage from "@/components/ProductImage";
 import FavoriteButton from "@/components/FavoriteButton";
 
+/** No máximo um badge editorial por card — menos ruído, decisão mais fácil. */
 function badge(p: Product): { label: string; tone: string } | null {
   if (p.onSale) return { label: "Oferta", tone: "bg-promo text-white" };
   if (p.collection === "retro") return { label: "Retrô", tone: "bg-ink text-amarelo" };
   if (p.newArrival) return { label: "Novo", tone: "bg-amarelo text-ink" };
-  if (p.bestSeller) return { label: "Mais procurada", tone: "bg-roxo text-white" };
-  if (p.audience === "feminino") return { label: "Feminina", tone: "bg-roxo-escuro text-white" };
-  if (p.audience === "infantil") return { label: "Infantil", tone: "bg-roxo-escuro text-white" };
   return null;
-}
-
-/** Selo de disponibilidade derivado do estoque por tamanho. */
-const statusTone: Record<ProductStatus, string> = {
-  "pronta-entrega": "bg-whats text-white",
-  "sob-encomenda": "bg-amarelo text-ink",
-  esgotado: "bg-ink/80 text-white",
-};
-
-function sizeSummary(p: Product): string {
-  const ok = purchasableVariants(p);
-  if (ok.length === 0) return "Sob consulta";
-  if (ok.length === 1) return `Tamanho ${ok[0].label}`;
-  return `Do ${ok[0].label} ao ${ok[ok.length - 1].label}`;
 }
 
 export default function ProductCard({ product }: { product: Product }) {
   const b = badge(product);
-  const status = deriveStatus(product.variants);
+  const avail = availabilitySummary(product);
   const off = discountPct(product.price, product.oldPrice);
   const parcel = installmentText(product.price, product.installments);
+  const soldOut = avail.kind === "esgotado";
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/5 transition-shadow hover:shadow-xl">
-      <Link
-        href={`/produto/${product.slug}`}
-        className="relative aspect-square overflow-hidden bg-cloud"
-        aria-label={`Ver detalhes de ${product.name}`}
-      >
+      <div className="relative aspect-square overflow-hidden bg-cloud">
         <ProductImage
           product={product}
           className="transition-transform duration-500 group-hover:scale-105"
@@ -69,16 +46,11 @@ export default function ProductCard({ product }: { product: Product }) {
             <span>-{off}%</span>
           </span>
         )}
-        <span
-          className={`xavier-tag absolute bottom-3 left-3 px-2 py-1 text-[11px] ${statusTone[status]}`}
-        >
-          <span>{statusLabel[status]}</span>
-        </span>
-      </Link>
+      </div>
       <FavoriteButton
         slug={product.slug}
         name={product.name}
-        className="absolute right-3 top-3 opacity-90"
+        className="absolute right-3 top-3 z-10 opacity-90"
       />
 
       <div className="flex flex-1 flex-col p-3 sm:p-4">
@@ -86,13 +58,17 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.team}
           {product.season ? ` · ${product.season}` : ""}
         </p>
-        <Link href={`/produto/${product.slug}`} className="mt-1">
+        {/* stretched-link: cobre o card inteiro sem aninhar interativos */}
+        <Link
+          href={`/produto/${product.slug}`}
+          className="mt-1 after:absolute after:inset-0 after:content-['']"
+        >
           <h3 className="line-clamp-2 font-semibold leading-snug text-ink group-hover:text-roxo">
             {product.name}
           </h3>
         </Link>
         <div className="mt-2 flex flex-wrap items-baseline gap-x-2">
-          <span className="tabular-nums text-lg font-bold text-ink">
+          <span className="tabular-nums text-xl font-bold text-ink">
             {brl(product.price)}
           </span>
           {product.oldPrice && (
@@ -102,37 +78,29 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
         {parcel && <p className="text-xs text-steel">{parcel}</p>}
-        <p className="mt-1 text-xs text-steel">
-          {status === "esgotado"
-            ? "Esgotado — consulte reposição"
-            : `Disponível: ${sizeSummary(product)}`}
+        <p
+          className={`mt-1.5 flex items-center gap-1 text-xs font-semibold ${
+            avail.kind === "pronta-entrega"
+              ? "text-whats"
+              : avail.kind === "sob-encomenda"
+                ? "text-ink"
+                : "text-steel"
+          }`}
+        >
+          {avail.kind === "sob-encomenda" && (
+            <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+          )}
+          {avail.text}
+          {avail.detail ? ` — ${avail.detail}` : ""}
         </p>
 
-        <div className="mt-auto flex items-center gap-2 pt-3 sm:pt-4">
+        <div className="mt-auto pt-3 sm:pt-4">
           <Link
-            href={`/produto/${product.slug}`}
-            className="tap min-w-0 flex-1 whitespace-nowrap rounded-lg bg-roxo px-3 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-roxo-escuro"
+            href={`/produto/${product.slug}${soldOut ? "" : "#tamanhos"}`}
+            className="tap relative z-10 block w-full rounded-lg bg-roxo px-3 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-roxo-escuro"
           >
-            Ver detalhes
+            {soldOut ? "Ver detalhes" : "Escolher tamanho"}
           </Link>
-          <a
-            href={waProduct(
-              product,
-              undefined,
-              undefined,
-              status === "pronta-entrega"
-                ? { kind: "pronta-entrega" }
-                : status === "sob-encomenda"
-                  ? { kind: "encomenda" }
-                  : undefined
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Consultar ${product.name} no WhatsApp`}
-            className="hidden shrink-0 rounded-lg bg-whats/10 p-2.5 text-whats transition-colors hover:bg-whats hover:text-white sm:block"
-          >
-            <MessageCircle className="h-5 w-5" aria-hidden="true" />
-          </a>
         </div>
       </div>
     </article>

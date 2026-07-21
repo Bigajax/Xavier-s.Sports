@@ -76,37 +76,50 @@ export default function GuiaDeTamanhosPage() {
       </div>
 
       <div className="mt-12 space-y-8">
-        {sizeTables.map((t) => (
-          <section key={t.slug}>
-            <h2 className="display-upright text-xl text-ink">{t.name}</h2>
-            <div className="mt-3 overflow-x-auto rounded-xl border border-ink/10">
-              <table className="w-full min-w-[480px] text-left text-sm">
-                <caption className="sr-only">{t.name}</caption>
-                <thead className="bg-ink text-white">
-                  <tr>
-                    <th scope="col" className="px-4 py-3 font-bold">Tamanho</th>
-                    <th scope="col" className="px-4 py-3 font-bold">Largura do peito</th>
-                    <th scope="col" className="px-4 py-3 font-bold">Comprimento</th>
-                    <th scope="col" className="px-4 py-3 font-bold">Manga</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {t.rows.map((r, i) => (
-                    <tr key={r.label} className={i % 2 ? "bg-cloud/50" : "bg-white"}>
-                      <th scope="row" className="px-4 py-2.5 font-bold text-roxo">
-                        {r.label}
-                      </th>
-                      <td className="tabular-nums px-4 py-2.5">{r.chest}</td>
-                      <td className="tabular-nums px-4 py-2.5">{r.length}</td>
-                      <td className="tabular-nums px-4 py-2.5">{r.sleeve}</td>
+        {sizeTables.map((t) => {
+          const hasBody = t.rows.some((r) => r.height || r.weight);
+          return (
+            <section key={t.slug}>
+              <h2 className="display-upright text-xl text-ink">{t.name}</h2>
+              <div className="mt-3 overflow-x-auto rounded-xl border border-ink/10">
+                <table className="w-full min-w-[480px] text-left text-sm">
+                  <caption className="sr-only">{t.name}</caption>
+                  <thead className="bg-ink text-white">
+                    <tr>
+                      <th scope="col" className="px-4 py-3 font-bold">Tamanho</th>
+                      <th scope="col" className="px-4 py-3 font-bold">Comprimento</th>
+                      <th scope="col" className="px-4 py-3 font-bold">Largura</th>
+                      {hasBody && (
+                        <th scope="col" className="px-4 py-3 font-bold">Altura indicada</th>
+                      )}
+                      {hasBody && (
+                        <th scope="col" className="px-4 py-3 font-bold">Peso indicado</th>
+                      )}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-2 text-xs text-steel">{t.note}</p>
-          </section>
-        ))}
+                  </thead>
+                  <tbody>
+                    {t.rows.map((r, i) => (
+                      <tr key={r.label} className={i % 2 ? "bg-cloud/50" : "bg-white"}>
+                        <th scope="row" className="px-4 py-2.5 font-bold text-roxo">
+                          {r.label}
+                        </th>
+                        <td className="tabular-nums px-4 py-2.5">{r.length}</td>
+                        <td className="tabular-nums px-4 py-2.5">{r.width}</td>
+                        {hasBody && (
+                          <td className="tabular-nums px-4 py-2.5">{r.height ?? "—"}</td>
+                        )}
+                        {hasBody && (
+                          <td className="tabular-nums px-4 py-2.5">{r.weight ?? "—"}</td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 text-xs text-steel">{t.note}</p>
+            </section>
+          );
+        })}
       </div>
 
       <p className="mt-10 rounded-xl bg-cloud p-5 text-sm text-steel">

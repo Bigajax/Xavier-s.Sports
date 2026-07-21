@@ -1,14 +1,15 @@
 /**
- * Baixa escudos oficiais (PNG) do TheSportsDB para todos os times cujo
- * `crest` ainda aponta para o monograma SVG, salvando em
- * public/images/escudos/<slug>.png.
+ * Baixa escudos oficiais do TheSportsDB para todos os times cujo
+ * `crest` ainda aponta para o monograma SVG, convertendo para WebP em
+ * public/images/escudos/<slug>.webp.
  *
  * Uso: npx tsx scripts/fetch-escudos.ts
  * Depois de baixar, remova o campo `crest` dos times em data/teams.ts —
- * o PNG passa a ser usado automaticamente (ver teamCrest()).
+ * o WebP passa a ser usado automaticamente (ver teamCrest()).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import sharp from "sharp";
 import { teams } from "../data/teams";
 
 const outDir = join(process.cwd(), "public", "images", "escudos");
@@ -166,7 +167,9 @@ async function main() {
       if (!img.ok) throw new Error(`download HTTP ${img.status}`);
       const buf = Buffer.from(await img.arrayBuffer());
       if (buf.length < 1000) throw new Error("arquivo suspeito (<1KB)");
-      writeFileSync(join(outDir, `${team.slug}.png`), buf);
+      // Converte para WebP — a vitrine referencia /images/escudos/<slug>.webp.
+      const webp = await sharp(buf).webp({ quality: 92, alphaQuality: 100 }).toBuffer();
+      writeFileSync(join(outDir, `${team.slug}.webp`), webp);
       ok.push(team.slug);
       console.log(`✓ ${team.slug} ← ${found.strTeam} (${found.strCountry ?? "?"}) [busca: ${matchedQuery}]`);
     } catch (err) {

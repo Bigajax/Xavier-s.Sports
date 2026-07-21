@@ -3,7 +3,7 @@
  * um .svg — escudo nas cores do time com a dupla faixa diagonal da marca.
  *
  * Uso: npm run escudos
- * Para usar um escudo real, salve o PNG em public/images/escudos/<slug>.png
+ * Para usar um escudo real, salve o WebP em public/images/escudos/<slug>.webp
  * e remova o campo `crest` do time em data/teams.ts.
  */
 import { mkdirSync, writeFileSync } from "node:fs";

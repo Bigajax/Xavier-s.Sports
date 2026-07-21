@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
         {/* Marca */}
         <div className="flex flex-col items-center">
           <Image
-            src="/images/logo/xs-glow.png"
+            src="/images/logo/xs-glow.webp"
             alt="Xavier's Sports"
             width={96}
             height={96}

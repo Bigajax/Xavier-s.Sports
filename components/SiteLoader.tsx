@@ -86,7 +86,7 @@ export default function SiteLoader() {
       {/* eslint-disable-next-line @next/next/no-img-element -- overlay de load: sem otimizador para pintar já */}
       <div className="site-loader-center">
         <img
-          src="/images/logo/xs-glow.png"
+          src="/images/logo/xs-glow.webp"
           alt=""
           width={640}
           height={569}

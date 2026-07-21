@@ -1,7 +1,7 @@
 /**
  * Times e seleções — totalmente editável.
  * `colors`: [principal, secundária] usadas nas faixas diagonais dos cards.
- * Escudos oficiais em public/images/escudos/<slug>.png (baixados via
+ * Escudos oficiais em public/images/escudos/<slug>.webp (baixados via
  * `npx tsx scripts/fetch-escudos.ts`); marcas pertencem aos titulares.
  */
 export type Team = {
@@ -14,16 +14,16 @@ export type Team = {
   colors: [string, string];
   textOnPrimary?: "light" | "dark";
   /**
-   * Caminho do escudo quando não há PNG em public/images/escudos/<slug>.png.
+   * Caminho do escudo quando não há WebP em public/images/escudos/<slug>.webp.
    * Times novos usam o monograma SVG gerado por `npm run escudos`; para trocar
-   * pelo escudo real, salve o PNG na pasta e apague este campo.
+   * pelo escudo real, salve o WebP na pasta e apague este campo.
    */
   crest?: string;
 };
 
 /**
  * Fallback para time novo sem escudo oficial: gere o monograma com
- * `npm run escudos` e aponte `crest: svg("<slug>")` até ter o PNG real.
+ * `npm run escudos` e aponte `crest: svg("<slug>")` até ter o WebP real.
  */
 export const svg = (slug: string) => `/images/escudos/${slug}.svg`;
 
@@ -143,12 +143,12 @@ export function getTeam(slug: string): Team | undefined {
 }
 
 /**
- * Escudo do time: basta salvar o PNG em public/images/escudos/<slug>.png.
- * Sem PNG, o time usa o campo `crest` (monograma SVG nas cores do time).
+ * Escudo do time: basta salvar o WebP em public/images/escudos/<slug>.webp.
+ * Sem WebP, o time usa o campo `crest` (monograma SVG nas cores do time).
  * Marcas e escudos pertencem aos seus respectivos titulares (aviso no rodapé).
  */
 export function teamCrest(slug: string): string {
-  return getTeam(slug)?.crest ?? `/images/escudos/${slug}.png`;
+  return getTeam(slug)?.crest ?? `/images/escudos/${slug}.webp`;
 }
 
 export const clubesBrasileiros = teams.filter(

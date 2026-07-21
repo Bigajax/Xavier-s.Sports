@@ -35,7 +35,7 @@ npm run build   # build de produção
 | Produtos (nome, preço, tamanhos, fotos, selos) | `data/products.ts` |
 | Fotos dos produtos | `public/images/produtos/` (padrão `slug-a.jpg`) |
 | Times, seleções e cores | `data/teams.ts` |
-| Escudos dos times | `public/images/escudos/<slug>.png` (PNG quadrado; o slug deve ser o mesmo de `data/teams.ts`) |
+| Escudos dos times | `public/images/escudos/<slug>.webp` (WebP quadrado; o slug deve ser o mesmo de `data/teams.ts`) |
 | Campeonatos | `data/leagues.ts` |
 | Categorias da home/catálogo | `data/categories.ts` |
 | Tabelas de medidas | `data/sizes.ts` |

@@ -34,6 +34,7 @@ export default function SizeGuideModal({
   onClose: () => void;
 }) {
   const table = tableFor(product);
+  const hasBody = table.rows.some((r) => r.height || r.weight);
 
   useEffect(() => {
     if (!open) return;
@@ -86,9 +87,10 @@ export default function SizeGuideModal({
                 <thead className="bg-ink text-xs uppercase tracking-wide text-white">
                   <tr>
                     <th className="px-3 py-2.5">Tamanho</th>
-                    <th className="px-3 py-2.5">Peito</th>
                     <th className="px-3 py-2.5">Comprimento</th>
-                    <th className="px-3 py-2.5">Manga</th>
+                    <th className="px-3 py-2.5">Largura</th>
+                    {hasBody && <th className="px-3 py-2.5">Altura</th>}
+                    {hasBody && <th className="px-3 py-2.5">Peso</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -113,9 +115,14 @@ export default function SizeGuideModal({
                             </span>
                           )}
                         </td>
-                        <td className="tabular-nums px-3 py-2">{row.chest}</td>
                         <td className="tabular-nums px-3 py-2">{row.length}</td>
-                        <td className="tabular-nums px-3 py-2">{row.sleeve}</td>
+                        <td className="tabular-nums px-3 py-2">{row.width}</td>
+                        {hasBody && (
+                          <td className="tabular-nums px-3 py-2">{row.height ?? "—"}</td>
+                        )}
+                        {hasBody && (
+                          <td className="tabular-nums px-3 py-2">{row.weight ?? "—"}</td>
+                        )}
                       </tr>
                     );
                   })}

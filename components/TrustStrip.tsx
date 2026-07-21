@@ -1,8 +1,9 @@
-import { MessageCircle, Package, Repeat, Truck } from "lucide-react";
+﻿import { Package, Repeat, Truck } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const items = [
   {
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     title: "Confirmação pelo WhatsApp",
     text: "A equipe verifica o pedido antes do pagamento.",
   },

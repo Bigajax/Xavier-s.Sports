@@ -1,4 +1,5 @@
-import { MessageCircle, Package, Shirt, Sparkles } from "lucide-react";
+﻿import { Package, Shirt, Sparkles } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const benefits = [
   {
@@ -7,7 +8,7 @@ const benefits = [
     text: "Receba seu pedido em qualquer região do Brasil.",
   },
   {
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     title: "Atendimento pelo WhatsApp",
     text: "Consulte tamanhos, modelos e disponibilidade rapidamente.",
   },

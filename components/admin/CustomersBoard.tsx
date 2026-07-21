@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { MessageCircle, Pencil, Plus, Users, X } from "lucide-react";
+import { Pencil, Plus, Users, X } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import type { CustomerRow } from "@/lib/crm";
 import { saveCustomer } from "@/app/admin/crm/actions";
 import { brl } from "@/lib/format";
@@ -99,7 +100,7 @@ export default function CustomersBoard({
                     rel="noopener noreferrer"
                     className="mt-3 flex items-center justify-center gap-1.5 rounded-lg bg-whats/10 px-3 py-2 text-xs font-bold text-whats"
                   >
-                    <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                    <WhatsAppIcon className="h-3.5 w-3.5" aria-hidden="true" />
                     Abrir WhatsApp
                   </a>
                 )}

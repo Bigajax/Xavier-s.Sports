@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Instagram, Mail, MessageCircle } from "lucide-react";
+import { Instagram, Mail } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import Logo from "@/components/Logo";
 import { site } from "@/config/site";
 import { waDefault } from "@/lib/whatsapp";
@@ -58,7 +59,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-amarelo"
               >
-                <MessageCircle className="h-4 w-4 text-whats" aria-hidden="true" />
+                <WhatsAppIcon className="h-4 w-4 text-whats" aria-hidden="true" />
                 WhatsApp da loja
               </a>
               <a

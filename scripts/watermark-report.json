@@ -1,2874 +1,1662 @@
 [
  {
-  "file": "real-madrid-26-27-home-torcedor-3.jpg",
-  "score": 0.5058
+  "file": "retro-milan-02-03-home-3.jpg",
+  "score": 0.5945
  },
  {
-  "file": "psg-26-27-home-torcedor-5.jpg",
-  "score": 0.4832
+  "file": "retro-psg-92-93-home-5.jpg",
+  "score": 0.5759
  },
  {
-  "file": "argentina-2026-home-jogador-5.jpg",
-  "score": 0.4281
+  "file": "retro-brasil-1958-home-4.jpg",
+  "score": 0.5704
  },
  {
-  "file": "brasil-2026-home-torcedor-3.jpg",
-  "score": 0.4209
+  "file": "retro-franca-2006-home-2.jpg",
+  "score": 0.1451
  },
  {
-  "file": "flamengo-26-27-home-torcedor-4.jpg",
-  "score": 0.3991
+  "file": "retro-milan-02-03-home-2.jpg",
+  "score": 0.141
  },
  {
-  "file": "bayern-26-27-home-torcedor-4.jpg",
-  "score": 0.3574
+  "file": "retro-milan-04-05-home-2.jpg",
+  "score": 0.1403
  },
  {
-  "file": "internacional-26-27-home-torcedor-4.jpg",
-  "score": 0.3444
+  "file": "retro-inter-1998-99-away-3.jpg",
+  "score": 0.1402
  },
  {
-  "file": "flamengo-26-27-home-torcedor-3.jpg",
-  "score": 0.3439
+  "file": "retro-chelsea-09-10-home-2.jpg",
+  "score": 0.139
  },
  {
-  "file": "japao-2026-home-torcedor-3.jpg",
-  "score": 0.3376
+  "file": "retro-flamengo-15-16-away-2.jpg",
+  "score": 0.1353
  },
  {
-  "file": "milan-26-27-third-torcedor-4.jpg",
-  "score": 0.3356
- },
- {
-  "file": "internacional-26-27-home-torcedor-5.jpg",
-  "score": 0.3354
- },
- {
-  "file": "italia-2026-home-torcedor-3.jpg",
-  "score": 0.3321
- },
- {
-  "file": "vasco-26-27-home-torcedor-3.jpg",
-  "score": 0.3315
- },
- {
-  "file": "cruzeiro-26-27-home-torcedor-4.jpg",
-  "score": 0.3236
- },
- {
-  "file": "alemanha-2026-away-torcedor-3.jpg",
-  "score": 0.3198
- },
- {
-  "file": "manchester-city-25-26-away-torcedor-2.jpg",
-  "score": 0.3129
- },
- {
-  "file": "franca-2026-home-torcedor-4.jpg",
-  "score": 0.3066
- },
- {
-  "file": "marseille-25-26-away-jogador-2.jpg",
-  "score": 0.3062
- },
- {
-  "file": "bayer-leverkusen-25-26-home-torcedor-4.jpg",
-  "score": 0.3045
- },
- {
-  "file": "vasco-26-27-home-torcedor-4.jpg",
-  "score": 0.3035
- },
- {
-  "file": "inglaterra-2026-away-torcedor-3.jpg",
-  "score": 0.2983
- },
- {
-  "file": "cruzeiro-26-27-home-torcedor-3.jpg",
-  "score": 0.298
- },
- {
-  "file": "marseille-25-26-away-jogador-3.jpg",
-  "score": 0.2964
- },
- {
-  "file": "psg-25-26-third-jogador-2.jpg",
-  "score": 0.2938
- },
- {
-  "file": "milan-26-27-third-torcedor-5.jpg",
-  "score": 0.2917
- },
- {
-  "file": "inter-25-26-third-torcedor-2.jpg",
-  "score": 0.2896
- },
- {
-  "file": "mexico-2026-home-torcedor-2.jpg",
-  "score": 0.2836
- },
- {
-  "file": "palmeiras-26-27-home-torcedor-3.jpg",
-  "score": 0.283
- },
- {
-  "file": "flamengo-26-27-home-jogador-4.jpg",
-  "score": 0.2828
- },
- {
-  "file": "manchester-city-25-26-away-torcedor-3.jpg",
-  "score": 0.2825
- },
- {
-  "file": "flamengo-26-27-home-jogador-5.jpg",
-  "score": 0.2804
- },
- {
-  "file": "psg-25-26-fourth-torcedor-3.jpg",
-  "score": 0.2748
- },
- {
-  "file": "brasil-2026-away-torcedor-4.jpg",
-  "score": 0.2738
- },
- {
-  "file": "mexico-2026-away-torcedor-3.jpg",
-  "score": 0.2726
- },
- {
-  "file": "bayer-leverkusen-25-26-home-torcedor-5.jpg",
-  "score": 0.2682
- },
- {
-  "file": "palmeiras-26-27-home-jogador-5.jpg",
-  "score": 0.2673
- },
- {
-  "file": "vasco-26-27-home-jogador-4.jpg",
-  "score": 0.264
- },
- {
-  "file": "inglaterra-2026-away-jogador-3.jpg",
-  "score": 0.2614
- },
- {
-  "file": "argentina-2026-away-jogador-5.jpg",
-  "score": 0.2593
- },
- {
-  "file": "bayer-leverkusen-25-26-home-torcedor-3.jpg",
-  "score": 0.2587
- },
- {
-  "file": "psg-25-26-third-jogador-4.jpg",
-  "score": 0.2583
- },
- {
-  "file": "uruguai-2026-away-torcedor-5.jpg",
-  "score": 0.2545
- },
- {
-  "file": "alemanha-2026-away-jogador-4.jpg",
-  "score": 0.253
- },
- {
-  "file": "holanda-2026-home-jogador-5.jpg",
-  "score": 0.2524
- },
- {
-  "file": "vasco-26-27-away-torcedor-4.jpg",
-  "score": 0.2523
- },
- {
-  "file": "brasil-2026-away-torcedor-3.jpg",
-  "score": 0.2506
- },
- {
-  "file": "psg-25-26-fourth-torcedor-2.jpg",
-  "score": 0.2469
- },
- {
-  "file": "italia-2026-home-jogador-4.jpg",
-  "score": 0.2456
- },
- {
-  "file": "mexico-2026-third-jogador-3.jpg",
-  "score": 0.2452
- },
- {
-  "file": "newcastle-25-26-third-jogador-2.jpg",
-  "score": 0.242
- },
- {
-  "file": "japao-2026-home-jogador-5.jpg",
-  "score": 0.2411
- },
- {
-  "file": "palmeiras-26-27-home-jogador-4.jpg",
-  "score": 0.2385
- },
- {
-  "file": "franca-2026-home-torcedor-3.jpg",
-  "score": 0.2379
- },
- {
-  "file": "alemanha-2026-home-torcedor-5.jpg",
-  "score": 0.2372
- },
- {
-  "file": "franca-2026-home-jogador-5.jpg",
-  "score": 0.2355
- },
- {
-  "file": "argentina-2026-away-torcedor-5.jpg",
-  "score": 0.2316
- },
- {
-  "file": "vasco-26-27-home-jogador-5.jpg",
-  "score": 0.2299
- },
- {
-  "file": "mexico-2026-third-jogador-5.jpg",
-  "score": 0.2297
- },
- {
-  "file": "franca-2026-home-jogador-3.jpg",
-  "score": 0.2276
- },
- {
-  "file": "japao-2026-home-torcedor-4.jpg",
-  "score": 0.2268
- },
- {
-  "file": "brasil-2026-away-jogador-4.jpg",
-  "score": 0.2257
- },
- {
-  "file": "portugal-2026-home-jogador-3.jpg",
-  "score": 0.2235
- },
- {
-  "file": "argentina-2026-home-torcedor-3.jpg",
-  "score": 0.2202
- },
- {
-  "file": "atletico-madrid-25-26-third-jogador-5.jpg",
-  "score": 0.2194
- },
- {
-  "file": "mexico-2026-home-jogador-3.jpg",
-  "score": 0.2186
- },
- {
-  "file": "barcelona-26-27-home-jogador-5.jpg",
-  "score": 0.2121
- },
- {
-  "file": "uruguai-2026-away-torcedor-4.jpg",
-  "score": 0.2102
- },
- {
-  "file": "mexico-2026-home-jogador-2.jpg",
-  "score": 0.2033
- },
- {
-  "file": "alemanha-2026-away-torcedor-2.jpg",
-  "score": 0.2032
- },
- {
-  "file": "argentina-2026-away-torcedor-4.jpg",
-  "score": 0.2026
- },
- {
-  "file": "alemanha-2026-home-jogador-5.jpg",
-  "score": 0.2003
- },
- {
-  "file": "japao-2026-home-jogador-4.jpg",
-  "score": 0.1999
- },
- {
-  "file": "vasco-26-27-home-jogador-3.jpg",
-  "score": 0.1998
- },
- {
-  "file": "portugal-2026-away-torcedor-5.jpg",
-  "score": 0.1993
- },
- {
-  "file": "alemanha-2026-away-jogador-5.jpg",
-  "score": 0.1967
- },
- {
-  "file": "mexico-2026-home-torcedor-3.jpg",
-  "score": 0.1947
- },
- {
-  "file": "italia-2026-home-torcedor-4.jpg",
-  "score": 0.1943
- },
- {
-  "file": "inglaterra-2026-away-jogador-5.jpg",
-  "score": 0.1913
- },
- {
-  "file": "fluminense-26-27-home-torcedor-5.jpg",
-  "score": 0.1905
- },
- {
-  "file": "flamengo-26-27-home-jogador-3.jpg",
-  "score": 0.1891
- },
- {
-  "file": "milan-26-27-third-torcedor-3.jpg",
-  "score": 0.1865
- },
- {
-  "file": "mexico-2026-away-torcedor-2.jpg",
-  "score": 0.1852
- },
- {
-  "file": "newcastle-26-27-home-torcedor-5.jpg",
-  "score": 0.1846
- },
- {
-  "file": "holanda-2026-home-jogador-3.jpg",
-  "score": 0.182
- },
- {
-  "file": "real-madrid-26-27-home-torcedor-4.jpg",
-  "score": 0.1815
- },
- {
-  "file": "inglaterra-2026-away-torcedor-4.jpg",
-  "score": 0.1814
- },
- {
-  "file": "japao-2026-home-jogador-3.jpg",
-  "score": 0.1791
- },
- {
-  "file": "inglaterra-2026-away-jogador-4.jpg",
-  "score": 0.1778
- },
- {
-  "file": "argentina-2026-home-torcedor-4.jpg",
-  "score": 0.1715
- },
- {
-  "file": "franca-2026-home-jogador-4.jpg",
-  "score": 0.1707
- },
- {
-  "file": "italia-2026-home-jogador-3.jpg",
-  "score": 0.1699
- },
- {
-  "file": "napoli-25-26-home-torcedor-2.jpg",
-  "score": 0.1697
- },
- {
-  "file": "argentina-2026-away-jogador-3.jpg",
-  "score": 0.1681
- },
- {
-  "file": "argentina-2026-away-jogador-4.jpg",
-  "score": 0.1674
- },
- {
-  "file": "manchester-united-26-27-home-jogador-4.jpg",
-  "score": 0.1671
- },
- {
-  "file": "argentina-2026-home-jogador-4.jpg",
-  "score": 0.1669
- },
- {
-  "file": "psg-25-26-third-jogador-3.jpg",
-  "score": 0.1666
- },
- {
-  "file": "bayern-26-27-home-torcedor-3.jpg",
-  "score": 0.1661
- },
- {
-  "file": "alemanha-2026-away-jogador-3.jpg",
-  "score": 0.165
- },
- {
-  "file": "holanda-2026-home-jogador-4.jpg",
-  "score": 0.1649
- },
- {
-  "file": "portugal-2026-away-torcedor-4.jpg",
-  "score": 0.1645
- },
- {
-  "file": "newcastle-25-26-third-jogador-3.jpg",
-  "score": 0.1636
- },
- {
-  "file": "alemanha-2026-away-torcedor-4.jpg",
-  "score": 0.163
- },
- {
-  "file": "portugal-2026-home-jogador-4.jpg",
-  "score": 0.1615
- },
- {
-  "file": "vasco-26-27-away-jogador-5.jpg",
-  "score": 0.1612
- },
- {
-  "file": "newcastle-26-27-home-torcedor-4.jpg",
-  "score": 0.1571
- },
- {
-  "file": "marseille-25-26-third-torcedor-3.jpg",
-  "score": 0.1508
- },
- {
-  "file": "italia-2026-home-jogador-5.jpg",
-  "score": 0.1496
- },
- {
-  "file": "argentina-2026-away-torcedor-3.jpg",
-  "score": 0.1493
- },
- {
-  "file": "manchester-united-26-27-home-jogador-3.jpg",
-  "score": 0.1479
- },
- {
-  "file": "real-madrid-26-27-home-jogador-5.jpg",
-  "score": 0.1458
- },
- {
-  "file": "inter-25-26-third-torcedor-3.jpg",
-  "score": 0.1443
- },
- {
-  "file": "manchester-city-25-26-away-torcedor-4.jpg",
-  "score": 0.1433
- },
- {
-  "file": "palmeiras-26-27-away-torcedor-3.jpg",
-  "score": 0.1409
- },
- {
-  "file": "brasil-2026-away-jogador-3.jpg",
-  "score": 0.1407
- },
- {
-  "file": "inter-26-27-home-jogador-3.jpg",
-  "score": 0.1393
- },
- {
-  "file": "manchester-city-25-26-away-jogador-3.jpg",
-  "score": 0.1381
- },
- {
-  "file": "inglaterra-2026-home-torcedor-3.jpg",
-  "score": 0.1376
- },
- {
-  "file": "holanda-2026-away-jogador-4.jpg",
-  "score": 0.1374
- },
- {
-  "file": "inter-25-26-away-jogador-3.jpg",
-  "score": 0.1373
- },
- {
-  "file": "manchester-united-26-27-home-torcedor-4.jpg",
-  "score": 0.137
- },
- {
-  "file": "marseille-25-26-third-torcedor-4.jpg",
+  "file": "retro-franca-1994-away-2.jpg",
   "score": 0.1348
  },
  {
-  "file": "italia-2026-away-jogador-5.jpg",
-  "score": 0.1345
+  "file": "retro-alemanha-2014-away-3.jpg",
+  "score": 0.1313
  },
  {
-  "file": "palmeiras-26-27-away-jogador-5.jpg",
-  "score": 0.1319
+  "file": "retro-manchester-united-2010-11-away-2.jpg",
+  "score": 0.1308
  },
  {
-  "file": "italia-2026-away-torcedor-2.jpg",
-  "score": 0.1318
+  "file": "retro-argentina-2006-home-2.jpg",
+  "score": 0.1297
  },
  {
-  "file": "portugal-2026-home-jogador-5.jpg",
-  "score": 0.1318
+  "file": "retro-holanda-1998-away-2.jpg",
+  "score": 0.1293
  },
  {
-  "file": "holanda-2026-away-jogador-5.jpg",
-  "score": 0.1304
+  "file": "retro-holanda-97-98-home-2.jpg",
+  "score": 0.1289
  },
  {
-  "file": "atletico-madrid-25-26-third-jogador-4.jpg",
-  "score": 0.1288
- },
- {
-  "file": "napoli-25-26-away-jogador-2.jpg",
-  "score": 0.1276
- },
- {
-  "file": "inter-26-27-home-torcedor-3.jpg",
+  "file": "retro-argentina-2006-home-3.jpg",
   "score": 0.1275
  },
  {
-  "file": "palmeiras-26-27-home-jogador-3.jpg",
-  "score": 0.1275
+  "file": "retro-holanda-2014-away-3.jpg",
+  "score": 0.1236
  },
  {
-  "file": "barcelona-26-27-third-torcedor-4.jpg",
-  "score": 0.127
+  "file": "retro-holanda-2014-away-2.jpg",
+  "score": 0.123
  },
  {
-  "file": "real-madrid-26-27-third-torcedor-3.jpg",
-  "score": 0.1268
+  "file": "retro-santos-12-13-away-3.jpg",
+  "score": 0.122
  },
  {
-  "file": "barcelona-26-27-home-jogador-3.jpg",
-  "score": 0.1257
- },
- {
-  "file": "mexico-2026-third-torcedor-4.jpg",
-  "score": 0.1234
- },
- {
-  "file": "atletico-madrid-25-26-third-jogador-3.jpg",
-  "score": 0.1224
- },
- {
-  "file": "sao-paulo-26-27-home-torcedor-3.jpg",
+  "file": "retro-manchester-city-08-09-away-2.jpg",
   "score": 0.1217
  },
  {
-  "file": "italia-2026-away-torcedor-3.jpg",
-  "score": 0.1214
+  "file": "retro-inter-90-91-away-2.jpg",
+  "score": 0.1201
  },
  {
-  "file": "manchester-city-26-27-home-torcedor-4.jpg",
-  "score": 0.1207
+  "file": "retro-fluminense-2009-10-away-3.jpg",
+  "score": 0.1186
  },
  {
-  "file": "arsenal-26-27-home-torcedor-3.jpg",
-  "score": 0.1204
+  "file": "retro-corinthians-05-06-home-5.jpg",
+  "score": 0.1179
  },
  {
-  "file": "inter-26-27-home-jogador-5.jpg",
-  "score": 0.1194
- },
- {
-  "file": "japao-2026-away-torcedor-4.jpg",
-  "score": 0.1191
- },
- {
-  "file": "arsenal-26-27-third-torcedor-3.jpg",
-  "score": 0.1189
- },
- {
-  "file": "manchester-united-25-26-away-jogador-3.jpg",
+  "file": "retro-italia-2012-home-2.jpg",
   "score": 0.1162
  },
  {
-  "file": "arsenal-26-27-home-jogador-4.jpg",
-  "score": 0.1157
+  "file": "retro-portugal-2010-home-3.jpg",
+  "score": 0.116
  },
  {
-  "file": "tottenham-25-26-third-torcedor-3.jpg",
-  "score": 0.1157
- },
- {
-  "file": "corinthians-26-27-away-jogador-4.jpg",
-  "score": 0.1153
- },
- {
-  "file": "manchester-city-25-26-away-torcedor-5.jpg",
-  "score": 0.1152
- },
- {
-  "file": "argentina-2026-home-jogador-3.jpg",
-  "score": 0.115
- },
- {
-  "file": "psg-26-27-home-torcedor-4.jpg",
+  "file": "retro-real-madrid-2010-11-away-2.jpg",
   "score": 0.1147
  },
  {
-  "file": "tottenham-25-26-third-torcedor-2.jpg",
+  "file": "retro-manchester-city-08-09-away-3.jpg",
   "score": 0.1146
  },
  {
-  "file": "sao-paulo-26-27-away-jogador-5.jpg",
-  "score": 0.1137
+  "file": "retro-italia-1995-home-2.jpg",
+  "score": 0.113
  },
  {
-  "file": "franca-2026-away-jogador-5.jpg",
-  "score": 0.1127
+  "file": "retro-italia-2006-home-2.jpg",
+  "score": 0.1096
  },
  {
-  "file": "athletic-bilbao-26-27-away-torcedor-4.jpg",
-  "score": 0.112
+  "file": "retro-chelsea-1999-01-home-2.jpg",
+  "score": 0.1089
  },
  {
-  "file": "bayern-26-27-home-jogador-4.jpg",
-  "score": 0.1119
+  "file": "retro-inglaterra-13-14-away-2.jpg",
+  "score": 0.1088
  },
  {
-  "file": "barcelona-26-27-away-jogador-5.jpg",
-  "score": 0.1117
- },
- {
-  "file": "inglaterra-2026-home-torcedor-4.jpg",
-  "score": 0.1115
- },
- {
-  "file": "gremio-26-27-home-torcedor-4.jpg",
-  "score": 0.111
- },
- {
-  "file": "bayern-26-27-home-torcedor-5.jpg",
-  "score": 0.1097
- },
- {
-  "file": "chelsea-26-27-home-torcedor-4.jpg",
-  "score": 0.1087
- },
- {
-  "file": "milan-26-27-home-jogador-5.jpg",
+  "file": "retro-chelsea-2014-15-home-2.jpg",
   "score": 0.1086
  },
  {
-  "file": "barcelona-26-27-home-torcedor-4.jpg",
-  "score": 0.1079
+  "file": "retro-argentina-2002-away-3.jpg",
+  "score": 0.1081
  },
  {
-  "file": "santos-26-27-away-torcedor-5.jpg",
-  "score": 0.107
- },
- {
-  "file": "corinthians-26-27-away-jogador-5.jpg",
-  "score": 0.1068
- },
- {
-  "file": "psg-26-27-home-torcedor-3.jpg",
-  "score": 0.1066
- },
- {
-  "file": "inter-26-27-home-torcedor-4.jpg",
+  "file": "retro-gremio-97-98-home-4.jpg",
   "score": 0.1063
  },
  {
-  "file": "holanda-2026-home-torcedor-4.jpg",
-  "score": 0.1061
+  "file": "retro-fluminense-15-16-third-3.jpg",
+  "score": 0.1056
  },
  {
-  "file": "holanda-2026-home-torcedor-3.jpg",
-  "score": 0.106
+  "file": "retro-manchester-united-1986-88-home-2.jpg",
+  "score": 0.1053
  },
  {
-  "file": "newcastle-26-27-home-torcedor-3.jpg",
-  "score": 0.1059
+  "file": "retro-espanha-1996-away-3.jpg",
+  "score": 0.1037
  },
  {
-  "file": "vasco-26-27-home-torcedor-5.jpg",
-  "score": 0.105
- },
- {
-  "file": "corinthians-26-27-away-torcedor-3.jpg",
-  "score": 0.1048
- },
- {
-  "file": "flamengo-26-27-away-torcedor-4.jpg",
-  "score": 0.1046
- },
- {
-  "file": "athletic-bilbao-26-27-home-torcedor-5.jpg",
-  "score": 0.1039
- },
- {
-  "file": "mexico-2026-third-jogador-4.jpg",
+  "file": "retro-corinthians-2010-away-2.jpg",
   "score": 0.1034
  },
  {
-  "file": "barcelona-26-27-third-torcedor-3.jpg",
-  "score": 0.1033
+  "file": "retro-napoli-89-90-home-2.jpg",
+  "score": 0.1024
  },
  {
-  "file": "brasil-2026-home-torcedor-5.jpg",
-  "score": 0.1027
+  "file": "retro-inter-1998-99-home-2.jpg",
+  "score": 0.1023
  },
  {
-  "file": "inglaterra-2026-home-jogador-5.jpg",
-  "score": 0.102
+  "file": "retro-espanha-1996-away-2.jpg",
+  "score": 0.1009
  },
  {
-  "file": "santos-26-27-away-torcedor-4.jpg",
-  "score": 0.102
+  "file": "retro-franca-2006-home-3.jpg",
+  "score": 0.1008
  },
  {
-  "file": "manchester-united-26-27-third-jogador-4.jpg",
-  "score": 0.1019
+  "file": "retro-milan-04-05-home-3.jpg",
+  "score": 0.1008
  },
  {
-  "file": "uruguai-2026-home-jogador-4.jpg",
-  "score": 0.1019
- },
- {
-  "file": "botafogo-26-27-home-torcedor-4.jpg",
-  "score": 0.1018
- },
- {
-  "file": "manchester-united-25-26-away-jogador-2.jpg",
-  "score": 0.1014
- },
- {
-  "file": "tottenham-26-27-away-jogador-5.jpg",
-  "score": 0.1014
- },
- {
-  "file": "arsenal-26-27-away-torcedor-3.jpg",
-  "score": 0.1007
- },
- {
-  "file": "manchester-city-25-26-away-jogador-2.jpg",
-  "score": 0.0999
- },
- {
-  "file": "corinthians-26-27-home-jogador-5.jpg",
-  "score": 0.0997
- },
- {
-  "file": "uruguai-2026-home-torcedor-3.jpg",
-  "score": 0.0997
- },
- {
-  "file": "chelsea-26-27-home-torcedor-3.jpg",
+  "file": "retro-corinthians-99-00-home-2.jpg",
   "score": 0.0993
  },
  {
-  "file": "manchester-united-26-27-home-jogador-1.jpg",
-  "score": 0.0982
+  "file": "retro-flamengo-1998-99-away-2.jpg",
+  "score": 0.096
  },
  {
-  "file": "psg-25-26-fourth-torcedor-5.jpg",
-  "score": 0.0978
+  "file": "retro-arsenal-01-02-home-2.jpg",
+  "score": 0.0956
  },
  {
-  "file": "flamengo-26-27-away-jogador-3.jpg",
-  "score": 0.0974
- },
- {
-  "file": "manchester-united-25-26-away-jogador-1.jpg",
-  "score": 0.097
- },
- {
-  "file": "barcelona-26-27-third-jogador-5.jpg",
-  "score": 0.0968
- },
- {
-  "file": "chelsea-26-27-third-jogador-4.jpg",
-  "score": 0.0965
- },
- {
-  "file": "napoli-25-26-away-jogador-3.jpg",
-  "score": 0.0958
- },
- {
-  "file": "tottenham-26-27-away-jogador-3.jpg",
-  "score": 0.0957
- },
- {
-  "file": "franca-2026-away-jogador-3.jpg",
+  "file": "retro-santos-2013-home-2.jpg",
   "score": 0.0955
  },
  {
-  "file": "gremio-26-27-home-torcedor-5.jpg",
+  "file": "retro-fluminense-15-16-third-2.jpg",
+  "score": 0.0951
+ },
+ {
+  "file": "retro-napoli-13-14-home-3.jpg",
   "score": 0.095
  },
  {
-  "file": "mexico-2026-home-jogador-1.jpg",
+  "file": "retro-arsenal-04-05-home-2.jpg",
   "score": 0.0946
  },
  {
-  "file": "arsenal-26-27-third-torcedor-4.jpg",
-  "score": 0.0942
- },
- {
-  "file": "sao-paulo-26-27-home-jogador-3.jpg",
-  "score": 0.0942
- },
- {
-  "file": "franca-2026-home-torcedor-5.jpg",
+  "file": "retro-inglaterra-13-14-away-3.jpg",
   "score": 0.0941
  },
  {
-  "file": "borussia-dortmund-26-27-home-torcedor-5.jpg",
-  "score": 0.0938
+  "file": "retro-arsenal-01-02-away-3.jpg",
+  "score": 0.0939
  },
  {
-  "file": "marseille-25-26-third-torcedor-2.jpg",
-  "score": 0.0933
+  "file": "retro-brasil-1957-62-away-3.jpg",
+  "score": 0.0937
  },
  {
-  "file": "uruguai-2026-home-jogador-3.jpg",
-  "score": 0.0932
+  "file": "retro-chelsea-2014-15-home-3.jpg",
+  "score": 0.0935
  },
  {
-  "file": "barcelona-26-27-home-torcedor-3.jpg",
-  "score": 0.093
+  "file": "retro-bayern-1997-98-away-2.jpg",
+  "score": 0.0931
  },
  {
-  "file": "bayern-26-27-away-torcedor-3.jpg",
-  "score": 0.0928
+  "file": "retro-alemanha-1994-home-4.jpg",
+  "score": 0.0926
  },
  {
-  "file": "franca-2026-away-jogador-4.jpg",
-  "score": 0.0928
+  "file": "retro-vasco-1997-home-4.jpg",
+  "score": 0.0924
  },
  {
-  "file": "inter-26-27-home-jogador-4.jpg",
-  "score": 0.0927
- },
- {
-  "file": "palmeiras-26-27-away-jogador-4.jpg",
-  "score": 0.0923
- },
- {
-  "file": "cruzeiro-26-27-away-torcedor-4.jpg",
-  "score": 0.0922
- },
- {
-  "file": "atletico-madrid-26-27-away-torcedor-3.jpg",
+  "file": "retro-portugal-2010-home-2.jpg",
   "score": 0.0919
  },
  {
-  "file": "santos-26-27-home-jogador-2.jpg",
-  "score": 0.0908
+  "file": "retro-real-madrid-2012-13-home-3.jpg",
+  "score": 0.0912
  },
  {
-  "file": "internacional-26-27-away-torcedor-5.jpg",
-  "score": 0.0903
+  "file": "retro-espanha-11-12-away-3.jpg",
+  "score": 0.0894
  },
  {
-  "file": "corinthians-26-27-home-torcedor-3.jpg",
-  "score": 0.0901
+  "file": "retro-flamengo-15-16-away-3.jpg",
+  "score": 0.0885
  },
  {
-  "file": "alemanha-2026-home-torcedor-4.jpg",
-  "score": 0.09
+  "file": "retro-borussia-dortmund-96-97-home-4.jpg",
+  "score": 0.0878
  },
  {
-  "file": "mexico-2026-third-torcedor-5.jpg",
-  "score": 0.09
+  "file": "retro-brasil-1958-home-2.jpg",
+  "score": 0.0874
  },
  {
-  "file": "alemanha-2026-home-jogador-2.jpg",
-  "score": 0.0898
+  "file": "retro-espanha-2006-away-2.jpg",
+  "score": 0.0866
  },
  {
-  "file": "tottenham-26-27-away-jogador-4.jpg",
-  "score": 0.0893
- },
- {
-  "file": "italia-2026-away-jogador-4.jpg",
-  "score": 0.089
- },
- {
-  "file": "japao-2026-home-torcedor-1.jpg",
-  "score": 0.089
- },
- {
-  "file": "bahia-26-27-away-torcedor-4.jpg",
-  "score": 0.0884
- },
- {
-  "file": "japao-2026-home-jogador-1.jpg",
-  "score": 0.0884
- },
- {
-  "file": "milan-26-27-away-jogador-5.jpg",
-  "score": 0.088
- },
- {
-  "file": "marseille-26-27-home-jogador-5.jpg",
-  "score": 0.0879
- },
- {
-  "file": "mexico-2026-away-jogador-5.jpg",
-  "score": 0.0877
- },
- {
-  "file": "milan-26-27-away-torcedor-5.jpg",
-  "score": 0.0876
- },
- {
-  "file": "arsenal-26-27-away-torcedor-4.jpg",
-  "score": 0.0868
- },
- {
-  "file": "santos-26-27-away-jogador-5.jpg",
-  "score": 0.0863
- },
- {
-  "file": "athletic-bilbao-26-27-home-torcedor-4.jpg",
-  "score": 0.0862
- },
- {
-  "file": "marseille-26-27-home-jogador-4.jpg",
+  "file": "retro-alemanha-2014-away-2.jpg",
   "score": 0.086
  },
  {
-  "file": "sao-paulo-26-27-away-jogador-3.jpg",
-  "score": 0.0855
+  "file": "retro-gremio-97-98-home-3.jpg",
+  "score": 0.0838
  },
  {
-  "file": "inglaterra-2026-away-torcedor-5.jpg",
-  "score": 0.0846
+  "file": "retro-italia-2012-home-5.jpg",
+  "score": 0.083
  },
  {
-  "file": "espanha-2026-away-jogador-4.jpg",
-  "score": 0.0845
+  "file": "retro-espanha-11-12-away-5.jpg",
+  "score": 0.0824
  },
  {
-  "file": "bayern-26-27-away-torcedor-4.jpg",
-  "score": 0.0841
+  "file": "retro-portugal-2012-away-3.jpg",
+  "score": 0.0824
  },
  {
-  "file": "barcelona-26-27-home-jogador-4.jpg",
-  "score": 0.0837
+  "file": "retro-real-madrid-2012-13-away-2.jpg",
+  "score": 0.0821
  },
  {
-  "file": "portugal-2026-away-jogador-4.jpg",
-  "score": 0.0827
+  "file": "retro-portugal-2012-away-2.jpg",
+  "score": 0.0818
  },
  {
-  "file": "real-madrid-26-27-third-torcedor-4.jpg",
-  "score": 0.0815
+  "file": "retro-espanha-2006-away-3.jpg",
+  "score": 0.0817
  },
  {
-  "file": "arsenal-26-27-home-jogador-5.jpg",
-  "score": 0.0813
- },
- {
-  "file": "inglaterra-2026-home-jogador-3.jpg",
-  "score": 0.0811
- },
- {
-  "file": "bahia-26-27-home-torcedor-4.jpg",
-  "score": 0.081
- },
- {
-  "file": "brasil-2026-away-jogador-5.jpg",
+  "file": "retro-chelsea-09-10-home-3.jpg",
   "score": 0.0809
  },
  {
-  "file": "atletico-madrid-26-27-away-torcedor-4.jpg",
-  "score": 0.0798
+  "file": "retro-inglaterra-94-95-home-5.jpg",
+  "score": 0.08
  },
  {
-  "file": "uruguai-2026-away-torcedor-3.jpg",
-  "score": 0.0797
- },
- {
-  "file": "corinthians-26-27-away-jogador-3.jpg",
+  "file": "retro-argentina-2002-away-2.jpg",
   "score": 0.0794
  },
  {
-  "file": "japao-2026-home-jogador-2.jpg",
-  "score": 0.0792
+  "file": "retro-arsenal-01-02-away-2.jpg",
+  "score": 0.0794
  },
  {
-  "file": "flamengo-26-27-away-jogador-5.jpg",
-  "score": 0.0789
+  "file": "retro-botafogo-1995-away-2.jpg",
+  "score": 0.0791
  },
  {
-  "file": "barcelona-26-27-third-jogador-4.jpg",
-  "score": 0.0786
- },
- {
-  "file": "manchester-city-26-27-home-torcedor-5.jpg",
-  "score": 0.0785
- },
- {
-  "file": "fluminense-26-27-away-jogador-2.jpg",
-  "score": 0.0783
- },
- {
-  "file": "borussia-dortmund-26-27-home-torcedor-4.jpg",
-  "score": 0.0781
- },
- {
-  "file": "tottenham-26-27-home-jogador-4.jpg",
-  "score": 0.078
- },
- {
-  "file": "arsenal-26-27-home-torcedor-4.jpg",
+  "file": "retro-vasco-1997-home-5.jpg",
   "score": 0.0779
  },
  {
-  "file": "italia-2026-home-jogador-2.jpg",
-  "score": 0.0768
- },
- {
-  "file": "manchester-city-25-26-away-jogador-1.jpg",
+  "file": "retro-fluminense-15-16-third-4.jpg",
   "score": 0.0767
  },
  {
-  "file": "santos-26-27-home-jogador-4.jpg",
-  "score": 0.0765
+  "file": "retro-fluminense-15-16-third-5.jpg",
+  "score": 0.0766
  },
  {
-  "file": "mexico-2026-away-torcedor-5.jpg",
-  "score": 0.0763
+  "file": "retro-portugal-2012-home-2.jpg",
+  "score": 0.0764
  },
  {
-  "file": "marseille-26-27-home-jogador-2.jpg",
-  "score": 0.0762
+  "file": "retro-milan-02-03-home-5.jpg",
+  "score": 0.0756
  },
  {
-  "file": "borussia-dortmund-26-27-home-jogador-5.jpg",
-  "score": 0.076
+  "file": "retro-flamengo-1998-99-away-4.jpg",
+  "score": 0.0742
  },
  {
-  "file": "flamengo-26-27-away-jogador-2.jpg",
-  "score": 0.0758
+  "file": "retro-manchester-city-07-08-away-5.jpg",
+  "score": 0.074
  },
  {
-  "file": "santos-26-27-away-jogador-3.jpg",
-  "score": 0.0757
+  "file": "retro-italia-1995-home-3.jpg",
+  "score": 0.0732
  },
  {
-  "file": "barcelona-26-27-away-jogador-4.jpg",
-  "score": 0.0753
- },
- {
-  "file": "arsenal-26-27-home-jogador-3.jpg",
-  "score": 0.0752
- },
- {
-  "file": "gremio-26-27-away-torcedor-5.jpg",
-  "score": 0.0751
- },
- {
-  "file": "psg-25-26-fourth-torcedor-4.jpg",
-  "score": 0.0751
- },
- {
-  "file": "uruguai-2026-home-jogador-1.jpg",
-  "score": 0.075
- },
- {
-  "file": "japao-2026-away-jogador-5.jpg",
-  "score": 0.0749
- },
- {
-  "file": "italia-2026-home-jogador-1.jpg",
-  "score": 0.0746
- },
- {
-  "file": "newcastle-25-26-third-jogador-5.jpg",
-  "score": 0.0746
- },
- {
-  "file": "milan-26-27-home-jogador-4.jpg",
-  "score": 0.0745
- },
- {
-  "file": "palmeiras-26-27-away-jogador-2.jpg",
-  "score": 0.0737
- },
- {
-  "file": "manchester-united-26-27-home-torcedor-5.jpg",
+  "file": "retro-flamengo-2001-02-away-4.jpg",
   "score": 0.0731
  },
  {
-  "file": "portugal-2026-away-jogador-1.jpg",
-  "score": 0.0731
+  "file": "retro-manchester-city-07-08-away-2.jpg",
+  "score": 0.0728
  },
  {
-  "file": "italia-2026-away-jogador-2.jpg",
-  "score": 0.0723
- },
- {
-  "file": "brasil-2026-home-jogador-1.jpg",
+  "file": "retro-inter-1998-99-away-2.jpg",
   "score": 0.0722
  },
  {
-  "file": "franca-2026-home-jogador-1.jpg",
-  "score": 0.0722
+  "file": "retro-espanha-2006-away-4.jpg",
+  "score": 0.072
  },
  {
-  "file": "psg-25-26-fourth-torcedor-1.jpg",
+  "file": "retro-portugal-2012-home-3.jpg",
+  "score": 0.072
+ },
+ {
+  "file": "retro-alemanha-2014-away-5.jpg",
   "score": 0.0718
  },
  {
-  "file": "brasil-2026-home-jogador-3.jpg",
+  "file": "retro-franca-1984-home-3.jpg",
   "score": 0.0717
  },
  {
-  "file": "uruguai-2026-home-jogador-5.jpg",
-  "score": 0.0715
+  "file": "retro-brasil-1957-62-away-2.jpg",
+  "score": 0.0716
  },
  {
-  "file": "gremio-26-27-away-torcedor-4.jpg",
-  "score": 0.0713
+  "file": "retro-brasil-1971-home-2.jpg",
+  "score": 0.071
  },
  {
-  "file": "argentina-2026-home-jogador-2.jpg",
-  "score": 0.0712
- },
- {
-  "file": "corinthians-26-27-away-torcedor-4.jpg",
-  "score": 0.0711
- },
- {
-  "file": "uruguai-2026-home-jogador-2.jpg",
+  "file": "retro-brasil-1957-62-away-4.jpg",
   "score": 0.0706
  },
  {
-  "file": "mexico-2026-home-torcedor-1.jpg",
-  "score": 0.0702
+  "file": "retro-psg-94-95-home-2.jpg",
+  "score": 0.0705
  },
  {
-  "file": "franca-2026-home-jogador-2.jpg",
-  "score": 0.07
+  "file": "retro-alemanha-2014-away-4.jpg",
+  "score": 0.0698
  },
  {
-  "file": "santos-26-27-home-torcedor-5.jpg",
-  "score": 0.0694
+  "file": "retro-fluminense-2010-home-4.jpg",
+  "score": 0.0698
  },
  {
-  "file": "marseille-25-26-away-jogador-5.jpg",
+  "file": "retro-corinthians-2010-away-3.jpg",
   "score": 0.0692
  },
  {
-  "file": "inter-25-26-away-jogador-2.jpg",
-  "score": 0.0691
- },
- {
-  "file": "bayer-leverkusen-25-26-home-torcedor-1.jpg",
+  "file": "retro-barcelona-2010-11-home-5.jpg",
   "score": 0.0686
  },
  {
-  "file": "fluminense-26-27-away-torcedor-4.jpg",
+  "file": "retro-napoli-13-14-home-2.jpg",
   "score": 0.0684
  },
  {
-  "file": "inglaterra-2026-home-jogador-2.jpg",
-  "score": 0.0684
+  "file": "retro-flamengo-2001-02-away-2.jpg",
+  "score": 0.0682
  },
  {
-  "file": "athletic-bilbao-26-27-home-torcedor-1.jpg",
-  "score": 0.0681
+  "file": "retro-borussia-dortmund-1997-home-2.jpg",
+  "score": 0.0669
  },
  {
-  "file": "franca-2026-home-torcedor-2.jpg",
-  "score": 0.0677
+  "file": "retro-manchester-united-1986-88-home-5.jpg",
+  "score": 0.0669
  },
  {
-  "file": "psg-home-a.jpg",
-  "score": 0.0671
+  "file": "retro-corinthians-2010-away-5.jpg",
+  "score": 0.0664
  },
  {
-  "file": "holanda-2026-away-jogador-2.jpg",
-  "score": 0.067
+  "file": "retro-barcelona-2008-09-home-2.jpg",
+  "score": 0.0659
  },
  {
-  "file": "internacional-26-27-away-torcedor-4.jpg",
-  "score": 0.067
- },
- {
-  "file": "marseille-25-26-away-jogador-1.jpg",
-  "score": 0.067
- },
- {
-  "file": "borussia-dortmund-26-27-home-jogador-1.jpg",
-  "score": 0.0666
- },
- {
-  "file": "milan-26-27-away-jogador-1.jpg",
-  "score": 0.0666
- },
- {
-  "file": "gremio-26-27-away-jogador-3.jpg",
-  "score": 0.0662
- },
- {
-  "file": "botafogo-26-27-home-torcedor-5.jpg",
-  "score": 0.0655
- },
- {
-  "file": "holanda-2026-away-torcedor-3.jpg",
-  "score": 0.0655
- },
- {
-  "file": "vasco-26-27-away-torcedor-3.jpg",
+  "file": "retro-holanda-97-98-home-3.jpg",
   "score": 0.0653
  },
  {
-  "file": "manchester-united-26-27-third-jogador-1.jpg",
+  "file": "retro-alemanha-1998-home-2.jpg",
+  "score": 0.0647
+ },
+ {
+  "file": "retro-bayern-1997-98-away-5.jpg",
   "score": 0.0646
  },
  {
-  "file": "sao-paulo-26-27-home-jogador-1.jpg",
+  "file": "retro-franca-1984-home-5.jpg",
+  "score": 0.0646
+ },
+ {
+  "file": "retro-corinthians-05-06-home-3.jpg",
   "score": 0.0645
  },
  {
-  "file": "manchester-city-26-27-home-jogador-5.jpg",
-  "score": 0.064
+  "file": "retro-fluminense-2010-home-2.jpg",
+  "score": 0.0639
  },
  {
-  "file": "real-madrid-26-27-home-jogador-2.jpg",
-  "score": 0.0636
- },
- {
-  "file": "mexico-2026-home-torcedor-5.jpg",
-  "score": 0.0633
- },
- {
-  "file": "santos-26-27-home-torcedor-4.jpg",
-  "score": 0.0629
- },
- {
-  "file": "franca-2026-away-jogador-1.jpg",
+  "file": "retro-chelsea-2014-15-home-1.jpg",
   "score": 0.0628
  },
  {
-  "file": "bayern-26-27-home-jogador-5.jpg",
-  "score": 0.0627
- },
- {
-  "file": "gremio-26-27-away-jogador-5.jpg",
-  "score": 0.0626
- },
- {
-  "file": "arsenal-26-27-away-torcedor-1.jpg",
+  "file": "retro-espanha-11-12-away-4.jpg",
   "score": 0.0623
  },
  {
-  "file": "franca-2026-away-jogador-2.jpg",
-  "score": 0.0623
- },
- {
-  "file": "arsenal-26-27-third-torcedor-1.jpg",
-  "score": 0.0622
- },
- {
-  "file": "holanda-2026-home-jogador-1.jpg",
-  "score": 0.0622
- },
- {
-  "file": "napoli-25-26-away-torcedor-2.jpg",
-  "score": 0.0622
- },
- {
-  "file": "cruzeiro-26-27-away-torcedor-5.jpg",
-  "score": 0.0621
- },
- {
-  "file": "brasil-2026-home-jogador-2.jpg",
+  "file": "retro-alemanha-1994-home-3.jpg",
   "score": 0.0617
  },
  {
-  "file": "chelsea-26-27-home-torcedor-5.jpg",
+  "file": "retro-corinthians-99-00-home-3.jpg",
   "score": 0.0617
  },
  {
-  "file": "mexico-2026-home-torcedor-4.jpg",
+  "file": "retro-espanha-1996-away-5.jpg",
   "score": 0.0617
  },
  {
-  "file": "flamengo-26-27-home-torcedor-5.jpg",
-  "score": 0.0611
+  "file": "retro-milan-02-03-away-5.jpg",
+  "score": 0.0617
  },
  {
-  "file": "tottenham-26-27-home-jogador-3.jpg",
-  "score": 0.0603
+  "file": "retro-vasco-1997-home-3.jpg",
+  "score": 0.0617
  },
  {
-  "file": "fluminense-26-27-away-jogador-1.jpg",
+  "file": "retro-franca-1984-home-4.jpg",
+  "score": 0.0613
+ },
+ {
+  "file": "retro-chelsea-1999-01-home-3.jpg",
+  "score": 0.0609
+ },
+ {
+  "file": "retro-milan-04-05-home-4.jpg",
+  "score": 0.0609
+ },
+ {
+  "file": "retro-psg-91-92-home-2.jpg",
+  "score": 0.0607
+ },
+ {
+  "file": "retro-santos-2013-home-3.jpg",
   "score": 0.06
  },
  {
-  "file": "inglaterra-2026-home-jogador-1.jpg",
-  "score": 0.0596
+  "file": "retro-brasil-1958-home-3.jpg",
+  "score": 0.0598
  },
  {
-  "file": "psg-25-26-third-jogador-5.jpg",
-  "score": 0.0595
- },
- {
-  "file": "barcelona-26-27-away-jogador-1.jpg",
+  "file": "retro-holanda-1998-away-3.jpg",
   "score": 0.0594
  },
  {
-  "file": "alemanha-2026-away-jogador-1.jpg",
-  "score": 0.0593
- },
- {
-  "file": "holanda-2026-away-jogador-1.jpg",
+  "file": "retro-psg-91-92-home-5.jpg",
   "score": 0.0592
  },
  {
-  "file": "inter-25-26-away-jogador-1.jpg",
-  "score": 0.0592
- },
- {
-  "file": "newcastle-25-26-third-jogador-4.jpg",
-  "score": 0.0592
- },
- {
-  "file": "portugal-2026-away-jogador-5.jpg",
-  "score": 0.0591
- },
- {
-  "file": "brasil-2026-home-jogador-5.jpg",
+  "file": "retro-arsenal-01-02-home-5.jpg",
   "score": 0.059
  },
  {
-  "file": "alemanha-2026-home-torcedor-3.jpg",
-  "score": 0.0586
+  "file": "retro-fluminense-2009-10-away-2.jpg",
+  "score": 0.0588
  },
  {
-  "file": "alemanha-2026-home-jogador-3.jpg",
-  "score": 0.0585
+  "file": "retro-real-madrid-2012-13-away-5.jpg",
+  "score": 0.0587
  },
  {
-  "file": "vasco-26-27-away-jogador-1.jpg",
+  "file": "retro-inglaterra-1990-away-2.jpg",
+  "score": 0.0583
+ },
+ {
+  "file": "retro-psg-91-92-home-4.jpg",
+  "score": 0.0582
+ },
+ {
+  "file": "retro-manchester-united-1994-96-away-4.jpg",
+  "score": 0.0581
+ },
+ {
+  "file": "retro-manchester-united-1994-96-away-3.jpg",
   "score": 0.058
  },
  {
-  "file": "santos-26-27-home-jogador-5.jpg",
+  "file": "retro-borussia-dortmund-1997-home-3.jpg",
   "score": 0.0578
  },
  {
-  "file": "sao-paulo-26-27-home-jogador-5.jpg",
-  "score": 0.0577
+  "file": "retro-alemanha-1994-home-2.jpg",
+  "score": 0.0576
  },
  {
-  "file": "tottenham-26-27-away-jogador-1.jpg",
-  "score": 0.0575
- },
- {
-  "file": "alemanha-2026-home-jogador-4.jpg",
+  "file": "retro-fluminense-2009-10-away-4.jpg",
   "score": 0.0574
  },
  {
-  "file": "arsenal-26-27-home-jogador-1.jpg",
-  "score": 0.0573
+  "file": "retro-arsenal-01-02-home-3.jpg",
+  "score": 0.0572
  },
  {
-  "file": "holanda-2026-away-torcedor-4.jpg",
+  "file": "retro-botafogo-1995-away-5.jpg",
+  "score": 0.0572
+ },
+ {
+  "file": "retro-inglaterra-13-14-away-5.jpg",
+  "score": 0.0572
+ },
+ {
+  "file": "retro-arsenal-04-05-home-4.jpg",
+  "score": 0.057
+ },
+ {
+  "file": "retro-bayern-1998-00-away-5.jpg",
   "score": 0.0567
  },
  {
-  "file": "tottenham-26-27-home-jogador-2.jpg",
+  "file": "retro-italia-2012-home-4.jpg",
+  "score": 0.0564
+ },
+ {
+  "file": "retro-manchester-united-1986-88-home-3.jpg",
+  "score": 0.0564
+ },
+ {
+  "file": "retro-psg-94-95-home-4.jpg",
   "score": 0.0563
  },
  {
-  "file": "atletico-madrid-25-26-third-jogador-1.jpg",
+  "file": "retro-inter-1998-99-home-3.jpg",
   "score": 0.0558
  },
  {
-  "file": "portugal-2026-away-jogador-2.jpg",
-  "score": 0.0557
+  "file": "retro-psg-94-95-home-3.jpg",
+  "score": 0.0554
  },
  {
-  "file": "barcelona-26-27-third-jogador-2.jpg",
-  "score": 0.0556
+  "file": "retro-arsenal-04-05-home-5.jpg",
+  "score": 0.0552
  },
  {
-  "file": "marseille-25-26-away-jogador-4.jpg",
-  "score": 0.055
+  "file": "retro-franca-1984-home-2.jpg",
+  "score": 0.0552
  },
  {
-  "file": "real-madrid-26-27-home-jogador-1.jpg",
-  "score": 0.055
+  "file": "retro-flamengo-1998-99-away-3.jpg",
+  "score": 0.0548
  },
  {
-  "file": "espanha-2026-home-jogador-5.jpg",
-  "score": 0.0545
+  "file": "retro-alemanha-1994-home-5.jpg",
+  "score": 0.0544
  },
  {
-  "file": "alemanha-2026-away-torcedor-5.jpg",
-  "score": 0.0541
+  "file": "retro-flamengo-15-16-away-4.jpg",
+  "score": 0.0544
  },
  {
-  "file": "japao-2026-home-torcedor-5.jpg",
-  "score": 0.0541
+  "file": "retro-bayern-1998-00-away-2.jpg",
+  "score": 0.054
  },
  {
-  "file": "manchester-united-26-27-third-jogador-5.jpg",
-  "score": 0.0541
+  "file": "retro-real-madrid-2010-11-away-4.jpg",
+  "score": 0.0527
  },
  {
-  "file": "holanda-2026-home-torcedor-5.jpg",
-  "score": 0.0539
+  "file": "retro-manchester-united-2010-11-away-3.jpg",
+  "score": 0.0526
  },
  {
-  "file": "mexico-2026-home-jogador-4.jpg",
-  "score": 0.0539
+  "file": "retro-manchester-city-07-08-away-3.jpg",
+  "score": 0.0525
  },
  {
-  "file": "sao-paulo-26-27-home-torcedor-1.jpg",
-  "score": 0.0539
+  "file": "retro-franca-2006-home-4.jpg",
+  "score": 0.0523
  },
  {
-  "file": "franca-2026-home-torcedor-1.jpg",
-  "score": 0.0538
+  "file": "retro-barcelona-1995-97-away-2.jpg",
+  "score": 0.0522
  },
  {
-  "file": "holanda-2026-home-jogador-2.jpg",
-  "score": 0.0538
+  "file": "retro-borussia-dortmund-96-97-home-5.jpg",
+  "score": 0.0513
  },
  {
-  "file": "inter-26-27-home-jogador-1.jpg",
-  "score": 0.0537
+  "file": "retro-portugal-2012-home-5.jpg",
+  "score": 0.0511
  },
  {
-  "file": "milan-26-27-away-torcedor-1.jpg",
-  "score": 0.0537
- },
- {
-  "file": "tottenham-26-27-home-jogador-1.jpg",
-  "score": 0.0535
- },
- {
-  "file": "flamengo-26-27-away-jogador-4.jpg",
-  "score": 0.0533
- },
- {
-  "file": "psg-26-27-home-torcedor-1.jpg",
-  "score": 0.0532
- },
- {
-  "file": "franca-2026-away-torcedor-3.jpg",
-  "score": 0.052
- },
- {
-  "file": "milan-retro-a.jpg",
-  "score": 0.052
- },
- {
-  "file": "bayern-26-27-away-torcedor-5.jpg",
-  "score": 0.0519
- },
- {
-  "file": "palmeiras-26-27-home-jogador-2.jpg",
-  "score": 0.0519
- },
- {
-  "file": "argentina-2026-home-jogador-1.jpg",
-  "score": 0.0517
- },
- {
-  "file": "bayern-26-27-home-jogador-1.jpg",
-  "score": 0.0515
- },
- {
-  "file": "fluminense-26-27-home-torcedor-4.jpg",
-  "score": 0.0514
- },
- {
-  "file": "italia-2026-home-torcedor-5.jpg",
-  "score": 0.051
- },
- {
-  "file": "santos-26-27-away-torcedor-3.jpg",
-  "score": 0.0509
- },
- {
-  "file": "newcastle-25-26-third-jogador-1.jpg",
+  "file": "retro-vasco-1988-home-4.jpg",
   "score": 0.0507
  },
  {
-  "file": "arsenal-26-27-home-torcedor-5.jpg",
-  "score": 0.0504
+  "file": "retro-corinthians-05-06-home-4.jpg",
+  "score": 0.0506
  },
  {
-  "file": "alemanha-2026-home-jogador-1.jpg",
-  "score": 0.0503
+  "file": "retro-fluminense-2010-home-5.jpg",
+  "score": 0.0506
  },
  {
-  "file": "bayern-26-27-home-jogador-3.jpg",
-  "score": 0.0503
- },
- {
-  "file": "flamengo-home-a.jpg",
-  "score": 0.0503
- },
- {
-  "file": "milan-26-27-home-jogador-3.jpg",
-  "score": 0.0502
- },
- {
-  "file": "botafogo-26-27-home-torcedor-1.jpg",
-  "score": 0.0501
- },
- {
-  "file": "corinthians-26-27-away-jogador-1.jpg",
-  "score": 0.05
- },
- {
-  "file": "espanha-2026-away-jogador-3.jpg",
+  "file": "retro-napoli-90-91-home-2.jpg",
   "score": 0.0499
  },
  {
-  "file": "athletic-bilbao-26-27-away-torcedor-5.jpg",
-  "score": 0.0492
+  "file": "retro-inter-90-91-away-4.jpg",
+  "score": 0.0498
  },
  {
-  "file": "chelsea-26-27-third-jogador-5.jpg",
+  "file": "retro-inglaterra-94-95-home-4.jpg",
+  "score": 0.0487
+ },
+ {
+  "file": "retro-manchester-city-86-87-home-5.jpg",
   "score": 0.0485
  },
  {
-  "file": "milan-26-27-away-torcedor-4.jpg",
-  "score": 0.0485
+  "file": "retro-inter-1998-99-home-1.jpg",
+  "score": 0.0484
  },
  {
-  "file": "arsenal-26-27-third-torcedor-5.jpg",
-  "score": 0.0482
- },
- {
-  "file": "corinthians-26-27-home-torcedor-4.jpg",
-  "score": 0.0481
- },
- {
-  "file": "athletic-bilbao-26-27-away-torcedor-3.jpg",
-  "score": 0.048
- },
- {
-  "file": "corinthians-26-27-away-jogador-2.jpg",
-  "score": 0.048
- },
- {
-  "file": "inter-26-27-home-torcedor-5.jpg",
-  "score": 0.048
- },
- {
-  "file": "milan-26-27-away-jogador-2.jpg",
-  "score": 0.0479
- },
- {
-  "file": "portugal-2026-away-torcedor-3.jpg",
-  "score": 0.0479
- },
- {
-  "file": "franca-2026-away-torcedor-4.jpg",
+  "file": "retro-bayern-1998-99-away-1.jpg",
   "score": 0.0478
  },
  {
-  "file": "palmeiras-26-27-away-torcedor-1.jpg",
+  "file": "retro-botafogo-1995-away-4.jpg",
   "score": 0.0478
  },
  {
-  "file": "barcelona-26-27-third-jogador-3.jpg",
+  "file": "retro-manchester-city-08-09-away-5.jpg",
+  "score": 0.0478
+ },
+ {
+  "file": "retro-psg-94-95-home-5.jpg",
+  "score": 0.0476
+ },
+ {
+  "file": "retro-vasco-1988-away-4.jpg",
+  "score": 0.0476
+ },
+ {
+  "file": "retro-flamengo-15-16-away-5.jpg",
   "score": 0.0472
  },
  {
-  "file": "argentina-2026-away-jogador-2.jpg",
+  "file": "retro-alemanha-1998-home-4.jpg",
+  "score": 0.0471
+ },
+ {
+  "file": "retro-holanda-2014-away-4.jpg",
+  "score": 0.0471
+ },
+ {
+  "file": "retro-espanha-1996-away-1.jpg",
   "score": 0.0469
  },
  {
-  "file": "manchester-united-26-27-third-jogador-2.jpg",
-  "score": 0.0469
- },
- {
-  "file": "barcelona-26-27-third-jogador-1.jpg",
+  "file": "retro-chelsea-1999-01-home-5.jpg",
   "score": 0.0467
  },
  {
-  "file": "borussia-dortmund-26-27-home-jogador-2.jpg",
-  "score": 0.0463
+  "file": "retro-gremio-2000-home-5.jpg",
+  "score": 0.0466
  },
  {
-  "file": "corinthians-edicao-especial-a.jpg",
-  "score": 0.0458
+  "file": "retro-psg-92-93-home-3.jpg",
+  "score": 0.0466
  },
  {
-  "file": "tottenham-26-27-home-jogador-5.jpg",
-  "score": 0.0458
+  "file": "retro-franca-1994-away-5.jpg",
+  "score": 0.0464
  },
  {
-  "file": "napoli-25-26-away-jogador-1.jpg",
-  "score": 0.045
+  "file": "retro-franca-2006-home-5.jpg",
+  "score": 0.0461
  },
  {
-  "file": "fluminense-26-27-away-jogador-4.jpg",
-  "score": 0.0448
+  "file": "retro-manchester-city-08-09-away-1.jpg",
+  "score": 0.0459
  },
  {
-  "file": "fluminense-26-27-away-jogador-3.jpg",
-  "score": 0.0447
+  "file": "retro-arsenal-04-05-home-3.jpg",
+  "score": 0.0455
  },
  {
-  "file": "tottenham-25-26-third-torcedor-1.jpg",
-  "score": 0.0447
- },
- {
-  "file": "arsenal-26-27-home-jogador-2.jpg",
-  "score": 0.0445
- },
- {
-  "file": "italia-2026-away-torcedor-4.jpg",
+  "file": "retro-argentina-2002-away-4.jpg",
   "score": 0.0442
  },
  {
-  "file": "santos-26-27-away-jogador-1.jpg",
-  "score": 0.0442
+  "file": "retro-milan-04-05-home-5.jpg",
+  "score": 0.0438
  },
  {
-  "file": "palmeiras-26-27-away-torcedor-5.jpg",
-  "score": 0.044
+  "file": "retro-inglaterra-94-95-home-2.jpg",
+  "score": 0.0434
  },
  {
-  "file": "italia-2026-away-jogador-1.jpg",
-  "score": 0.0437
+  "file": "retro-bayern-1998-00-away-1.jpg",
+  "score": 0.0429
  },
  {
-  "file": "vasco-26-27-away-jogador-2.jpg",
-  "score": 0.0435
+  "file": "retro-santos-12-13-away-4.jpg",
+  "score": 0.0429
  },
  {
-  "file": "espanha-2026-away-jogador-1.jpg",
-  "score": 0.043
+  "file": "retro-italia-1995-home-4.jpg",
+  "score": 0.0428
  },
  {
-  "file": "espanha-2026-away-jogador-2.jpg",
-  "score": 0.043
- },
- {
-  "file": "flamengo-26-27-home-jogador-1.jpg",
+  "file": "retro-holanda-97-98-home-4.jpg",
   "score": 0.0426
  },
  {
-  "file": "japao-2026-away-torcedor-5.jpg",
-  "score": 0.0426
+  "file": "retro-bayern-1998-00-away-3.jpg",
+  "score": 0.0421
  },
  {
-  "file": "barcelona-26-27-home-jogador-1.jpg",
-  "score": 0.0425
- },
- {
-  "file": "manchester-city-26-27-home-jogador-1.jpg",
-  "score": 0.0425
- },
- {
-  "file": "mexico-2026-third-torcedor-3.jpg",
-  "score": 0.0425
- },
- {
-  "file": "vasco-26-27-home-jogador-1.jpg",
-  "score": 0.042
- },
- {
-  "file": "palmeiras-26-27-away-jogador-3.jpg",
+  "file": "retro-arsenal-01-02-home-4.jpg",
   "score": 0.0419
  },
  {
-  "file": "napoli-25-26-home-torcedor-3.jpg",
-  "score": 0.041
+  "file": "retro-barcelona-2008-09-home-5.jpg",
+  "score": 0.0418
  },
  {
-  "file": "manchester-united-26-27-home-torcedor-3.jpg",
-  "score": 0.0407
+  "file": "retro-portugal-2012-away-1.jpg",
+  "score": 0.0418
  },
  {
-  "file": "portugal-2026-home-jogador-1.jpg",
+  "file": "retro-santos-2013-home-1.jpg",
+  "score": 0.0418
+ },
+ {
+  "file": "retro-manchester-united-1994-96-away-1.jpg",
+  "score": 0.0416
+ },
+ {
+  "file": "retro-inglaterra-13-14-away-4.jpg",
+  "score": 0.0413
+ },
+ {
+  "file": "retro-inter-90-91-away-1.jpg",
+  "score": 0.0412
+ },
+ {
+  "file": "retro-inglaterra-94-95-home-3.jpg",
+  "score": 0.0411
+ },
+ {
+  "file": "retro-inter-1998-99-away-1.jpg",
+  "score": 0.0408
+ },
+ {
+  "file": "retro-corinthians-2010-away-4.jpg",
   "score": 0.0404
  },
  {
-  "file": "brasil-2026-away-torcedor-5.jpg",
+  "file": "retro-botafogo-1995-away-3.jpg",
+  "score": 0.0402
+ },
+ {
+  "file": "retro-argentina-2006-home-5.jpg",
   "score": 0.0401
  },
  {
-  "file": "barcelona-26-27-home-jogador-2.jpg",
-  "score": 0.0398
+  "file": "retro-arsenal-01-02-away-1.jpg",
+  "score": 0.04
  },
  {
-  "file": "chelsea-26-27-third-jogador-3.jpg",
-  "score": 0.0394
+  "file": "retro-inter-90-91-away-3.jpg",
+  "score": 0.04
  },
  {
-  "file": "inter-25-26-third-torcedor-1.jpg",
-  "score": 0.0394
+  "file": "retro-argentina-1996-97-home-3.jpg",
+  "score": 0.0399
  },
  {
-  "file": "espanha-2026-home-jogador-4.jpg",
-  "score": 0.0392
+  "file": "retro-palmeiras-1996-away-5.jpg",
+  "score": 0.0399
  },
  {
-  "file": "gremio-26-27-away-jogador-1.jpg",
-  "score": 0.0392
+  "file": "retro-fluminense-2009-10-away-5.jpg",
+  "score": 0.0393
  },
  {
-  "file": "real-madrid-26-27-home-torcedor-5.jpg",
-  "score": 0.0387
+  "file": "retro-real-madrid-2012-13-home-2.jpg",
+  "score": 0.0391
  },
  {
-  "file": "argentina-2026-away-jogador-1.jpg",
-  "score": 0.0385
+  "file": "retro-gremio-97-98-home-1.jpg",
+  "score": 0.0389
  },
  {
-  "file": "newcastle-26-27-home-torcedor-1.jpg",
-  "score": 0.0385
+  "file": "retro-borussia-dortmund-96-97-home-3.jpg",
+  "score": 0.0386
  },
  {
-  "file": "marseille-26-27-home-jogador-1.jpg",
-  "score": 0.0384
+  "file": "retro-psg-91-92-home-3.jpg",
+  "score": 0.0382
  },
  {
-  "file": "bayer-leverkusen-25-26-home-torcedor-2.jpg",
-  "score": 0.0381
+  "file": "retro-cruzeiro-93-94-away-1.jpg",
+  "score": 0.0377
  },
  {
-  "file": "manchester-city-26-27-home-jogador-4.jpg",
-  "score": 0.038
+  "file": "retro-milan-02-03-home-1.jpg",
+  "score": 0.0377
  },
  {
-  "file": "botafogo-26-27-home-torcedor-3.jpg",
-  "score": 0.0379
- },
- {
-  "file": "sao-paulo-26-27-away-jogador-4.jpg",
-  "score": 0.0376
- },
- {
-  "file": "sao-paulo-26-27-away-jogador-2.jpg",
+  "file": "retro-santos-2013-home-4.jpg",
   "score": 0.0375
  },
  {
-  "file": "borussia-dortmund-26-27-home-jogador-4.jpg",
-  "score": 0.0373
- },
- {
-  "file": "alemanha-2026-away-jogador-2.jpg",
+  "file": "retro-bayern-1998-99-away-2.jpg",
   "score": 0.0372
  },
  {
-  "file": "japao-2026-away-jogador-4.jpg",
-  "score": 0.0372
- },
- {
-  "file": "manchester-city-away-a.jpg",
+  "file": "retro-inter-1998-99-home-5.jpg",
   "score": 0.0371
  },
  {
-  "file": "mexico-2026-away-torcedor-4.jpg",
-  "score": 0.037
- },
- {
-  "file": "manchester-city-25-26-away-torcedor-1.jpg",
+  "file": "retro-real-madrid-2012-13-away-3.jpg",
   "score": 0.0369
  },
  {
-  "file": "inglaterra-2026-home-jogador-4.jpg",
-  "score": 0.0368
+  "file": "retro-real-madrid-2010-11-away-3.jpg",
+  "score": 0.0363
  },
  {
-  "file": "barcelona-26-27-away-jogador-2.jpg",
-  "score": 0.0362
- },
- {
-  "file": "internacional-26-27-home-torcedor-3.jpg",
+  "file": "retro-bayern-1997-98-away-4.jpg",
   "score": 0.0361
  },
  {
-  "file": "atletico-madrid-25-26-third-jogador-2.jpg",
+  "file": "retro-bayern-1998-00-away-4.jpg",
+  "score": 0.0361
+ },
+ {
+  "file": "retro-barcelona-2010-11-home-2.jpg",
   "score": 0.036
  },
  {
-  "file": "flamengo-26-27-away-jogador-1.jpg",
-  "score": 0.036
+  "file": "retro-corinthians-99-00-home-1.jpg",
+  "score": 0.0359
  },
  {
-  "file": "japao-2026-away-jogador-2.jpg",
-  "score": 0.0358
- },
- {
-  "file": "real-madrid-26-27-third-torcedor-1.jpg",
-  "score": 0.0358
- },
- {
-  "file": "palmeiras-26-27-away-jogador-1.jpg",
+  "file": "retro-manchester-city-07-08-away-4.jpg",
   "score": 0.0354
  },
  {
-  "file": "barcelona-26-27-home-torcedor-5.jpg",
-  "score": 0.0352
+  "file": "retro-palmeiras-1996-home-4.jpg",
+  "score": 0.0351
  },
  {
-  "file": "fluminense-26-27-away-jogador-5.jpg",
-  "score": 0.0352
+  "file": "retro-espanha-2006-away-5.jpg",
+  "score": 0.0348
  },
  {
-  "file": "arsenal-26-27-home-torcedor-1.jpg",
-  "score": 0.035
- },
- {
-  "file": "manchester-city-26-27-home-torcedor-1.jpg",
-  "score": 0.035
- },
- {
-  "file": "tottenham-25-26-third-torcedor-5.jpg",
-  "score": 0.0347
- },
- {
-  "file": "marseille-25-26-third-torcedor-5.jpg",
-  "score": 0.0344
- },
- {
-  "file": "barcelona-26-27-third-torcedor-5.jpg",
-  "score": 0.0343
- },
- {
-  "file": "portugal-2026-away-torcedor-2.jpg",
-  "score": 0.0343
- },
- {
-  "file": "manchester-city-26-27-home-jogador-2.jpg",
+  "file": "retro-espanha-1996-away-4.jpg",
   "score": 0.0342
  },
  {
-  "file": "holanda-2026-away-jogador-3.jpg",
-  "score": 0.0341
+  "file": "retro-alemanha-1998-home-5.jpg",
+  "score": 0.0339
  },
  {
-  "file": "manchester-united-26-27-home-jogador-5.jpg",
-  "score": 0.0336
+  "file": "retro-inter-1998-99-home-4.jpg",
+  "score": 0.0339
  },
  {
-  "file": "bayern-26-27-home-jogador-2.jpg",
-  "score": 0.0334
+  "file": "retro-flamengo-1998-99-away-5.jpg",
+  "score": 0.0335
  },
  {
-  "file": "mexico-2026-away-jogador-3.jpg",
-  "score": 0.0334
+  "file": "retro-brasil-1957-62-away-5.jpg",
+  "score": 0.0331
  },
  {
-  "file": "fluminense-26-27-home-torcedor-1.jpg",
-  "score": 0.0333
+  "file": "retro-manchester-united-1994-96-away-2.jpg",
+  "score": 0.033
  },
  {
-  "file": "corinthians-26-27-home-jogador-3.jpg",
-  "score": 0.0329
+  "file": "retro-chelsea-09-10-home-4.jpg",
+  "score": 0.0328
  },
  {
-  "file": "santos-26-27-away-jogador-4.jpg",
-  "score": 0.0329
+  "file": "retro-franca-1984-home-1.jpg",
+  "score": 0.0328
  },
  {
-  "file": "athletic-bilbao-26-27-home-torcedor-3.jpg",
+  "file": "retro-manchester-city-07-08-away-1.jpg",
   "score": 0.0327
  },
  {
-  "file": "brasil-2026-home-jogador-4.jpg",
-  "score": 0.0325
- },
- {
-  "file": "santos-26-27-away-jogador-2.jpg",
+  "file": "retro-bayern-1997-98-away-3.jpg",
   "score": 0.0316
  },
  {
-  "file": "atletico-madrid-26-27-away-torcedor-1.jpg",
-  "score": 0.0314
+  "file": "retro-borussia-dortmund-1997-home-1.jpg",
+  "score": 0.031
  },
  {
-  "file": "marseille-25-26-third-torcedor-1.jpg",
-  "score": 0.0311
+  "file": "retro-bayern-1997-98-away-1.jpg",
+  "score": 0.0309
  },
  {
-  "file": "espanha-2026-home-jogador-1.jpg",
-  "score": 0.0307
+  "file": "retro-italia-2006-home-5.jpg",
+  "score": 0.0308
  },
  {
-  "file": "espanha-2026-home-jogador-2.jpg",
-  "score": 0.0307
- },
- {
-  "file": "espanha-2026-home-jogador-3.jpg",
-  "score": 0.0307
- },
- {
-  "file": "portugal-2026-away-jogador-3.jpg",
-  "score": 0.0307
- },
- {
-  "file": "real-madrid-26-27-home-torcedor-1.jpg",
-  "score": 0.0307
- },
- {
-  "file": "brasil-2026-away-jogador-2.jpg",
+  "file": "retro-barcelona-2010-11-home-1.jpg",
   "score": 0.0306
  },
  {
-  "file": "sao-paulo-26-27-away-jogador-1.jpg",
-  "score": 0.0305
- },
- {
-  "file": "inter-26-27-home-torcedor-1.jpg",
+  "file": "retro-psg-92-93-home-2.jpg",
   "score": 0.0304
  },
  {
-  "file": "cruzeiro-26-27-home-torcedor-5.jpg",
+  "file": "retro-brasil-1971-home-4.jpg",
   "score": 0.0303
  },
  {
-  "file": "corinthians-26-27-home-jogador-1.jpg",
+  "file": "retro-corinthians-2010-away-1.jpg",
+  "score": 0.0303
+ },
+ {
+  "file": "retro-milan-02-03-away-3.jpg",
   "score": 0.0302
  },
  {
-  "file": "manchester-united-25-26-away-jogador-4.jpg",
+  "file": "retro-alemanha-1998-home-3.jpg",
+  "score": 0.0301
+ },
+ {
+  "file": "retro-real-madrid-2010-11-away-1.jpg",
   "score": 0.03
  },
  {
-  "file": "bahia-26-27-away-torcedor-3.jpg",
-  "score": 0.0299
+  "file": "retro-portugal-2010-home-4.jpg",
+  "score": 0.0297
  },
  {
-  "file": "real-madrid-26-27-home-jogador-4.jpg",
+  "file": "retro-vasco-1988-home-2.jpg",
+  "score": 0.0296
+ },
+ {
+  "file": "retro-real-madrid-2012-13-away-1.jpg",
+  "score": 0.0295
+ },
+ {
+  "file": "retro-inter-90-91-away-5.jpg",
+  "score": 0.0294
+ },
+ {
+  "file": "retro-milan-04-05-home-1.jpg",
+  "score": 0.0294
+ },
+ {
+  "file": "retro-real-madrid-2012-13-away-4.jpg",
   "score": 0.0293
  },
  {
-  "file": "mexico-2026-away-jogador-2.jpg",
+  "file": "retro-barcelona-2008-09-home-3.jpg",
+  "score": 0.0291
+ },
+ {
+  "file": "retro-chelsea-2014-15-home-4.jpg",
+  "score": 0.029
+ },
+ {
+  "file": "retro-franca-1994-away-3.jpg",
+  "score": 0.0288
+ },
+ {
+  "file": "retro-inglaterra-1990-away-4.jpg",
+  "score": 0.0287
+ },
+ {
+  "file": "retro-manchester-united-1994-96-away-5.jpg",
+  "score": 0.0286
+ },
+ {
+  "file": "retro-milan-02-03-home-4.jpg",
+  "score": 0.0285
+ },
+ {
+  "file": "retro-argentina-2002-away-5.jpg",
+  "score": 0.0282
+ },
+ {
+  "file": "retro-holanda-1998-away-5.jpg",
+  "score": 0.0278
+ },
+ {
+  "file": "retro-palmeiras-1997-98-home-5.jpg",
   "score": 0.0276
  },
  {
-  "file": "brasil-2026-away-jogador-1.jpg",
-  "score": 0.0273
+  "file": "retro-napoli-89-90-home-5.jpg",
+  "score": 0.0275
  },
  {
-  "file": "milan-26-27-home-jogador-1.jpg",
-  "score": 0.0273
- },
- {
-  "file": "argentina-2026-away-torcedor-1.jpg",
+  "file": "retro-argentina-1996-97-home-4.jpg",
   "score": 0.0271
  },
  {
-  "file": "inter-26-27-home-jogador-2.jpg",
+  "file": "retro-cruzeiro-93-94-away-3.jpg",
   "score": 0.0269
  },
  {
-  "file": "palmeiras-26-27-home-torcedor-5.jpg",
-  "score": 0.0266
+  "file": "retro-argentina-1996-97-home-5.jpg",
+  "score": 0.0265
  },
  {
-  "file": "arsenal-26-27-away-torcedor-2.jpg",
-  "score": 0.0264
+  "file": "retro-cruzeiro-93-94-away-4.jpg",
+  "score": 0.0263
  },
  {
-  "file": "corinthians-26-27-away-torcedor-5.jpg",
-  "score": 0.0257
+  "file": "retro-chelsea-1999-01-home-1.jpg",
+  "score": 0.0261
  },
  {
-  "file": "milan-26-27-third-torcedor-1.jpg",
-  "score": 0.0257
+  "file": "retro-holanda-1998-away-4.jpg",
+  "score": 0.026
  },
  {
-  "file": "barcelona-26-27-third-torcedor-1.jpg",
+  "file": "retro-psg-92-93-home-4.jpg",
+  "score": 0.026
+ },
+ {
+  "file": "retro-gremio-2000-home-1.jpg",
+  "score": 0.0259
+ },
+ {
+  "file": "retro-borussia-dortmund-1997-home-5.jpg",
   "score": 0.0255
  },
  {
-  "file": "sao-paulo-26-27-home-jogador-2.jpg",
+  "file": "retro-napoli-89-90-home-3.jpg",
   "score": 0.0255
  },
  {
-  "file": "gremio-26-27-home-torcedor-3.jpg",
+  "file": "retro-corinthians-99-00-home-4.jpg",
   "score": 0.0254
  },
  {
-  "file": "argentina-2026-away-torcedor-2.jpg",
-  "score": 0.0251
+  "file": "retro-napoli-89-90-home-1.jpg",
+  "score": 0.0254
  },
  {
-  "file": "gremio-26-27-away-jogador-2.jpg",
-  "score": 0.0248
+  "file": "retro-chelsea-1999-01-home-4.jpg",
+  "score": 0.0252
  },
  {
-  "file": "real-madrid-26-27-home-jogador-3.jpg",
-  "score": 0.0248
+  "file": "retro-milan-02-03-away-1.jpg",
+  "score": 0.025
  },
  {
-  "file": "bayern-26-27-away-torcedor-1.jpg",
-  "score": 0.0247
+  "file": "retro-arsenal-01-02-home-1.jpg",
+  "score": 0.0249
  },
  {
-  "file": "holanda-2026-away-torcedor-1.jpg",
+  "file": "retro-barcelona-1995-97-away-5.jpg",
+  "score": 0.0249
+ },
+ {
+  "file": "retro-portugal-2012-away-4.jpg",
   "score": 0.0246
  },
  {
-  "file": "barcelona-26-27-away-jogador-3.jpg",
+  "file": "retro-manchester-united-1986-88-home-1.jpg",
   "score": 0.0243
  },
  {
-  "file": "inter-25-26-away-jogador-4.jpg",
-  "score": 0.0242
+  "file": "retro-santos-12-13-away-5.jpg",
+  "score": 0.0243
  },
  {
-  "file": "corinthians-26-27-home-jogador-4.jpg",
-  "score": 0.024
+  "file": "retro-manchester-united-2010-11-away-4.jpg",
+  "score": 0.0241
  },
  {
-  "file": "bahia-26-27-away-torcedor-5.jpg",
-  "score": 0.0236
+  "file": "retro-napoli-90-91-home-5.jpg",
+  "score": 0.0238
  },
  {
-  "file": "corinthians-26-27-home-torcedor-5.jpg",
-  "score": 0.0233
+  "file": "retro-real-madrid-2012-13-home-1.jpg",
+  "score": 0.0237
  },
  {
-  "file": "real-madrid-home-a.jpg",
-  "score": 0.0233
+  "file": "retro-manchester-united-2010-11-away-1.jpg",
+  "score": 0.0232
  },
  {
-  "file": "flamengo-26-27-home-jogador-2.jpg",
+  "file": "retro-barcelona-2008-09-home-4.jpg",
   "score": 0.0229
  },
  {
-  "file": "real-madrid-26-27-third-torcedor-5.jpg",
-  "score": 0.0224
+  "file": "retro-napoli-13-14-home-1.jpg",
+  "score": 0.0229
  },
  {
-  "file": "sao-paulo-26-27-home-torcedor-5.jpg",
-  "score": 0.0224
+  "file": "retro-fluminense-2010-home-1.jpg",
+  "score": 0.0226
  },
  {
-  "file": "milan-26-27-away-jogador-3.jpg",
-  "score": 0.0221
- },
- {
-  "file": "vasco-26-27-home-torcedor-2.jpg",
-  "score": 0.0221
- },
- {
-  "file": "chelsea-26-27-third-jogador-1.jpg",
-  "score": 0.022
- },
- {
-  "file": "santos-26-27-home-jogador-1.jpg",
-  "score": 0.022
- },
- {
-  "file": "manchester-city-26-27-home-torcedor-3.jpg",
+  "file": "retro-inter-1998-99-away-4.jpg",
   "score": 0.0219
  },
  {
-  "file": "newcastle-26-27-home-torcedor-2.jpg",
+  "file": "retro-franca-1994-away-4.jpg",
   "score": 0.0218
  },
  {
-  "file": "corinthians-home-jogador-a.jpg",
-  "score": 0.0215
+  "file": "retro-palmeiras-1997-98-home-4.jpg",
+  "score": 0.0218
  },
  {
-  "file": "portugal-2026-away-torcedor-1.jpg",
+  "file": "retro-corinthians-99-00-home-5.jpg",
+  "score": 0.0216
+ },
+ {
+  "file": "retro-napoli-13-14-home-4.jpg",
+  "score": 0.0216
+ },
+ {
+  "file": "retro-palmeiras-1997-98-home-2.jpg",
+  "score": 0.0213
+ },
+ {
+  "file": "retro-barcelona-1995-97-away-4.jpg",
   "score": 0.0212
  },
  {
-  "file": "milan-26-27-away-jogador-4.jpg",
-  "score": 0.021
+  "file": "retro-portugal-2010-home-5.jpg",
+  "score": 0.0211
  },
  {
-  "file": "barcelona-retro-96-a.jpg",
-  "score": 0.0204
+  "file": "retro-italia-2006-home-4.jpg",
+  "score": 0.0208
  },
  {
-  "file": "inter-25-26-third-torcedor-4.jpg",
-  "score": 0.02
+  "file": "retro-inglaterra-1990-away-1.jpg",
+  "score": 0.0206
  },
  {
-  "file": "franca-2026-away-torcedor-5.jpg",
-  "score": 0.0196
+  "file": "retro-gremio-2000-home-2.jpg",
+  "score": 0.0205
  },
  {
-  "file": "bayern-home-a.jpg",
-  "score": 0.0191
+  "file": "retro-argentina-1996-97-home-2.jpg",
+  "score": 0.0197
  },
  {
-  "file": "inglaterra-2026-away-jogador-2.jpg",
-  "score": 0.0186
+  "file": "retro-borussia-dortmund-96-97-home-1.jpg",
+  "score": 0.0194
  },
  {
-  "file": "palmeiras-26-27-home-jogador-1.jpg",
-  "score": 0.0184
+  "file": "retro-manchester-city-86-87-home-2.jpg",
+  "score": 0.0188
  },
  {
-  "file": "corinthians-away-feminina-a.jpg",
+  "file": "retro-brasil-1957-62-away-1.jpg",
+  "score": 0.0179
+ },
+ {
+  "file": "retro-inglaterra-1990-away-5.jpg",
+  "score": 0.0179
+ },
+ {
+  "file": "retro-manchester-city-86-87-home-1.jpg",
+  "score": 0.0177
+ },
+ {
+  "file": "retro-argentina-2006-home-1.jpg",
   "score": 0.0172
  },
  {
-  "file": "palmeiras-26-27-home-torcedor-4.jpg",
-  "score": 0.0172
+  "file": "retro-brasil-1971-home-3.jpg",
+  "score": 0.0171
  },
  {
-  "file": "flamengo-26-27-away-torcedor-5.jpg",
-  "score": 0.0169
+  "file": "retro-santos-12-13-away-1.jpg",
+  "score": 0.0171
  },
  {
-  "file": "japao-2026-away-jogador-1.jpg",
-  "score": 0.0169
+  "file": "retro-fluminense-2010-home-3.jpg",
+  "score": 0.017
  },
  {
-  "file": "vasco-26-27-away-torcedor-1.jpg",
+  "file": "retro-italia-2006-home-1.jpg",
+  "score": 0.017
+ },
+ {
+  "file": "retro-chelsea-2014-15-home-5.jpg",
   "score": 0.0166
  },
  {
-  "file": "napoli-25-26-away-torcedor-3.jpg",
-  "score": 0.0164
+  "file": "retro-flamengo-1998-99-away-1.jpg",
+  "score": 0.0166
  },
  {
-  "file": "holanda-2026-away-torcedor-5.jpg",
-  "score": 0.0163
+  "file": "retro-barcelona-1995-97-away-3.jpg",
+  "score": 0.0159
  },
  {
-  "file": "corinthians-26-27-away-torcedor-2.jpg",
-  "score": 0.0162
+  "file": "retro-holanda-97-98-home-5.jpg",
+  "score": 0.0154
  },
  {
-  "file": "corinthians-26-27-away-torcedor-1.jpg",
-  "score": 0.0156
+  "file": "retro-gremio-97-98-home-5.jpg",
+  "score": 0.0153
  },
  {
-  "file": "argentina-2026-home-torcedor-2.jpg",
-  "score": 0.0151
+  "file": "retro-flamengo-2001-02-away-1.jpg",
+  "score": 0.0152
  },
  {
-  "file": "fluminense-26-27-away-torcedor-5.jpg",
+  "file": "retro-chelsea-09-10-home-5.jpg",
+  "score": 0.015
+ },
+ {
+  "file": "retro-botafogo-1995-away-1.jpg",
+  "score": 0.0149
+ },
+ {
+  "file": "retro-inglaterra-1990-away-3.jpg",
+  "score": 0.0149
+ },
+ {
+  "file": "retro-palmeiras-1996-away-4.jpg",
   "score": 0.0148
  },
  {
-  "file": "fluminense-26-27-home-torcedor-2.jpg",
-  "score": 0.0142
+  "file": "retro-corinthians-05-06-home-1.jpg",
+  "score": 0.0146
  },
  {
-  "file": "mexico-2026-home-jogador-5.jpg",
-  "score": 0.0136
+  "file": "retro-fluminense-2009-10-away-1.jpg",
+  "score": 0.0144
  },
  {
-  "file": "uruguai-2026-away-torcedor-1.jpg",
-  "score": 0.0135
- },
- {
-  "file": "sao-paulo-26-27-home-torcedor-2.jpg",
+  "file": "retro-real-madrid-2010-11-away-5.jpg",
   "score": 0.0131
  },
  {
-  "file": "flamengo-treino-a.jpg",
+  "file": "retro-barcelona-2010-11-home-4.jpg",
   "score": 0.0129
  },
  {
-  "file": "corinthians-away-a.jpg",
-  "score": 0.0128
+  "file": "retro-italia-2012-home-3.jpg",
+  "score": 0.0125
  },
  {
-  "file": "palmeiras-26-27-away-torcedor-4.jpg",
-  "score": 0.0123
+  "file": "retro-barcelona-2008-09-home-1.jpg",
+  "score": 0.012
  },
  {
-  "file": "psg-25-26-third-jogador-1.jpg",
-  "score": 0.0122
+  "file": "retro-borussia-dortmund-1997-home-4.jpg",
+  "score": 0.012
  },
  {
-  "file": "cruzeiro-26-27-away-torcedor-3.jpg",
-  "score": 0.0121
+  "file": "retro-alemanha-1994-home-1.jpg",
+  "score": 0.0113
  },
  {
-  "file": "mexico-2026-third-jogador-1.jpg",
-  "score": 0.0119
+  "file": "retro-vasco-1988-away-2.jpg",
+  "score": 0.0113
  },
  {
-  "file": "gremio-26-27-away-jogador-4.jpg",
+  "file": "retro-manchester-united-1986-88-home-4.jpg",
   "score": 0.011
  },
  {
-  "file": "corinthians-26-27-home-jogador-2.jpg",
-  "score": 0.0102
+  "file": "retro-arsenal-04-05-home-1.jpg",
+  "score": 0.0109
  },
  {
-  "file": "bahia-26-27-away-torcedor-1.jpg",
-  "score": 0.0098
+  "file": "retro-italia-1995-home-5.jpg",
+  "score": 0.0107
  },
  {
-  "file": "gremio-26-27-home-torcedor-2.jpg",
+  "file": "retro-chelsea-09-10-home-1.jpg",
+  "score": 0.01
+ },
+ {
+  "file": "retro-holanda-2014-away-5.jpg",
+  "score": 0.01
+ },
+ {
+  "file": "retro-barcelona-2010-11-home-3.jpg",
+  "score": 0.0099
+ },
+ {
+  "file": "retro-argentina-2006-home-4.jpg",
   "score": 0.0096
  },
  {
-  "file": "athletic-bilbao-26-27-away-torcedor-1.jpg",
+  "file": "retro-portugal-2012-home-4.jpg",
   "score": 0.0094
  },
  {
-  "file": "internacional-26-27-away-torcedor-3.jpg",
-  "score": 0.0093
+  "file": "retro-santos-2013-home-5.jpg",
+  "score": 0.0091
  },
  {
-  "file": "argentina-2026-home-torcedor-1.jpg",
-  "score": 0.0092
+  "file": "retro-flamengo-2001-02-away-3.jpg",
+  "score": 0.0088
  },
  {
-  "file": "vasco-26-27-away-torcedor-2.jpg",
+  "file": "retro-psg-92-93-home-1.jpg",
   "score": 0.0087
  },
  {
-  "file": "fluminense-26-27-away-torcedor-1.jpg",
-  "score": 0.0083
- },
- {
-  "file": "napoli-25-26-home-torcedor-5.jpg",
-  "score": 0.0083
- },
- {
-  "file": "bayern-26-27-home-torcedor-1.jpg",
-  "score": 0.0082
- },
- {
-  "file": "uruguai-2026-away-torcedor-2.jpg",
-  "score": 0.0081
- },
- {
-  "file": "cruzeiro-26-27-away-torcedor-2.jpg",
+  "file": "retro-barcelona-1995-97-away-1.jpg",
   "score": 0.008
  },
  {
-  "file": "fluminense-26-27-home-torcedor-3.jpg",
+  "file": "retro-flamengo-2001-02-away-5.jpg",
   "score": 0.0079
  },
  {
-  "file": "vasco-26-27-away-jogador-3.jpg",
+  "file": "retro-corinthians-05-06-home-2.jpg",
   "score": 0.0077
  },
  {
-  "file": "mexico-2026-away-jogador-1.jpg",
-  "score": 0.0076
- },
- {
-  "file": "vasco-26-27-home-torcedor-1.jpg",
-  "score": 0.0075
- },
- {
-  "file": "brasil-retro-2004-a.jpg",
-  "score": 0.0073
- },
- {
-  "file": "chelsea-26-27-third-jogador-2.jpg",
+  "file": "retro-manchester-city-08-09-away-4.jpg",
   "score": 0.0072
  },
  {
-  "file": "santos-retro-azul-a.jpg",
+  "file": "retro-cruzeiro-93-94-away-5.jpg",
   "score": 0.0071
  },
  {
-  "file": "flamengo-26-27-away-torcedor-3.jpg",
-  "score": 0.007
+  "file": "retro-arsenal-01-02-away-4.jpg",
+  "score": 0.0064
  },
  {
-  "file": "santos-26-27-home-torcedor-3.jpg",
-  "score": 0.0069
+  "file": "retro-alemanha-1998-home-1.jpg",
+  "score": 0.0055
  },
  {
-  "file": "bahia-26-27-home-torcedor-3.jpg",
-  "score": 0.0058
+  "file": "retro-argentina-1996-97-home-1.jpg",
+  "score": 0.0046
  },
  {
-  "file": "gremio-26-27-away-torcedor-3.jpg",
-  "score": 0.0056
+  "file": "retro-flamengo-15-16-away-1.jpg",
+  "score": 0.0046
  },
  {
-  "file": "brasil-2026-away-torcedor-2.jpg",
-  "score": 0.0045
- },
- {
-  "file": "vasco-26-27-home-jogador-2.jpg",
-  "score": 0.0044
- },
- {
-  "file": "internacional-26-27-away-torcedor-2.jpg",
-  "score": 0.0042
- },
- {
-  "file": "inglaterra-2026-away-jogador-1.jpg",
-  "score": 0.004
- },
- {
-  "file": "inglaterra-2026-home-torcedor-2.jpg",
+  "file": "retro-napoli-13-14-home-5.jpg",
   "score": 0.0039
  },
  {
-  "file": "uruguai-2026-home-torcedor-4.jpg",
-  "score": 0.0039
+  "file": "retro-argentina-2002-away-1.jpg",
+  "score": 0.0038
  },
  {
-  "file": "borussia-dortmund-26-27-home-torcedor-3.jpg",
-  "score": 0.0037
+  "file": "retro-milan-02-03-away-4.jpg",
+  "score": 0.0032
  },
  {
-  "file": "tottenham-25-26-third-torcedor-4.jpg",
-  "score": 0.0033
+  "file": "retro-italia-2012-home-1.jpg",
+  "score": 0.003
  },
  {
-  "file": "argentina-2026-home-torcedor-5.jpg",
-  "score": 0.0027
+  "file": "retro-franca-2006-home-1.jpg",
+  "score": 0.0029
  },
  {
-  "file": "inglaterra-2026-away-torcedor-2.jpg",
+  "file": "retro-portugal-2012-home-1.jpg",
+  "score": 0.0026
+ },
+ {
+  "file": "retro-bayern-1998-99-away-5.jpg",
   "score": 0.0025
  },
  {
-  "file": "atletico-madrid-26-27-away-torcedor-2.jpg",
-  "score": 0.002
+  "file": "retro-napoli-90-91-home-4.jpg",
+  "score": 0.0015
  },
  {
-  "file": "internacional-26-27-away-torcedor-1.jpg",
-  "score": 0.0018
+  "file": "retro-psg-91-92-home-1.jpg",
+  "score": 0.0007
  },
  {
-  "file": "arsenal-26-27-third-torcedor-2.jpg",
-  "score": 0.0016
+  "file": "retro-palmeiras-1996-home-5.jpg",
+  "score": 0.0005
  },
  {
-  "file": "bayern-26-27-away-torcedor-2.jpg",
-  "score": 0.0013
+  "file": "retro-real-madrid-2012-13-home-4.jpg",
+  "score": 0.0004
  },
  {
-  "file": "fluminense-home-a.jpg",
-  "score": 0.0013
+  "file": "retro-italia-2006-home-3.jpg",
+  "score": 0.0003
  },
  {
-  "file": "palmeiras-26-27-away-torcedor-2.jpg",
-  "score": 0.0013
+  "file": "retro-bayern-1998-99-away-4.jpg",
+  "score": -0.0009
  },
  {
-  "file": "barcelona-26-27-home-torcedor-1.jpg",
-  "score": 0.0012
+  "file": "retro-portugal-2012-away-5.jpg",
+  "score": -0.0009
  },
  {
-  "file": "real-madrid-26-27-third-torcedor-2.jpg",
-  "score": 0.0012
+  "file": "retro-franca-1994-away-1.jpg",
+  "score": -0.0012
  },
  {
-  "file": "vasco-26-27-away-torcedor-5.jpg",
-  "score": 0.0001
- },
- {
-  "file": "gremio-26-27-away-torcedor-2.jpg",
-  "score": 0
- },
- {
-  "file": "inter-25-26-third-torcedor-5.jpg",
-  "score": -0.0008
- },
- {
-  "file": "gremio-26-27-home-torcedor-1.jpg",
-  "score": -0.0015
- },
- {
-  "file": "holanda-2026-home-torcedor-1.jpg",
-  "score": -0.0015
- },
- {
-  "file": "marseille-26-27-home-jogador-3.jpg",
+  "file": "retro-vasco-1988-away-5.jpg",
   "score": -0.0018
  },
  {
-  "file": "portugal-2026-home-jogador-2.jpg",
-  "score": -0.0019
- },
- {
-  "file": "japao-2026-away-torcedor-3.jpg",
-  "score": -0.002
- },
- {
-  "file": "flamengo-26-27-home-torcedor-2.jpg",
+  "file": "retro-napoli-90-91-home-3.jpg",
   "score": -0.0022
  },
  {
-  "file": "holanda-2026-away-torcedor-2.jpg",
-  "score": -0.0022
+  "file": "retro-cruzeiro-93-94-away-2.jpg",
+  "score": -0.0024
  },
  {
-  "file": "arsenal-26-27-away-torcedor-5.jpg",
-  "score": -0.0025
+  "file": "retro-gremio-2000-home-3.jpg",
+  "score": -0.0026
  },
  {
-  "file": "santos-26-27-home-jogador-3.jpg",
-  "score": -0.0036
+  "file": "retro-napoli-90-91-home-1.jpg",
+  "score": -0.0038
  },
  {
-  "file": "tottenham-26-27-away-jogador-2.jpg",
-  "score": -0.0045
+  "file": "retro-espanha-11-12-away-1.jpg",
+  "score": -0.0041
  },
  {
-  "file": "italia-2026-home-torcedor-2.jpg",
+  "file": "retro-vasco-1997-home-1.jpg",
   "score": -0.0052
  },
  {
-  "file": "palmeiras-26-27-home-torcedor-1.jpg",
-  "score": -0.006
+  "file": "retro-gremio-97-98-home-2.jpg",
+  "score": -0.0057
  },
  {
-  "file": "santos-26-27-away-torcedor-1.jpg",
-  "score": -0.006
+  "file": "retro-inter-1998-99-away-5.jpg",
+  "score": -0.0064
  },
  {
-  "file": "atletico-madrid-26-27-away-torcedor-5.jpg",
-  "score": -0.0062
+  "file": "retro-manchester-city-86-87-home-3.jpg",
+  "score": -0.0074
  },
  {
-  "file": "botafogo-26-27-home-torcedor-2.jpg",
-  "score": -0.0062
- },
- {
-  "file": "napoli-25-26-home-torcedor-1.jpg",
-  "score": -0.0062
- },
- {
-  "file": "napoli-25-26-away-torcedor-1.jpg",
-  "score": -0.0063
- },
- {
-  "file": "brasil-2026-away-torcedor-1.jpg",
-  "score": -0.0066
- },
- {
-  "file": "manchester-city-25-26-away-jogador-5.jpg",
-  "score": -0.0071
- },
- {
-  "file": "holanda-2026-home-torcedor-2.jpg",
+  "file": "retro-gremio-2000-home-4.jpg",
   "score": -0.0076
  },
  {
-  "file": "borussia-dortmund-26-27-home-torcedor-1.jpg",
-  "score": -0.008
+  "file": "retro-arsenal-01-02-away-5.jpg",
+  "score": -0.0078
  },
  {
-  "file": "corinthians-26-27-home-torcedor-1.jpg",
-  "score": -0.008
+  "file": "retro-inglaterra-13-14-away-1.jpg",
+  "score": -0.009
  },
  {
-  "file": "italia-2026-away-jogador-3.jpg",
-  "score": -0.0085
+  "file": "retro-real-madrid-2012-13-home-5.jpg",
+  "score": -0.009
  },
  {
-  "file": "barcelona-26-27-third-torcedor-2.jpg",
-  "score": -0.0088
- },
- {
-  "file": "mexico-2026-away-jogador-4.jpg",
-  "score": -0.0089
- },
- {
-  "file": "manchester-city-26-27-home-jogador-3.jpg",
+  "file": "retro-inglaterra-94-95-home-1.jpg",
   "score": -0.0091
  },
  {
-  "file": "milan-26-27-home-jogador-2.jpg",
-  "score": -0.0091
- },
- {
-  "file": "corinthians-home-torcedor-a.jpg",
+  "file": "retro-borussia-dortmund-96-97-home-2.jpg",
   "score": -0.0093
  },
  {
-  "file": "espanha-2026-home-torcedor-5.jpg",
-  "score": -0.0093
+  "file": "retro-manchester-united-2010-11-away-5.jpg",
+  "score": -0.0095
  },
  {
-  "file": "vasco-26-27-away-jogador-4.jpg",
-  "score": -0.0093
+  "file": "retro-bayern-1998-99-away-3.jpg",
+  "score": -0.0098
  },
  {
-  "file": "bahia-26-27-home-torcedor-1.jpg",
-  "score": -0.0099
+  "file": "retro-palmeiras-1996-away-1.jpg",
+  "score": -0.0102
  },
  {
-  "file": "manchester-united-26-27-home-torcedor-1.jpg",
-  "score": -0.0104
+  "file": "retro-italia-1995-home-1.jpg",
+  "score": -0.0107
  },
  {
-  "file": "manchester-city-25-26-away-jogador-4.jpg",
+  "file": "retro-palmeiras-1996-home-2.jpg",
   "score": -0.0108
  },
  {
-  "file": "cruzeiro-26-27-home-torcedor-2.jpg",
-  "score": -0.0109
+  "file": "retro-manchester-city-86-87-home-4.jpg",
+  "score": -0.0118
  },
  {
-  "file": "japao-2026-away-torcedor-2.jpg",
-  "score": -0.0112
+  "file": "retro-napoli-89-90-home-4.jpg",
+  "score": -0.0126
  },
  {
-  "file": "napoli-25-26-away-torcedor-4.jpg",
-  "score": -0.0115
+  "file": "retro-brasil-1958-home-1.jpg",
+  "score": -0.013
  },
  {
-  "file": "barcelona-26-27-home-torcedor-2.jpg",
-  "score": -0.0117
+  "file": "retro-brasil-1971-home-5.jpg",
+  "score": -0.0134
  },
  {
-  "file": "manchester-united-26-27-home-jogador-2.jpg",
-  "score": -0.0119
+  "file": "retro-alemanha-2014-away-1.jpg",
+  "score": -0.0137
  },
  {
-  "file": "milan-26-27-third-torcedor-2.jpg",
-  "score": -0.0121
+  "file": "retro-vasco-1988-away-1.jpg",
+  "score": -0.0144
  },
  {
-  "file": "italia-2026-away-torcedor-5.jpg",
-  "score": -0.0124
- },
- {
-  "file": "espanha-2026-away-torcedor-4.jpg",
-  "score": -0.0125
- },
- {
-  "file": "manchester-city-26-27-home-torcedor-2.jpg",
-  "score": -0.0127
- },
- {
-  "file": "borussia-dortmund-26-27-home-jogador-3.jpg",
-  "score": -0.0129
- },
- {
-  "file": "sao-paulo-26-27-home-torcedor-4.jpg",
-  "score": -0.0131
- },
- {
-  "file": "cruzeiro-26-27-away-torcedor-1.jpg",
-  "score": -0.0135
- },
- {
-  "file": "corinthians-home-feminina-a.jpg",
-  "score": -0.0142
- },
- {
-  "file": "uruguai-2026-home-torcedor-2.jpg",
-  "score": -0.0142
- },
- {
-  "file": "espanha-2026-home-torcedor-1.jpg",
-  "score": -0.0143
- },
- {
-  "file": "espanha-2026-home-torcedor-2.jpg",
-  "score": -0.0143
- },
- {
-  "file": "espanha-2026-home-torcedor-3.jpg",
-  "score": -0.0143
- },
- {
-  "file": "espanha-2026-home-torcedor-4.jpg",
-  "score": -0.0143
- },
- {
-  "file": "inglaterra-2026-home-torcedor-5.jpg",
-  "score": -0.0143
- },
- {
-  "file": "mexico-2026-third-jogador-2.jpg",
-  "score": -0.0143
- },
- {
-  "file": "bahia-26-27-home-torcedor-5.jpg",
-  "score": -0.0145
- },
- {
-  "file": "flamengo-26-27-away-torcedor-1.jpg",
-  "score": -0.0148
- },
- {
-  "file": "inter-26-27-home-torcedor-2.jpg",
-  "score": -0.0152
- },
- {
-  "file": "real-madrid-26-27-home-torcedor-2.jpg",
-  "score": -0.0153
- },
- {
-  "file": "italia-2026-away-torcedor-1.jpg",
+  "file": "retro-brasil-1971-home-1.jpg",
   "score": -0.0156
  },
  {
-  "file": "italia-2026-home-torcedor-1.jpg",
+  "file": "retro-holanda-97-98-home-1.jpg",
   "score": -0.0163
  },
  {
-  "file": "uruguai-2026-home-torcedor-1.jpg",
-  "score": -0.0165
+  "file": "retro-palmeiras-1996-home-1.jpg",
+  "score": -0.017
  },
  {
-  "file": "alemanha-2026-away-torcedor-1.jpg",
-  "score": -0.0166
+  "file": "retro-palmeiras-1996-home-3.jpg",
+  "score": -0.0173
  },
  {
-  "file": "manchester-united-26-27-home-torcedor-2.jpg",
-  "score": -0.0166
- },
- {
-  "file": "brasil-2026-home-torcedor-2.jpg",
-  "score": -0.0177
- },
- {
-  "file": "milan-26-27-away-torcedor-2.jpg",
-  "score": -0.0179
- },
- {
-  "file": "franca-2026-away-torcedor-1.jpg",
-  "score": -0.018
- },
- {
-  "file": "fluminense-26-27-away-torcedor-3.jpg",
+  "file": "retro-espanha-11-12-away-2.jpg",
   "score": -0.0182
  },
  {
-  "file": "inglaterra-2026-away-torcedor-1.jpg",
-  "score": -0.0192
+  "file": "retro-vasco-1997-home-2.jpg",
+  "score": -0.0196
  },
  {
-  "file": "palmeiras-26-27-home-torcedor-2.jpg",
-  "score": -0.0192
+  "file": "retro-holanda-2014-away-1.jpg",
+  "score": -0.0212
  },
  {
-  "file": "bahia-26-27-away-torcedor-2.jpg",
-  "score": -0.0193
- },
- {
-  "file": "bayern-26-27-home-torcedor-2.jpg",
-  "score": -0.0193
- },
- {
-  "file": "mexico-2026-third-torcedor-2.jpg",
-  "score": -0.0198
- },
- {
-  "file": "cruzeiro-26-27-home-torcedor-1.jpg",
-  "score": -0.0199
- },
- {
-  "file": "manchester-united-26-27-third-jogador-3.jpg",
-  "score": -0.0202
- },
- {
-  "file": "chelsea-26-27-home-torcedor-2.jpg",
-  "score": -0.0204
- },
- {
-  "file": "arsenal-26-27-home-torcedor-2.jpg",
-  "score": -0.0209
- },
- {
-  "file": "chelsea-26-27-home-torcedor-1.jpg",
-  "score": -0.0211
- },
- {
-  "file": "santos-26-27-away-torcedor-2.jpg",
-  "score": -0.0211
- },
- {
-  "file": "gremio-26-27-away-torcedor-1.jpg",
+  "file": "retro-palmeiras-1996-away-3.jpg",
   "score": -0.0215
  },
  {
-  "file": "brasil-2026-home-torcedor-4.jpg",
-  "score": -0.0218
- },
- {
-  "file": "espanha-2026-away-torcedor-3.jpg",
-  "score": -0.0218
- },
- {
-  "file": "bahia-26-27-home-torcedor-2.jpg",
-  "score": -0.0223
- },
- {
-  "file": "flamengo-26-27-away-torcedor-2.jpg",
-  "score": -0.0228
- },
- {
-  "file": "psg-26-27-home-torcedor-2.jpg",
+  "file": "retro-holanda-1998-away-1.jpg",
   "score": -0.0235
  },
  {
-  "file": "espanha-2026-away-torcedor-1.jpg",
-  "score": -0.0236
+  "file": "retro-palmeiras-1997-98-home-1.jpg",
+  "score": -0.0239
  },
  {
-  "file": "espanha-2026-away-torcedor-2.jpg",
-  "score": -0.0236
+  "file": "retro-brasil-1958-home-5.jpg",
+  "score": -0.0251
  },
  {
-  "file": "japao-2026-away-torcedor-1.jpg",
-  "score": -0.0236
+  "file": "retro-vasco-1988-home-3.jpg",
+  "score": -0.0277
  },
  {
-  "file": "athletic-bilbao-26-27-away-torcedor-2.jpg",
-  "score": -0.0243
+  "file": "retro-espanha-2006-away-1.jpg",
+  "score": -0.028
  },
  {
-  "file": "brasil-home-a.jpg",
-  "score": -0.0249
+  "file": "retro-fluminense-15-16-third-1.jpg",
+  "score": -0.0283
  },
  {
-  "file": "uruguai-2026-home-torcedor-5.jpg",
-  "score": -0.025
- },
- {
-  "file": "japao-2026-home-torcedor-2.jpg",
-  "score": -0.0252
- },
- {
-  "file": "brasil-2026-home-torcedor-1.jpg",
-  "score": -0.0253
- },
- {
-  "file": "alemanha-2026-home-torcedor-2.jpg",
-  "score": -0.0256
- },
- {
-  "file": "fluminense-26-27-away-torcedor-2.jpg",
-  "score": -0.0257
- },
- {
-  "file": "mexico-2026-third-torcedor-1.jpg",
-  "score": -0.0265
- },
- {
-  "file": "corinthians-26-27-home-torcedor-2.jpg",
-  "score": -0.0272
- },
- {
-  "file": "flamengo-26-27-home-torcedor-1.jpg",
-  "score": -0.0291
- },
- {
-  "file": "inglaterra-2026-home-torcedor-1.jpg",
+  "file": "retro-psg-94-95-home-1.jpg",
   "score": -0.0299
  },
  {
-  "file": "inter-25-26-away-jogador-5.jpg",
-  "score": -0.03
+  "file": "retro-portugal-2010-home-1.jpg",
+  "score": -0.0336
  },
  {
-  "file": "sao-paulo-26-27-home-jogador-4.jpg",
-  "score": -0.0304
+  "file": "retro-santos-12-13-away-2.jpg",
+  "score": -0.0337
  },
  {
-  "file": "santos-26-27-home-torcedor-1.jpg",
-  "score": -0.0308
+  "file": "retro-vasco-1988-home-1.jpg",
+  "score": -0.0384
  },
  {
-  "file": "espanha-2026-away-torcedor-5.jpg",
-  "score": -0.0314
+  "file": "retro-vasco-1988-home-5.jpg",
+  "score": -0.0471
  },
  {
-  "file": "internacional-26-27-home-torcedor-2.jpg",
-  "score": -0.0317
+  "file": "retro-palmeiras-1996-away-2.jpg",
+  "score": -0.0586
  },
  {
-  "file": "mexico-2026-away-torcedor-1.jpg",
-  "score": -0.0322
+  "file": "retro-palmeiras-1997-98-home-3.jpg",
+  "score": -0.0598
  },
  {
-  "file": "alemanha-2026-home-torcedor-1.jpg",
-  "score": -0.0325
+  "file": "retro-milan-02-03-away-2.jpg",
+  "score": -0.0623
  },
  {
-  "file": "milan-26-27-away-torcedor-3.jpg",
-  "score": -0.0329
- },
- {
-  "file": "santos-26-27-home-torcedor-2.jpg",
-  "score": -0.0329
- },
- {
-  "file": "franca-2026-away-torcedor-2.jpg",
-  "score": -0.033
- },
- {
-  "file": "borussia-dortmund-26-27-home-torcedor-2.jpg",
-  "score": -0.0345
- },
- {
-  "file": "espanha-2026-away-jogador-5.jpg",
-  "score": -0.0355
- },
- {
-  "file": "napoli-25-26-away-jogador-4.jpg",
-  "score": -0.0355
- },
- {
-  "file": "sao-paulo-home-a.jpg",
-  "score": -0.0371
- },
- {
-  "file": "internacional-26-27-home-torcedor-1.jpg",
-  "score": -0.0427
- },
- {
-  "file": "athletic-bilbao-26-27-home-torcedor-2.jpg",
-  "score": -0.0429
- },
- {
-  "file": "portugal-away-a.jpg",
-  "score": -0.045
- },
- {
-  "file": "manchester-united-25-26-away-jogador-5.jpg",
-  "score": -0.0452
- },
- {
-  "file": "japao-2026-away-jogador-3.jpg",
-  "score": -0.0467
- },
- {
-  "file": "kit-infantil-brasil-a.jpg",
-  "score": -0.0516
- },
- {
-  "file": "napoli-25-26-home-torcedor-4.jpg",
-  "score": -0.0547
- },
- {
-  "file": "inter-miami-a.jpg",
-  "score": -0.0675
- },
- {
-  "file": "brasil-home-feminina-a.jpg",
-  "score": -0.0683
- },
- {
-  "file": "sao-paulo-away-a.jpg",
-  "score": -0.0687
- },
- {
-  "file": "japao-home-a.jpg",
-  "score": -0.0692
- },
- {
-  "file": "palmeiras-home-a.jpg",
-  "score": -0.0722
- },
- {
-  "file": "portugal-home-a.jpg",
-  "score": -0.0724
- },
- {
-  "file": "napoli-25-26-away-torcedor-5.jpg",
-  "score": -0.0768
- },
- {
-  "file": "santos-home-a.jpg",
-  "score": -0.0812
- },
- {
-  "file": "napoli-25-26-away-jogador-5.jpg",
-  "score": -0.0898
+  "file": "retro-vasco-1988-away-3.jpg",
+  "score": -0.0625
  }
 ]

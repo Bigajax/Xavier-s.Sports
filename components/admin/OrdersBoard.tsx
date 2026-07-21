@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, MessageCircle, Plus, ShoppingBag, Trash2, X } from "lucide-react";
+import { CheckCircle2, Plus, ShoppingBag, Trash2, X } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import {
   ORDER_STATUSES,
   PAYMENT_STATUSES,
@@ -260,7 +261,7 @@ export default function OrdersBoard({
                       aria-label="Abrir conversa no WhatsApp"
                       className="rounded-lg bg-whats/10 p-2 text-whats"
                     >
-                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
                     </a>
                   )}
                   <button

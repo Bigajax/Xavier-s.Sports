@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Archive, MessageCircle, Plus, RefreshCcw, X } from "lucide-react";
+import { Archive, Plus, RefreshCcw, X } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import {
   RETURN_STATUSES,
   type ReturnRow,
@@ -153,7 +154,7 @@ export default function ReturnsBoard({ rows }: { rows: ReturnRow[] }) {
                       aria-label="Abrir WhatsApp"
                       className="rounded-lg bg-whats/10 p-2 text-whats"
                     >
-                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
                     </a>
                   )}
                   <button

@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+﻿import WhatsAppIcon from "@/components/WhatsAppIcon";
 import HeroVideos from "@/components/HeroVideos";
 import { waGeneric } from "@/lib/whatsapp";
 
@@ -40,7 +40,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="tap flex items-center gap-2 rounded-lg border border-white/25 px-6 py-3.5 text-sm font-bold transition-colors hover:border-whats hover:text-whats"
             >
-              <MessageCircle className="h-5 w-5 text-whats" aria-hidden="true" />
+              <WhatsAppIcon className="h-5 w-5 text-whats" aria-hidden="true" />
               Pedir pelo WhatsApp
             </a>
           </div>

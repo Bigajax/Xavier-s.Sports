@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Seed dos produtos vindos do catálogo do fornecedor (Yupoo KANG, 21/07/2026).
  *
  * ⚠️ NÃO re-rodar após 21/07/2026: as fotos foram depuradas (marca d'água
@@ -230,7 +230,7 @@ async function main() {
           video: null,
           colors,
           personalization_available: true,
-          personalization_price: 30,
+          personalization_price: 40,
           sku: `XS-YP-${String(n).padStart(3, "0")}`,
           material: "Consulte composição com a equipe",
           care_instructions: CARE,

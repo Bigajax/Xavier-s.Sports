@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
-import { Clock, MessageCircle, PackageCheck, ShoppingBag } from "lucide-react";
+import { Clock, PackageCheck, ShoppingBag } from "lucide-react";
 import {
   purchasableVariants,
   variantAvailability,
@@ -130,6 +130,18 @@ export default function ProductActions({ product }: { product: Product }) {
     needsSize && !size
       ? "Escolha o tamanho para consultar"
       : "Confirme a personalização";
+
+  // Rótulos curtos para a barra fixa do mobile (uma linha sempre).
+  const ctaLabelShort =
+    selectedAvail?.kind === "pronta-entrega"
+      ? "Fechar no WhatsApp"
+      : selectedAvail?.kind === "encomenda"
+        ? "Encomendar"
+        : soldOut
+          ? "Consultar reposição"
+          : "Consultar";
+  const blockedHintShort =
+    needsSize && !size ? "Escolher tamanho" : "Confirmar dados";
 
   return (
     <div>
@@ -377,39 +389,40 @@ export default function ProductActions({ product }: { product: Product }) {
       </p>
 
       {/* CTA fixo mobile */}
-      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2 border-t border-ink/10 bg-white p-3 md:hidden">
-        <div className="min-w-0 shrink-0 pr-1">
-          <p className="text-[11px] leading-tight text-steel">
-            {size ? `Tam. ${size}` : "Escolha o tamanho"}
-          </p>
-          <p className="tabular-nums text-sm font-bold leading-tight text-ink">
-            {brl(product.price)}
-          </p>
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-ink/10 bg-white px-3 pt-2.5 md:hidden pb-[max(0.625rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center gap-2">
+          <div className="min-w-0 shrink-0 pr-1">
+            <p className="whitespace-nowrap text-[11px] leading-tight text-steel">
+              {size ? `Tamanho ${size}` : "Escolha o tamanho"}
+            </p>
+            <p className="tabular-nums text-base font-extrabold leading-tight text-ink">
+              {brl(product.price)}
+            </p>
+          </div>
+          <button
+            onClick={addToBag}
+            aria-label={`Adicionar ${product.name} ao meu pedido`}
+            className="tap flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-ink/15 bg-white text-ink active:border-roxo active:text-roxo"
+          >
+            <ShoppingBag className="h-5 w-5" aria-hidden="true" />
+          </button>
+          <a
+            href={href}
+            onClick={guard}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-disabled={blocked}
+            className={`tap xavier-tag min-w-0 flex-1 px-3 py-3.5 text-center text-sm ${
+              blocked
+                ? "border-2 border-dashed border-roxo/50 bg-roxo/5 text-roxo"
+                : "bg-whats text-white"
+            }`}
+          >
+            <span className="max-w-full truncate whitespace-nowrap align-middle">
+              {blocked ? blockedHintShort : ctaLabelShort}
+            </span>
+          </a>
         </div>
-        <button
-          onClick={addToBag}
-          aria-label={`Adicionar ${product.name} ao meu pedido`}
-          className="tap flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink/10 bg-white/90 shadow-md"
-        >
-          <ShoppingBag className="h-5 w-5 text-ink" aria-hidden="true" />
-        </button>
-        <a
-          href={href}
-          onClick={guard}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-disabled={blocked}
-          className={`tap xavier-tag flex-1 px-4 py-3.5 text-center text-sm ${
-            blocked
-              ? "border-2 border-dashed border-roxo/40 bg-roxo/5 text-roxo"
-              : "bg-whats text-white"
-          }`}
-        >
-          <span className="flex items-center justify-center gap-2">
-            <MessageCircle className="h-4 w-4 skew-x-[8deg]" aria-hidden="true" />
-            {blocked ? blockedHint : ctaLabel}
-          </span>
-        </a>
       </div>
 
       <SizeGuideModal

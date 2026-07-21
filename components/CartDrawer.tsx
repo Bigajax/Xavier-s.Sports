@@ -1,16 +1,16 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
-  MessageCircle,
   Minus,
   Plus,
   ShoppingBag,
   X,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import ProductImage from "@/components/ProductImage";
 import { useProductLookup } from "@/components/CatalogProvider";
 import {
@@ -523,7 +523,7 @@ export default function CartDrawer({
                       }
                       className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"
                     >
-                      <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                      <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                       Enviar pedido pelo WhatsApp
                     </a>
                     ) : (

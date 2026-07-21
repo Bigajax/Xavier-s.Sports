@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { MessageCircle } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { waDefault } from "@/lib/whatsapp";
 
 /**
@@ -25,8 +25,8 @@ export default function WhatsAppButton() {
     };
   }, []);
 
+  // No mobile fica acima da barra inferior (tab bar / CTA do produto).
   if (pathname.startsWith("/admin")) return null;
-  const compact = pathname.startsWith("/produto/");
 
   return (
     <a
@@ -35,12 +35,12 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       title="Fale com a Xavier's Sports"
       className={`group fixed right-4 z-40 flex items-center gap-0 rounded-full bg-whats px-3.5 py-3.5 text-white shadow-xl shadow-ink/25 transition-all duration-500 hover:scale-105 motion-reduce:transition-none ${
-        compact ? "bottom-20 md:bottom-5" : "bottom-5"
+        "bottom-[4.5rem] lg:bottom-4"
       } ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
     >
       {/* anel de ping periódico */}
       <span aria-hidden="true" className="wa-ping absolute inset-0 rounded-full bg-whats" />
-      <MessageCircle className="relative h-6 w-6" aria-hidden="true" />
+      <WhatsAppIcon className="relative h-6 w-6" aria-hidden="true" />
       <span
         className={`relative overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-300 group-hover:max-w-56 group-hover:pl-2 group-focus-visible:max-w-56 group-focus-visible:pl-2 ${
           expanded ? "max-w-56 pl-2" : "max-w-0 pl-0"

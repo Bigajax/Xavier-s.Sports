@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import SectionHeading from "@/components/SectionHeading";
 import PersonalizationSimulator from "@/components/PersonalizationSimulator";
 import { waPersonalizacao } from "@/lib/whatsapp";
-import { MessageCircle } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export const metadata: Metadata = {
   title: "Personalização",
@@ -53,7 +53,7 @@ export default function PersonalizacaoPage() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-xl bg-whats px-6 py-4 font-bold text-white"
         >
-          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
           Consultar personalização
         </a>
       </div>

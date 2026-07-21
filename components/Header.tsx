@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -8,11 +8,11 @@ import {
   ChevronDown,
   Heart,
   Menu,
-  MessageCircle,
   Search,
   ShoppingBag,
   X,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import TopBar from "@/components/TopBar";
@@ -173,10 +173,11 @@ export default function Header() {
             >
               <Search className="h-5 w-5" aria-hidden="true" />
             </button>
+            {/* favoritos e sacola: no mobile vivem na barra inferior */}
             <button
               onClick={() => setFavOpen(true)}
               aria-label={`Abrir favoritos${ready && count > 0 ? ` (${count})` : ""}`}
-              className="relative rounded-lg p-2 hover:bg-white/10"
+              className="relative hidden rounded-lg p-2 hover:bg-white/10 lg:block"
             >
               <Heart className="h-5 w-5" aria-hidden="true" />
               {ready && count > 0 && (
@@ -188,7 +189,7 @@ export default function Header() {
             <button
               onClick={() => setCartOpen(true)}
               aria-label={`Abrir meu pedido${cartReady && cartCount > 0 ? ` (${cartCount} ${cartCount === 1 ? "item" : "itens"})` : ""}`}
-              className="relative rounded-lg p-2 hover:bg-white/10"
+              className="relative hidden rounded-lg p-2 hover:bg-white/10 lg:block"
             >
               <ShoppingBag className="h-5 w-5" aria-hidden="true" />
               {cartReady && cartCount > 0 && (
@@ -316,7 +317,7 @@ export default function Header() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white"
                 >
-                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                   Pedir pelo WhatsApp
                 </a>
               </div>

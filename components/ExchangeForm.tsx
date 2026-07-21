@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { MessageCircle } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { waLink } from "@/lib/whatsapp";
 
 const motivos = [
@@ -155,7 +155,7 @@ export default function ExchangeForm() {
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-whats px-6 py-3.5 font-bold text-white"
             >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
               Abrir WhatsApp com a solicitação
             </a>
             <p className="mt-3 text-xs text-steel">

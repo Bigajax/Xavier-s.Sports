@@ -18,17 +18,14 @@ const H = 56;
 const BAND = { left: 0.15, top: 0.465, width: 0.7, height: 0.09 };
 
 const KNOWN_MARKED = [
-  "flamengo-26-27-home-torcedor-4.jpg",
-  "brasil-2026-home-torcedor-3.jpg",
-  "psg-26-27-home-torcedor-5.jpg",
-  "real-madrid-26-27-home-torcedor-3.jpg",
-  "argentina-2026-home-jogador-5.jpg",
+  "retro-brasil-1958-home-4.jpg",
+  "retro-milan-02-03-home-3.jpg",
+  "retro-psg-92-93-home-5.jpg",
 ];
 const KNOWN_CLEAN = [
-  "flamengo-26-27-home-torcedor-2.jpg",
-  "corinthians-26-27-home-torcedor-2.jpg",
-  "manchester-united-26-27-home-torcedor-1.jpg",
-  "flamengo-26-27-home-torcedor-1.jpg",
+  "retro-real-madrid-2012-13-home-1.jpg",
+  "retro-brasil-1958-home-1.jpg",
+  "retro-palmeiras-1996-home-1.jpg",
 ];
 
 async function edgeBand(file) {

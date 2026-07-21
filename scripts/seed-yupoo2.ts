@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Seed rodada 2 do catálogo do fornecedor (Yupoo KANG, 21/07/2026):
  * Serie A (Milan, Inter, Napoli), Ligue 1 (PSG, Marseille) e Manchester United.
  *
@@ -116,7 +116,7 @@ async function main() {
           video: null,
           colors,
           personalization_available: true,
-          personalization_price: 30,
+          personalization_price: 40,
           sku: `XS-YP2-${String(n).padStart(3, "0")}`,
           material: "Consulte composição com a equipe",
           care_instructions: CARE,

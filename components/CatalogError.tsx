@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
-import { MessageCircle, RotateCw } from "lucide-react";
+import { RotateCw } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { waGeneric } from "@/lib/whatsapp";
 
 /** Estado de erro quando o catálogo não pôde ser carregado do banco. */
@@ -32,7 +33,7 @@ export default function CatalogError() {
           rel="noopener noreferrer"
           className="tap inline-flex items-center gap-2 rounded-lg border border-whats px-4 py-2.5 text-sm font-bold text-whats transition-colors hover:bg-whats hover:text-white"
         >
-          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
           Falar no WhatsApp
         </a>
       </div>

@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Heart, MessageCircle, X } from "lucide-react";
+import { Heart, X } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import ProductImage from "@/components/ProductImage";
 import { purchasableVariants, type Product } from "@/lib/products/types";
 import { useProductLookup } from "@/components/CatalogProvider";
@@ -150,7 +151,7 @@ export default function FavoritesDrawer({
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"
                   >
-                    <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                    <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                     Consultar lista pelo WhatsApp
                   </a>
                   <Link

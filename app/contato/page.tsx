@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
-import { Clock, Instagram, Mail, MessageCircle } from "lucide-react";
+﻿import type { Metadata } from "next";
+import { Clock, Instagram, Mail } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "@/components/ContactForm";
 import { site } from "@/config/site";
@@ -29,7 +30,7 @@ export default function ContatoPage() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl bg-whats p-4 font-bold text-white"
           >
-            <MessageCircle className="h-6 w-6" aria-hidden="true" />
+            <WhatsAppIcon className="h-6 w-6" aria-hidden="true" />
             WhatsApp da loja
           </a>
           <a

@@ -1,6 +1,7 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import Hero from "@/components/Hero";
 import HomeSearch from "@/components/HomeSearch";
 import HowItWorks from "@/components/HowItWorks";
@@ -253,7 +254,7 @@ export default async function HomePage() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-xl bg-whats px-6 py-4 font-bold text-white shadow-lg transition-transform hover:scale-[1.03]"
           >
-            <MessageCircle className="h-5 w-5" aria-hidden="true" />
+            <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
             Pedir um modelo pelo WhatsApp
           </a>
         </div>

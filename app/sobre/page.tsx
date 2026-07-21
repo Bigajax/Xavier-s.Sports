@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, MessageCircle } from "lucide-react";
+import { Instagram } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { site } from "@/config/site";
 import { waDefault } from "@/lib/whatsapp";
 
@@ -68,7 +69,7 @@ export default function SobrePage() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 font-semibold text-ink hover:text-roxo"
               >
-                <MessageCircle className="h-4 w-4 text-whats" aria-hidden="true" />
+                <WhatsAppIcon className="h-4 w-4 text-whats" aria-hidden="true" />
                 Atendimento pelo WhatsApp
               </a>
               <a

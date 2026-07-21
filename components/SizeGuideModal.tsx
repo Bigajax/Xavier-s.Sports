@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 import Link from "next/link";
@@ -60,7 +60,7 @@ export default function SizeGuideModal({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
             transition={{ type: "tween", duration: 0.2 }}
-            className="fixed inset-x-0 bottom-0 z-[66] mx-auto max-h-[85vh] w-full overflow-y-auto rounded-t-2xl bg-white p-5 sm:bottom-auto sm:top-1/2 sm:max-w-md sm:-translate-y-1/2 sm:rounded-2xl sm:p-6"
+            className="fixed inset-x-0 bottom-0 z-[66] mx-auto max-h-[85vh] w-full overflow-y-auto rounded-t-2xl bg-white p-4 sm:bottom-auto sm:top-1/2 sm:max-w-xl sm:-translate-y-1/2 sm:rounded-2xl sm:p-6"
             role="dialog"
             aria-modal="true"
             aria-label="Guia de medidas"
@@ -82,15 +82,31 @@ export default function SizeGuideModal({
               </button>
             </div>
 
-            <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-ink/10">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-ink text-xs uppercase tracking-wide text-white">
+            <div className="mt-4 overflow-x-auto rounded-xl ring-1 ring-ink/10">
+              <table className="w-full text-left text-[13px] sm:text-sm">
+                <thead className="bg-ink text-[10px] uppercase tracking-wide text-white sm:text-[11px]">
                   <tr>
-                    <th className="px-3 py-2.5">Tamanho</th>
-                    <th className="px-3 py-2.5">Comprimento</th>
-                    <th className="px-3 py-2.5">Largura</th>
-                    {hasBody && <th className="px-3 py-2.5">Altura</th>}
-                    {hasBody && <th className="px-3 py-2.5">Peso</th>}
+                    <th className="px-2 py-2.5 sm:px-3">Tam.</th>
+                    <th className="px-2 py-2.5 sm:px-3">
+                      Comprimento
+                      <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
+                    </th>
+                    <th className="px-2 py-2.5 sm:px-3">
+                      Largura
+                      <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
+                    </th>
+                    {hasBody && (
+                      <th className="px-2 py-2.5 sm:px-3">
+                        Altura
+                        <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
+                      </th>
+                    )}
+                    {hasBody && (
+                      <th className="px-2 py-2.5 sm:px-3">
+                        Peso
+                        <span className="block text-[9px] font-normal normal-case opacity-70">kg</span>
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -107,21 +123,25 @@ export default function SizeGuideModal({
                               : "bg-white"
                         }
                       >
-                        <td className="px-3 py-2">
+                        <td className="whitespace-nowrap px-2 py-2 sm:px-3">
                           {row.label}
                           {active && (
-                            <span className="ml-1.5 text-[10px] font-bold uppercase">
-                              · selecionado
+                            <span className="block text-[9px] font-bold uppercase leading-tight">
+                              selecionado
                             </span>
                           )}
                         </td>
-                        <td className="tabular-nums px-3 py-2">{row.length}</td>
-                        <td className="tabular-nums px-3 py-2">{row.width}</td>
+                        <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">{row.length}</td>
+                        <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">{row.width}</td>
                         {hasBody && (
-                          <td className="tabular-nums px-3 py-2">{row.height ?? "—"}</td>
+                          <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">
+                            {row.height ?? "—"}
+                          </td>
                         )}
                         {hasBody && (
-                          <td className="tabular-nums px-3 py-2">{row.weight ?? "—"}</td>
+                          <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">
+                            {row.weight ?? "—"}
+                          </td>
                         )}
                       </tr>
                     );

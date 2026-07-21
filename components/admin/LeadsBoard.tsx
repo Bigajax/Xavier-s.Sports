@@ -1,13 +1,13 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Archive,
-  MessageCircle,
   MessageSquareText,
   ShoppingBag,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { LEAD_STATUSES, type LeadRow, type LeadStatus } from "@/lib/crm";
 import { convertLeadToOrder, updateLead } from "@/app/admin/crm/actions";
 import { brl } from "@/lib/format";
@@ -202,7 +202,7 @@ export default function LeadsBoard({ leads }: { leads: LeadRow[] }) {
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 rounded-lg bg-whats px-3 py-2 text-xs font-bold text-white"
                     >
-                      <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                      <WhatsAppIcon className="h-3.5 w-3.5" aria-hidden="true" />
                       Abrir WhatsApp
                     </a>
                   )}

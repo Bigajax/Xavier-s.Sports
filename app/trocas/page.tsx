@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
-import { AlertTriangle, CheckCircle2, MessageCircle } from "lucide-react";
+﻿import type { Metadata } from "next";
+import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import SectionHeading from "@/components/SectionHeading";
 import ExchangeForm from "@/components/ExchangeForm";
 import { faqTrocas } from "@/data/faq";
@@ -95,7 +96,7 @@ function FlowCard({
         rel="noopener noreferrer"
         className="mt-6 inline-flex items-center gap-2 rounded-xl bg-whats px-5 py-3.5 text-sm font-bold text-white"
       >
-        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+        <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
         {cta}
       </a>
     </section>

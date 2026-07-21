@@ -1,7 +1,8 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
-import { MessageCircle, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { useFavorites } from "@/lib/favorites";
 import { useProductLookup } from "@/components/CatalogProvider";
 import { purchasableVariants } from "@/lib/products/types";
@@ -113,7 +114,7 @@ export default function FavoritosPage() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-xl bg-whats px-6 py-4 font-bold text-white shadow-lg transition-transform hover:scale-[1.02]"
             >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
               Enviar lista pelo WhatsApp
             </a>
             <button

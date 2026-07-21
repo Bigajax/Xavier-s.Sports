@@ -79,14 +79,12 @@ async function score(file) {
 }
 
 const CHECKS = [
-  ["marcada forte", "real-madrid-26-27-home-torcedor-3.jpg"],
-  ["marcada fraca (branca)", "santos-26-27-home-torcedor-5.jpg"],
-  ["marcada fraca (busy)", "real-madrid-26-27-home-jogador-3.jpg"],
-  ["marcada", "fluminense-26-27-away-jogador-3.jpg"],
-  ["limpa capa", "inglaterra-2026-home-jogador-1.jpg"],
-  ["limpa costas", "gremio-26-27-away-jogador-2.jpg"],
-  ["limpa costas", "flamengo-26-27-home-torcedor-2.jpg"],
-  ["limpa capa", "manchester-united-26-27-home-torcedor-1.jpg"],
+  ["marcada", "retro-brasil-1958-home-4.jpg"],
+  ["marcada (busy)", "retro-milan-02-03-home-3.jpg"],
+  ["marcada", "retro-psg-92-93-home-5.jpg"],
+  ["limpa capa", "retro-real-madrid-2012-13-home-1.jpg"],
+  ["limpa capa", "retro-brasil-1958-home-1.jpg"],
+  ["limpa capa", "retro-palmeiras-1996-home-1.jpg"],
 ];
 console.log("Validação:");
 for (const [label, f] of CHECKS) console.log(`  ${label.padEnd(24)} ${f}: ${(await score(f)).toFixed(2)}`);

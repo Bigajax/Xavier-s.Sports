@@ -8,6 +8,7 @@ import CatalogProvider from "@/components/CatalogProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileTabBar from "@/components/MobileTabBar";
 import Toaster from "@/components/Toaster";
 import SiteLoader from "@/components/SiteLoader";
 
@@ -63,6 +64,7 @@ export default async function RootLayout({
           <Header />
           <main id="conteudo">{children}</main>
           <Footer />
+          <MobileTabBar />
           <WhatsAppButton />
           <Toaster />
         </CatalogProvider>

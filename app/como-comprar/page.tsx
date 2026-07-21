@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertTriangle, MessageCircle } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import SectionHeading from "@/components/SectionHeading";
 import { waGeneric } from "@/lib/whatsapp";
 import { faqGeral } from "@/data/faq";
@@ -94,7 +95,7 @@ export default function ComoComprarPage() {
           rel="noopener noreferrer"
           className="flex items-center gap-2 rounded-xl bg-whats px-6 py-4 font-bold text-white"
         >
-          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
           Falar com a equipe
         </a>
         <Link

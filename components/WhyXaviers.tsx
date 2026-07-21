@@ -1,10 +1,11 @@
-import { MessageCircle, PackageCheck, Repeat, Ruler, Truck } from "lucide-react";
+﻿import { PackageCheck, Repeat, Ruler, Truck } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 
 const reasons = [
   {
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     title: "Atendimento direto",
     text: "Você fala com a equipe da loja, não com um robô.",
   },

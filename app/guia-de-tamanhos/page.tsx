@@ -87,13 +87,13 @@ export default function GuiaDeTamanhosPage() {
                   <thead className="bg-ink text-white">
                     <tr>
                       <th scope="col" className="px-4 py-3 font-bold">Tamanho</th>
-                      <th scope="col" className="px-4 py-3 font-bold">Comprimento</th>
-                      <th scope="col" className="px-4 py-3 font-bold">Largura</th>
+                      <th scope="col" className="px-4 py-3 font-bold">Comprimento (cm)</th>
+                      <th scope="col" className="px-4 py-3 font-bold">Largura (cm)</th>
                       {hasBody && (
-                        <th scope="col" className="px-4 py-3 font-bold">Altura indicada</th>
+                        <th scope="col" className="px-4 py-3 font-bold">Altura indicada (cm)</th>
                       )}
                       {hasBody && (
-                        <th scope="col" className="px-4 py-3 font-bold">Peso indicado</th>
+                        <th scope="col" className="px-4 py-3 font-bold">Peso indicado (kg)</th>
                       )}
                     </tr>
                   </thead>
@@ -103,13 +103,13 @@ export default function GuiaDeTamanhosPage() {
                         <th scope="row" className="px-4 py-2.5 font-bold text-roxo">
                           {r.label}
                         </th>
-                        <td className="tabular-nums px-4 py-2.5">{r.length}</td>
-                        <td className="tabular-nums px-4 py-2.5">{r.width}</td>
+                        <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.length}</td>
+                        <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.width}</td>
                         {hasBody && (
-                          <td className="tabular-nums px-4 py-2.5">{r.height ?? "—"}</td>
+                          <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.height ?? "—"}</td>
                         )}
                         {hasBody && (
-                          <td className="tabular-nums px-4 py-2.5">{r.weight ?? "—"}</td>
+                          <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.weight ?? "—"}</td>
                         )}
                       </tr>
                     ))}

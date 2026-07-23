@@ -14,6 +14,6 @@ async function apply(version: string, price: number) {
 async function main() {
   await apply("torcedor", 189);
   await apply("jogador", 249);
-  await apply("retro", 249);
+  await apply("retro", 229);
 }
 main();

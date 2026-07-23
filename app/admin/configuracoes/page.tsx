@@ -1,4 +1,5 @@
 import { site } from "@/config/site";
+import ChangePassword from "@/components/admin/ChangePassword";
 
 const pending = [
   ["WhatsApp oficial", (site.whatsapp as string) === "5500000000000" ? "⚠️ PENDENTE — placeholder ativo" : site.whatsapp],
@@ -39,6 +40,15 @@ export default function AdminConfiguracoes() {
         Revise a política de trocas, devoluções e reembolsos com a equipe antes
         de divulgar amplamente o site.
       </p>
+
+      <section className="mt-10">
+        <h2 className="display text-2xl text-ink">Segurança — alterar senha</h2>
+        <p className="mt-1 text-sm text-steel">
+          Defina uma nova senha de acesso ao painel. Recomendado logo no
+          primeiro acesso, trocando a senha inicial por uma senha forte.
+        </p>
+        <ChangePassword />
+      </section>
     </div>
   );
 }

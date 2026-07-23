@@ -12,6 +12,7 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +20,7 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    const supabase = supabaseBrowser();
+    const supabase = supabaseBrowser(remember);
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: email.trim(),
       password,
@@ -105,6 +106,16 @@ export default function AdminLoginPage() {
               className="w-full rounded-lg border-2 border-ink/10 px-3.5 py-3 text-sm transition-colors focus:border-roxo focus:outline-none"
             />
           </div>
+
+          <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink/80">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              className="h-4 w-4 accent-roxo"
+            />
+            Manter conectado neste dispositivo
+          </label>
 
           {error && (
             <p

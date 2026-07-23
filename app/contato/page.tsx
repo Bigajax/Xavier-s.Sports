@@ -22,7 +22,7 @@ export default function ContatoPage() {
         subtitle="O WhatsApp é o canal mais rápido — mas você também encontra a loja no Instagram e por e-mail."
       />
 
-      <div className="mt-10 grid gap-8 md:grid-cols-[300px_1fr]">
+      <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-[300px_1fr]">
         <div className="space-y-3">
           <a
             href={waDefault()}

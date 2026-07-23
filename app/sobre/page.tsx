@@ -26,7 +26,7 @@ export default function SobrePage() {
       </section>
 
       <div className="mx-auto max-w-4xl px-4 py-12 md:px-6">
-        <div className="grid items-start gap-10 md:grid-cols-[1fr_280px]">
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_280px]">
           <div className="space-y-5 text-base leading-relaxed text-ink/80">
             <p>
               A Xavier&apos;s Sports nasceu para conectar torcedores às camisas

@@ -60,7 +60,7 @@ export default function SizeGuideModal({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
             transition={{ type: "tween", duration: 0.2 }}
-            className="fixed inset-x-0 bottom-0 z-[66] mx-auto max-h-[85vh] w-full overflow-y-auto rounded-t-2xl bg-white p-4 sm:bottom-auto sm:top-1/2 sm:max-w-xl sm:-translate-y-1/2 sm:rounded-2xl sm:p-6"
+            className="fixed inset-x-0 bottom-0 z-[66] mx-auto max-h-[85vh] w-full overflow-y-auto rounded-t-2xl bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:bottom-auto sm:top-1/2 sm:max-w-xl sm:-translate-y-1/2 sm:rounded-2xl sm:p-6 sm:pb-6"
             role="dialog"
             aria-modal="true"
             aria-label="Guia de medidas"

@@ -69,13 +69,13 @@ export default function SearchModal({
               <button
                 onClick={onClose}
                 aria-label="Fechar busca"
-                className="rounded-lg p-2 hover:bg-cloud"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg hover:bg-cloud"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
-            <div className="mt-3 overflow-hidden rounded-xl bg-white shadow-2xl">
+            <div className="mt-3 max-h-[65vh] overflow-y-auto rounded-xl bg-white shadow-2xl">
               {q.trim() === "" ? (
                 <div className="p-5">
                   <p className="xavier-eyebrow text-roxo">Buscas populares</p>

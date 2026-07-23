@@ -61,16 +61,34 @@ export default function ProductCard({
           </span>
         )}
         {ready && (
-          <span className="xavier-tag absolute left-3 top-3 flex items-center gap-1 bg-whats px-2.5 py-1 text-xs text-white">
-            <PackageCheck className="h-3.5 w-3.5" aria-hidden="true" />
-            <span>Pronta entrega</span>
-          </span>
+          <>
+            {/* mobile: selo compacto no canto inferior esquerdo — longe do
+                favorito (topo-direita), então não há disputa de espaço */}
+            <span className="absolute bottom-2.5 left-2.5 z-10 inline-flex h-8 max-w-[calc(100%-20px)] items-center gap-1 rounded-md bg-whats px-2 text-white shadow-sm sm:hidden">
+              <PackageCheck className="h-[15px] w-[15px] shrink-0" aria-hidden="true" />
+              <span className="whitespace-nowrap text-[10px] font-bold uppercase leading-none tracking-tight">
+                Pronta entrega
+              </span>
+            </span>
+            {/* desktop/tablet: mantém o selo inclinado original. O wrapper
+                controla a visibilidade — `hidden` direto no .xavier-tag não
+                funciona porque a classe define display:inline-block. */}
+            <span className="absolute left-3 top-3 z-10 hidden sm:block">
+              <span className="xavier-tag flex items-center gap-1 bg-whats px-2.5 py-1 text-xs text-white">
+                <PackageCheck className="h-3.5 w-3.5" aria-hidden="true" />
+                <span>Pronta entrega</span>
+              </span>
+            </span>
+          </>
         )}
       </div>
       <FavoriteButton
         slug={product.slug}
         name={product.name}
-        className="absolute right-3 top-3 z-10 opacity-90"
+        size={ready ? "ready" : "sm"}
+        className={`absolute z-10 opacity-90 sm:right-3 sm:top-3 ${
+          ready ? "right-2.5 top-2.5" : "right-2 top-2"
+        }`}
       />
 
       <div className="flex flex-1 flex-col p-2.5 sm:p-4">

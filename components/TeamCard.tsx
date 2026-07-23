@@ -22,7 +22,7 @@ export default async function TeamCard({ team }: { team: Team }) {
   return (
     <Link
       href={href}
-      className="group flex w-40 shrink-0 flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/5 transition-shadow hover:shadow-lg sm:w-44"
+      className="group flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/5 transition-shadow hover:shadow-lg"
     >
       <div className="relative flex h-28 items-center overflow-hidden border-b border-ink/5 bg-gradient-to-br from-white to-cloud/70 pl-6">
         {/* dupla faixa diagonal nas cores do time */}

@@ -77,9 +77,9 @@ export default function ImagesEditor({
                 type="button"
                 onClick={() => onChange(images.filter((_, j) => j !== i))}
                 aria-label={`Remover foto ${i + 1}`}
-                className="absolute -right-1.5 -top-1.5 rounded-full bg-white p-1 text-steel shadow ring-1 ring-ink/10 hover:text-promo"
+                className="absolute -right-2 -top-2 rounded-full bg-white p-1.5 text-steel shadow ring-1 ring-ink/10 hover:text-promo"
               >
-                <Trash2 className="h-3 w-3" aria-hidden="true" />
+                <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
             </li>
           ))}

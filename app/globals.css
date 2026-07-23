@@ -330,9 +330,42 @@ body.loading {
   }
 }
 
+/* bolinha de novidade da tab bar: pulsa 3x na primeira exibição e para —
+   sem loop contínuo. O halo usa box-shadow para não conflitar com a borda. */
+@keyframes pe-dot {
+  0% {
+    box-shadow: 0 0 0 0 rgb(229 57 53 / 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgb(229 57 53 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(229 57 53 / 0);
+  }
+}
+.pe-dot {
+  animation: pe-dot 1.2s ease-out 3;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pe-dot {
+    animation: none;
+  }
+}
+
 :focus-visible {
   outline: 3px solid var(--color-amarelo);
   outline-offset: 2px;
+}
+
+/* iOS só evita o zoom automático ao focar campos com fonte >= 16px.
+   Muitos inputs usam text-sm/text-xs; forçamos 16px apenas no mobile
+   (o !important vence as utilities do Tailwind; desktop fica intacto). */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 html {

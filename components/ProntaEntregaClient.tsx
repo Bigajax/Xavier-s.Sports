@@ -97,7 +97,7 @@ export default function ProntaEntregaClient({ products }: { products: Product[] 
             className="w-full rounded-lg border border-ink/15 bg-white py-2.5 pl-9 pr-3 text-sm outline-none focus:border-roxo"
           />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="w-full sm:w-auto">
           <label htmlFor="pe-ordenar" className="sr-only">
             Ordenar por
           </label>
@@ -105,7 +105,7 @@ export default function ProntaEntregaClient({ products }: { products: Product[] 
             id="pe-ordenar"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm"
+            className="w-full rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm outline-none focus:border-roxo sm:w-auto"
           >
             {Object.entries(sortLabels).map(([k, label]) => (
               <option key={k} value={k}>

@@ -35,7 +35,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       title="Fale com a Xavier's Sports"
       className={`group fixed right-4 z-40 flex items-center gap-0 rounded-full bg-whats px-3.5 py-3.5 text-white shadow-xl shadow-ink/25 transition-all duration-500 hover:scale-105 motion-reduce:transition-none ${
-        "bottom-[4.5rem] lg:bottom-4"
+        "bottom-[calc(4.5rem+env(safe-area-inset-bottom))] lg:bottom-4"
       } ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
     >
       {/* anel de ping periódico */}

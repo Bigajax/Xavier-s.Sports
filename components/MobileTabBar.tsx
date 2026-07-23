@@ -34,7 +34,7 @@ export default function MobileTabBar() {
   ] as const;
 
   const tabClass = (active: boolean) =>
-    `tap relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 pb-1.5 pt-2 text-[9px] font-bold uppercase tracking-wide transition-colors ${
+    `tap relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-wide transition-colors ${
       active ? "text-amarelo" : "text-white/55"
     }`;
 
@@ -47,8 +47,12 @@ export default function MobileTabBar() {
 
   return (
     <>
-      {/* espaçador para o conteúdo não ficar atrás da barra */}
-      <div aria-hidden="true" className="h-[3.75rem] lg:hidden" />
+      {/* espaçador para o conteúdo não ficar atrás da barra — inclui a
+          safe-area do iPhone para que os últimos itens não fiquem escondidos */}
+      <div
+        aria-hidden="true"
+        className="h-[calc(3.75rem+env(safe-area-inset-bottom))] lg:hidden"
+      />
 
       <nav
         aria-label="Navegação inferior"
@@ -59,14 +63,24 @@ export default function MobileTabBar() {
             const active =
               t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
             const Icon = t.icon;
+            // indicador de novidade em "Pronta entrega" — some ao entrar na página
+            const showDot = t.href === "/pronta-entrega" && !active;
             return (
               <Link key={t.href} href={t.href} className={tabClass(active)}>
                 {active && indicator}
-                <Icon
-                  className="h-[22px] w-[22px]"
-                  strokeWidth={active ? 2.2 : 1.7}
-                  aria-hidden="true"
-                />
+                <span className="relative">
+                  <Icon
+                    className="h-[22px] w-[22px]"
+                    strokeWidth={active ? 2.2 : 1.7}
+                    aria-hidden="true"
+                  />
+                  {showDot && (
+                    <span
+                      aria-hidden="true"
+                      className="pe-dot absolute -right-1 -top-0.5 h-2 w-2 rounded-full border border-white bg-promo"
+                    />
+                  )}
+                </span>
                 <span className="truncate">{t.label}</span>
               </Link>
             );

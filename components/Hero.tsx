@@ -5,7 +5,7 @@ import { waGeneric } from "@/lib/whatsapp";
 export default function Hero() {
   return (
     <section className="field-lines relative overflow-hidden bg-ink text-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-12 md:grid-cols-[1.05fr_1fr] md:px-6 md:pb-24 md:pt-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-16 pt-12 md:grid-cols-[1.05fr_1fr] md:px-6 md:pb-24 md:pt-20">
         <div className="relative z-10">
           <p className="rise-in xavier-eyebrow text-amarelo">
             Clubes · Seleções · Atuais · Retrô

@@ -168,7 +168,7 @@ export default function AdminNav({ userEmail }: { userEmail?: string }) {
         <button
           onClick={() => setOpen(true)}
           aria-label="Abrir menu do painel"
-          className="tap rounded-lg p-2 text-white hover:bg-white/10"
+          className="tap flex h-11 w-11 items-center justify-center rounded-lg text-white hover:bg-white/10"
         >
           <Menu className="h-6 w-6" aria-hidden="true" />
         </button>

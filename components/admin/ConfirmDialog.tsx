@@ -22,12 +22,12 @@ export default function ConfirmDialog({
 }) {
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/60 p-4"
+      className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-ink/60 p-4"
       role="alertdialog"
       aria-modal="true"
       aria-label={title}
     >
-      <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
+      <div className="my-auto max-h-[85vh] w-full max-w-sm overflow-y-auto rounded-2xl bg-white p-5 shadow-xl">
         <h2 className="display text-xl text-ink">{title}</h2>
         <p className="mt-2 text-sm leading-relaxed text-steel">{message}</p>
         <div className="mt-5 flex flex-wrap justify-end gap-2">

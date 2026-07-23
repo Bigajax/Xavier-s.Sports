@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -123,6 +123,17 @@ export default function CatalogClient({
   const [sort, setSort] = useState<SortKey>("recentes");
   const [page, setPage] = useState(1);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // paginação horizontal no mobile: mantém a página ativa sempre visível
+  const pagerRef = useRef<HTMLElement>(null);
+  const activePageRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const el = activePageRef.current;
+    const c = pagerRef.current;
+    if (el && c) {
+      c.scrollLeft = el.offsetLeft - c.clientWidth / 2 + el.clientWidth / 2;
+    }
+  }, [page]);
 
   const merged: Filters = { ...baseFilters, ...urlFilters, ...local };
 
@@ -360,16 +371,16 @@ export default function CatalogClient({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 md:px-6">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 md:px-6 md:py-10">
       <header>
         <p className="xavier-eyebrow text-roxo">Catálogo</p>
-        <h1 className="display mt-2 text-4xl text-ink sm:text-5xl">
+        <h1 className="display mt-2 text-3xl text-ink sm:text-5xl">
           <span className="swoosh">{title}</span>
         </h1>
-        <p className="mt-3 text-steel">{subtitle}</p>
+        <p className="mt-2 text-sm text-steel sm:mt-3 sm:text-base">{subtitle}</p>
       </header>
 
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 md:mt-8">
         <p className="text-sm text-steel" aria-live="polite">
           {filtered.length}{" "}
           {filtered.length === 1 ? "camisa encontrada" : "camisas encontradas"}
@@ -389,7 +400,7 @@ export default function CatalogClient({
             id="ordenar"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm"
+            className="rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm outline-none focus:border-roxo"
           >
             {Object.entries(sortLabels).map(([k, label]) => (
               <option key={k} value={k}>
@@ -400,7 +411,10 @@ export default function CatalogClient({
         </div>
       </div>
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[260px_1fr]">
+      {/* grid-cols-1 (minmax(0,1fr)) evita que a faixa vire max-content e
+          estoure a largura no mobile — sem ele o grid de produtos passava de
+          1000px e só cabia 1 card por linha. lg: restaura sidebar + conteúdo. */}
+      <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
         {/* sidebar desktop */}
         <aside className="hidden lg:block" aria-label="Filtros">
           {filterPanel}
@@ -428,18 +442,20 @@ export default function CatalogClient({
               <ProductGrid products={pageItems} />
               {totalPages > 1 && (
                 <nav
+                  ref={pagerRef}
                   aria-label="Paginação"
-                  className="mt-10 flex items-center justify-center gap-2"
+                  className="no-scrollbar mt-10 flex items-center gap-2 overflow-x-auto px-1 pb-1 md:justify-center md:overflow-visible md:px-0 md:pb-0"
                 >
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
                     <button
                       key={n}
+                      ref={page === n ? activePageRef : undefined}
                       onClick={() => {
                         setPage(n);
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                       aria-current={page === n ? "page" : undefined}
-                      className={`h-10 w-10 rounded-lg text-sm font-bold ${
+                      className={`h-10 w-10 shrink-0 rounded-lg text-sm font-bold md:shrink ${
                         page === n
                           ? "bg-roxo text-white"
                           : "border border-ink/15 text-ink hover:border-roxo"
@@ -472,7 +488,7 @@ export default function CatalogClient({
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "tween", duration: 0.25 }}
-              className="fixed inset-x-0 bottom-0 z-[56] max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5 lg:hidden"
+              className="fixed inset-x-0 bottom-0 z-[56] max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] lg:hidden"
               role="dialog"
               aria-modal="true"
               aria-label="Filtros"

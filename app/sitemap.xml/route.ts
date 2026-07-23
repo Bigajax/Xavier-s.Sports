@@ -17,7 +17,7 @@ export async function GET() {
     "/clubes",
     "/selecoes",
     "/retro",
-    "/lancamentos",
+    "/pronta-entrega",
     "/ofertas",
     "/favoritos",
     "/como-comprar",

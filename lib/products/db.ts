@@ -140,6 +140,8 @@ async function fetchCatalog(): Promise<Product[]> {
   if (error) throw new Error(`Erro ao carregar o catálogo: ${error.message}`);
   // Arquivados nunca aparecem na vitrine (filtro em memória para funcionar
   // antes e depois da migration que cria a coluna archived_at).
+  // O estoque é a fonte do banco (controlado pelo admin). Para redefinir à
+  // lista do cliente, rode scripts/apply-ready-stock.ts.
   return (data as ProductRow[]).map(mapRow).filter((p) => !p.archivedAt);
 }
 

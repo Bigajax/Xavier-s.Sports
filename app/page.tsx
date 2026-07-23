@@ -14,8 +14,9 @@ import NewsletterForm from "@/components/NewsletterForm";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import { categories } from "@/data/categories";
-import { newArrivals, bestSellers, findProduct } from "@/lib/products/types";
-import { applyFilters, sortProducts } from "@/lib/catalog";
+import { bestSellers, findProduct } from "@/lib/products/types";
+import { applyFilters } from "@/lib/catalog";
+import { readyUnits, readySizes } from "@/lib/readyStock";
 import { getCatalog } from "@/lib/products/db";
 import { waGeneric, waPersonalizacao } from "@/lib/whatsapp";
 
@@ -43,12 +44,23 @@ export default async function HomePage() {
     // Sem catálogo a home ainda funciona: carrosséis ficam vazios e as
     // seções institucionais seguem no ar.
   }
-  const prontaEntrega = sortProducts(
-    applyFilters(catalog, { onlyReadyToShip: true }),
-    "procuradas"
-  ).slice(0, 8);
+  // Vitrine de pronta entrega (estoque real do lib/readyStock).
+  const readyAll = applyFilters(catalog, { onlyReadyToShip: true });
+  // Prévia principal: maior estoque e maior variedade de tamanhos primeiro.
+  const prontaEntrega = [...readyAll]
+    .sort(
+      (a, b) =>
+        readyUnits(b) - readyUnits(a) ||
+        readySizes(b).length - readySizes(a).length
+    )
+    .slice(0, 8);
+  const previewSlugs = new Set(prontaEntrega.map((p) => p.slug));
+  // Últimas unidades: modelos com poucas unidades, sem repetir a prévia.
+  const ultimasUnidades = [...readyAll]
+    .filter((p) => !previewSlugs.has(p.slug) && readyUnits(p) <= 2)
+    .sort((a, b) => readyUnits(a) - readyUnits(b))
+    .slice(0, 8);
   const maisProcuradas = bestSellers(catalog).slice(0, 4);
-  const lancamentos = newArrivals(catalog).slice(0, 8);
   const homeCategories = homeCategorySlugs
     .map((slug) => categories.find((c) => c.slug === slug))
     .filter((c) => c !== undefined);
@@ -85,7 +97,7 @@ export default async function HomePage() {
                   subtitle="Modelos com tamanhos disponíveis para confirmação imediata."
                 />
                 <Link
-                  href="/catalogo?disponibilidade=pronta"
+                  href="/pronta-entrega"
                   className="text-sm font-bold text-roxo hover:underline"
                 >
                   Ver todas →
@@ -164,27 +176,27 @@ export default async function HomePage() {
       {/* Como funciona + confiança */}
       <HowItWorks />
 
-      {/* Lançamentos */}
-      {lancamentos.length > 0 && (
+      {/* Últimas unidades — urgência de estoque */}
+      {ultimasUnidades.length > 0 && (
         <section className="bg-cloud">
           <div className="mx-auto max-w-7xl px-4 py-16 md:px-6">
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <SectionHeading
-                  eyebrow="Lançamentos"
-                  title="Acabaram de entrar em campo"
-                  subtitle="Confira os modelos mais recentes disponíveis na Xavier's Sports."
+                  eyebrow="Últimas unidades"
+                  title="Últimas camisas em campo"
+                  subtitle="Modelos à pronta entrega com poucas unidades disponíveis."
                 />
                 <Link
-                  href="/lancamentos"
+                  href="/pronta-entrega"
                   className="text-sm font-bold text-roxo hover:underline"
                 >
-                  Ver todos →
+                  Ver toda pronta entrega →
                 </Link>
               </div>
             </Reveal>
             <div className="mt-8">
-              <ProductCarousel products={lancamentos} />
+              <ProductCarousel products={ultimasUnidades} />
             </div>
           </div>
         </section>

@@ -16,7 +16,7 @@ const cols = [
       { href: "/clubes", label: "Clubes" },
       { href: "/selecoes", label: "Seleções" },
       { href: "/retro", label: "Retrô" },
-      { href: "/lancamentos", label: "Lançamentos" },
+      { href: "/pronta-entrega", label: "Pronta entrega" },
       { href: "/ofertas", label: "Ofertas" },
     ],
   },

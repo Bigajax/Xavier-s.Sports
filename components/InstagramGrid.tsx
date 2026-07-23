@@ -7,12 +7,12 @@ import { site } from "@/config/site";
  * Preparada para futura integração com feed externo.
  */
 const gridImages = [
-  { src: "/images/produtos/brasil-home-feminina-a.jpg", alt: "Camisa amarela de seleção em corte feminino" },
-  { src: "/images/produtos/sao-paulo-away-a.jpg", alt: "Camisa listrada tricolor pendurada" },
-  { src: "/images/produtos/japao-home-a.jpg", alt: "Camisa branca com listras coloridas" },
-  { src: "/images/produtos/barcelona-retro-96-a.jpg", alt: "Camisa retrô blaugrana em cabide" },
-  { src: "/images/produtos/portugal-away-a.jpg", alt: "Camisa branca e verde-água de seleção" },
-  { src: "/images/produtos/corinthians-away-a.jpg", alt: "Camisa listrada preta e branca em manequim" },
+  { src: "/images/produtos/brasil-home-feminina-a.webp", alt: "Camisa amarela de seleção em corte feminino" },
+  { src: "/images/produtos/sao-paulo-away-a.webp", alt: "Camisa listrada tricolor pendurada" },
+  { src: "/images/produtos/japao-home-a.webp", alt: "Camisa branca com listras coloridas" },
+  { src: "/images/produtos/barcelona-retro-96-a.webp", alt: "Camisa retrô blaugrana em cabide" },
+  { src: "/images/produtos/portugal-away-a.webp", alt: "Camisa branca e verde-água de seleção" },
+  { src: "/images/produtos/corinthians-away-a.webp", alt: "Camisa listrada preta e branca em manequim" },
 ];
 
 export default function InstagramGrid() {

@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "8mb",
     },
   },
+  async redirects() {
+    return [
+      // "Lançamentos" foi substituído por "Pronta entrega".
+      { source: "/lancamentos", destination: "/pronta-entrega", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

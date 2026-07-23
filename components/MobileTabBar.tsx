@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame, Heart, Home, Shirt, ShoppingBag } from "lucide-react";
+import { Heart, Home, PackageCheck, Shirt, ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { useFavorites } from "@/lib/favorites";
 import CartDrawer from "@/components/CartDrawer";
@@ -30,7 +30,7 @@ export default function MobileTabBar() {
   const tabs = [
     { href: "/", label: "Início", icon: Home },
     { href: "/catalogo", label: "Catálogo", icon: Shirt },
-    { href: "/lancamentos", label: "Lançamentos", icon: Flame },
+    { href: "/pronta-entrega", label: "Pronta entrega", icon: PackageCheck },
   ] as const;
 
   const tabClass = (active: boolean) =>

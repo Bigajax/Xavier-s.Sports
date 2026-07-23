@@ -5,6 +5,7 @@ export const mainNav = [
   { href: "/clubes", label: "Clubes", mega: "clubes" as const },
   { href: "/selecoes", label: "Seleções", mega: "selecoes" as const },
   { href: "/retro", label: "Retrô" },
+  { href: "/pronta-entrega", label: "Pronta entrega" },
   { href: "/ofertas", label: "Ofertas" },
   { href: "/como-comprar", label: "Como comprar" },
 ];

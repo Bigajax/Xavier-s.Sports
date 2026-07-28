@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart";
 import { useFavorites } from "@/lib/favorites";
 import CartDrawer from "@/components/CartDrawer";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
+import { useSearchUI } from "@/components/SearchProvider";
 
 /**
  * Barra de navegação inferior estilo app (mobile/tablet), no chrome escuro
@@ -22,8 +23,15 @@ export default function MobileTabBar() {
   const [favOpen, setFavOpen] = useState(false);
   const { count: cartCount, ready: cartReady } = useCart();
   const { count: favCount, ready: favReady } = useFavorites();
+  const { open: searchOpen } = useSearchUI();
 
-  if (pathname.startsWith("/admin") || pathname.startsWith("/produto/")) {
+  // Durante a pesquisa a barra sai do DOM (não só fica escondida): no mobile
+  // ela roubava o espaço dos últimos resultados e continuava clicável.
+  if (
+    searchOpen ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/produto/")
+  ) {
     return null;
   }
 
@@ -63,8 +71,9 @@ export default function MobileTabBar() {
             const active =
               t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
             const Icon = t.icon;
-            // indicador de novidade em "Pronta entrega" — some ao entrar na página
-            const showDot = t.href === "/pronta-entrega" && !active;
+            // Bolinha de novidade em "Pronta entrega": fica no canto do ícone e
+            // continua visível na própria página — lá só o pulso para.
+            const isNew = t.href === "/pronta-entrega";
             return (
               <Link key={t.href} href={t.href} className={tabClass(active)}>
                 {active && indicator}
@@ -74,10 +83,12 @@ export default function MobileTabBar() {
                     strokeWidth={active ? 2.2 : 1.7}
                     aria-hidden="true"
                   />
-                  {showDot && (
+                  {isNew && (
                     <span
                       aria-hidden="true"
-                      className="pe-dot absolute -right-1 -top-0.5 h-2 w-2 rounded-full border border-white bg-promo"
+                      className={`absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-ink bg-promo shadow-[0_1px_4px_rgb(229_57_53_/_0.5)] ${
+                        active ? "" : "pe-badge"
+                      }`}
                     />
                   )}
                 </span>

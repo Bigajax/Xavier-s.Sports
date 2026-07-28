@@ -5,6 +5,8 @@ import { site } from "@/config/site";
 import { getCatalog } from "@/lib/products/db";
 import type { Product } from "@/lib/products/types";
 import CatalogProvider from "@/components/CatalogProvider";
+import SearchProvider from "@/components/SearchProvider";
+import SearchOverlay from "@/components/SearchOverlay";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -60,13 +62,16 @@ export default async function RootLayout({
     <html lang="pt-BR" className={`${barlow.variable} ${dmSans.variable}`}>
       <body className="min-h-screen antialiased">
         <CatalogProvider products={catalog} error={catalogError}>
-          <SiteLoader />
-          <Header />
-          <main id="conteudo">{children}</main>
-          <Footer />
-          <MobileTabBar />
-          <WhatsAppButton />
-          <Toaster />
+          <SearchProvider>
+            <SiteLoader />
+            <Header />
+            <main id="conteudo">{children}</main>
+            <Footer />
+            <MobileTabBar />
+            <WhatsAppButton />
+            <SearchOverlay />
+            <Toaster />
+          </SearchProvider>
         </CatalogProvider>
       </body>
     </html>

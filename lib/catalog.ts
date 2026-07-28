@@ -1,12 +1,9 @@
 import { variantAvailability, type Product } from "@/lib/products/types";
+import { matchesSearch, norm } from "@/lib/search";
 
-/** Normaliza para busca sem acento e caixa. */
-export function norm(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "");
-}
+// `norm` mora em lib/search.ts (junto do motor de busca); reexportado aqui
+// porque o painel e a pronta entrega já o importavam deste módulo.
+export { norm };
 
 export type Filters = {
   q?: string;
@@ -47,26 +44,6 @@ export const sortLabels: Record<SortKey, string> = {
   nome: "Nome A–Z",
   temporada: "Temporada mais recente",
 };
-
-function matchesSearch(p: Product, q: string): boolean {
-  const hay = norm(
-    [
-      p.name,
-      p.team,
-      p.season ?? "",
-      p.version,
-      p.sku,
-      p.league ?? "",
-      p.country,
-      ...p.colors,
-      ...p.tags,
-    ].join(" ")
-  );
-  return norm(q)
-    .split(/\s+/)
-    .filter(Boolean)
-    .every((term) => hay.includes(term));
-}
 
 function seasonYear(p: Product): number {
   const m = p.season?.match(/\d{4}/);

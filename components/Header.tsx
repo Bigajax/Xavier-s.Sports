@@ -16,7 +16,7 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import TopBar from "@/components/TopBar";
-import SearchModal from "@/components/SearchModal";
+import { useSearchUI } from "@/components/SearchProvider";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import CartDrawer from "@/components/CartDrawer";
 import { mainNav, megaClubes, megaSelecoes } from "@/components/nav";
@@ -27,7 +27,7 @@ import { waDefault } from "@/lib/whatsapp";
 
 export default function Header() {
   const pathname = usePathname();
-  const [searchOpen, setSearchOpen] = useState(false);
+  const { openSearch } = useSearchUI();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [favOpen, setFavOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -159,7 +159,7 @@ export default function Header() {
           <div className="flex items-center gap-1">
             {/* busca desktop: campo visível que abre o modal */}
             <button
-              onClick={() => setSearchOpen(true)}
+              onClick={() => openSearch()}
               aria-label="Buscar camisas"
               className="mr-1 hidden w-44 items-center gap-2 rounded-lg bg-white/10 px-3 py-2 text-sm text-white/60 transition-colors hover:bg-white/15 hover:text-white/80 lg:flex xl:w-56"
             >
@@ -167,7 +167,7 @@ export default function Header() {
               <span className="truncate">Buscar camisas…</span>
             </button>
             <button
-              onClick={() => setSearchOpen(true)}
+              onClick={() => openSearch()}
               aria-label="Buscar camisas"
               className="rounded-lg p-2 hover:bg-white/10 lg:hidden"
             >
@@ -326,7 +326,6 @@ export default function Header() {
         )}
       </AnimatePresence>
 
-      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
       <FavoritesDrawer open={favOpen} onClose={() => setFavOpen(false)} />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>

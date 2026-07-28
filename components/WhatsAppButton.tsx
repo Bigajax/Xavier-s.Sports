@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { useSearchUI } from "@/components/SearchProvider";
 import { waDefault } from "@/lib/whatsapp";
 
 /**
@@ -13,6 +14,7 @@ import { waDefault } from "@/lib/whatsapp";
  */
 export default function WhatsAppButton() {
   const pathname = usePathname();
+  const { open: searchOpen } = useSearchUI();
   const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(true);
 
@@ -26,7 +28,9 @@ export default function WhatsAppButton() {
   }, []);
 
   // No mobile fica acima da barra inferior (tab bar / CTA do produto).
-  if (pathname.startsWith("/admin")) return null;
+  // Durante a pesquisa some: o WhatsApp reaparece como ação dentro do estado
+  // vazio, onde é útil, em vez de flutuar por cima dos resultados.
+  if (searchOpen || pathname.startsWith("/admin")) return null;
 
   return (
     <a

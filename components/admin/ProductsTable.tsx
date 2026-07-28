@@ -18,6 +18,7 @@ import {
   Pencil,
   Plus,
   Search,
+  Tag,
   Trash2,
 } from "lucide-react";
 import {
@@ -41,9 +42,12 @@ import ProductImage from "@/components/ProductImage";
 import ProductForm from "@/components/admin/ProductForm";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import StockDialog, { type StockAction } from "@/components/admin/StockDialog";
+import BulkPriceDialog from "@/components/admin/BulkPriceDialog";
+import PriceBandsPanel from "@/components/admin/PriceBandsPanel";
 
 type StatusFilter = "todos" | ProductStatus | "estoque-baixo";
 type VisibilityFilter = "todos" | "ativo" | "oculto" | "arquivados";
+type View = "lista" | "precos";
 
 const statusTone: Record<ProductStatus, string> = {
   "pronta-entrega": "bg-whats/15 text-green-800",
@@ -81,6 +85,9 @@ export default function ProductsTable({
         ? "oculto"
         : "todos"
   );
+  const [view, setView] = useState<View>("lista");
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkPriceOpen, setBulkPriceOpen] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
   const [creating, setCreating] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<Product | null>(null);
@@ -125,6 +132,45 @@ export default function ProductsTable({
       return true;
     });
   }, [products, q, status, visibility]);
+
+  // ---------- Seleção em lote ----------
+
+  const selectedProducts = useMemo(
+    () => products.filter((p) => selected.has(p.id)),
+    [products, selected]
+  );
+  const allRowsSelected = rows.length > 0 && rows.every((p) => selected.has(p.id));
+
+  const toggleOne = (id: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  /** Marca/desmarca tudo que está visível com os filtros atuais. */
+  const toggleAllRows = () =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      for (const p of rows) {
+        if (allRowsSelected) next.delete(p.id);
+        else next.add(p.id);
+      }
+      return next;
+    });
+
+  const clearSelection = () => setSelected(new Set());
+
+  const checkbox = (p: Product) => (
+    <input
+      type="checkbox"
+      checked={selected.has(p.id)}
+      onChange={() => toggleOne(p.id)}
+      aria-label={`Selecionar ${p.name}`}
+      className="h-4 w-4 shrink-0 accent-roxo"
+    />
+  );
 
   const onToggle = async (p: Product) => {
     const result = await toggleAvailable(p.id, !p.available);
@@ -371,6 +417,42 @@ export default function ProductsTable({
 
   return (
     <div>
+      {/* Abas: lista de produtos x reprecificação por faixa */}
+      <div
+        className="mt-5 flex gap-1 border-b border-ink/10"
+        role="tablist"
+        aria-label="Modo de trabalho"
+      >
+        {(
+          [
+            ["lista", "Produtos e estoque"],
+            ["precos", "Preços em lote"],
+          ] as const
+        ).map(([key, label]) => (
+          <button
+            key={key}
+            role="tab"
+            aria-selected={view === key}
+            onClick={() => setView(key)}
+            className={`tap -mb-px border-b-2 px-4 py-2.5 text-sm font-bold transition-colors ${
+              view === key
+                ? "border-roxo text-roxo"
+                : "border-transparent text-steel hover:text-ink"
+            }`}
+          >
+            {key === "precos" && (
+              <Tag className="mr-1.5 inline h-4 w-4 align-[-2px]" aria-hidden="true" />
+            )}
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {view === "precos" && (
+        <PriceBandsPanel products={products} onDone={refresh} />
+      )}
+
+      <div hidden={view !== "lista"}>
       {/* Busca, filtros e cadastro */}
       <div className="mt-5 space-y-2">
         <div className="flex flex-wrap items-center gap-2">
@@ -419,11 +501,45 @@ export default function ProductsTable({
             <option value="oculto">Somente ocultos</option>
             <option value="arquivados">Arquivados</option>
           </select>
+          <label className="flex shrink-0 cursor-pointer items-center gap-2 text-sm font-semibold text-ink">
+            <input
+              type="checkbox"
+              checked={allRowsSelected}
+              onChange={toggleAllRows}
+              disabled={rows.length === 0}
+              aria-label="Selecionar todos os produtos filtrados"
+              className="h-4 w-4 accent-roxo"
+            />
+            Marcar todos
+          </label>
           <p className="ml-auto shrink-0 text-sm text-steel" aria-live="polite">
             {rows.length} {rows.length === 1 ? "produto" : "produtos"}
           </p>
         </div>
       </div>
+
+      {/* Barra de ações em lote — só aparece com algo selecionado */}
+      {selectedProducts.length > 0 && (
+        <div className="sticky bottom-2 z-30 mt-3 flex flex-wrap items-center gap-2 rounded-xl bg-ink px-4 py-3 text-white shadow-lg">
+          <p className="text-sm font-bold" aria-live="polite">
+            {selectedProducts.length}{" "}
+            {selectedProducts.length === 1 ? "selecionado" : "selecionados"}
+          </p>
+          <button
+            onClick={() => setBulkPriceOpen(true)}
+            className="tap ml-auto flex items-center gap-2 rounded-lg bg-amarelo px-4 py-2 text-sm font-bold text-ink"
+          >
+            <Tag className="h-4 w-4" aria-hidden="true" />
+            Ajustar preço
+          </button>
+          <button
+            onClick={clearSelection}
+            className="tap rounded-lg border border-white/25 px-3 py-2 text-sm font-bold text-white hover:bg-white/10"
+          >
+            Limpar
+          </button>
+        </div>
+      )}
 
       {/* Cards no celular */}
       <ul className="mt-4 space-y-3 md:hidden">
@@ -438,6 +554,7 @@ export default function ProductsTable({
               className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-ink/5"
             >
               <div className="flex items-start gap-3">
+                <span className="pt-1">{checkbox(p)}</span>
                 <span className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-cloud">
                   <ProductImage product={p} sizes="56px" />
                 </span>
@@ -493,6 +610,16 @@ export default function ProductsTable({
         <table className="w-full min-w-[860px] text-left text-sm">
           <thead className="bg-ink text-white">
             <tr>
+              <th className="w-10 px-4 py-3">
+                <input
+                  type="checkbox"
+                  checked={allRowsSelected}
+                  onChange={toggleAllRows}
+                  disabled={rows.length === 0}
+                  aria-label="Selecionar todos os produtos filtrados"
+                  className="h-4 w-4 accent-amarelo"
+                />
+              </th>
               <th className="px-4 py-3">Produto</th>
               <th className="px-4 py-3">Preço</th>
               <th className="px-4 py-3">Estoque por tamanho</th>
@@ -503,7 +630,7 @@ export default function ProductsTable({
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-steel">
+                <td colSpan={6} className="px-4 py-10 text-center text-steel">
                   Nenhum produto encontrado com esses filtros.
                 </td>
               </tr>
@@ -514,7 +641,17 @@ export default function ProductsTable({
                   0
                 );
                 return (
-                  <tr key={p.id} className={i % 2 ? "bg-cloud/40" : "bg-white"}>
+                  <tr
+                    key={p.id}
+                    className={
+                      selected.has(p.id)
+                        ? "bg-roxo/10"
+                        : i % 2
+                          ? "bg-cloud/40"
+                          : "bg-white"
+                    }
+                  >
+                    <td className="px-4 py-2.5">{checkbox(p)}</td>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-3">
                         <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-cloud">
@@ -550,16 +687,32 @@ export default function ProductsTable({
           </tbody>
         </table>
       </div>
+      </div>
 
+      {bulkPriceOpen && (
+        <BulkPriceDialog
+          products={selectedProducts}
+          onClose={() => setBulkPriceOpen(false)}
+          onDone={() => {
+            clearSelection();
+            refresh();
+          }}
+        />
+      )}
       {editing && (
         <ProductForm
           product={editing}
+          catalog={products}
           onClose={() => setEditing(null)}
           onSaved={refresh}
         />
       )}
       {creating && (
-        <ProductForm onClose={() => setCreating(false)} onSaved={refresh} />
+        <ProductForm
+          catalog={products}
+          onClose={() => setCreating(false)}
+          onSaved={refresh}
+        />
       )}
       {stockDialog && (
         <StockDialog

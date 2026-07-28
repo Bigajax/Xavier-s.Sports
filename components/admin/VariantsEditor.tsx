@@ -1,21 +1,23 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
+import { PRE_ORDER_DELIVERY_TEXT } from "@/config/catalogo";
 
 export type VariantDraft = {
   id?: string;
   label: string;
   stock: string;
   allowPreOrder: boolean;
-  estimatedDelivery: string;
   active: boolean;
 };
-
-export const DEFAULT_DELIVERY = "7 a 12 dias úteis";
 
 /**
  * Estoque por tamanho: tabela em telas médias+, blocos empilhados no
  * celular. Compartilhado entre cadastro e edição de produto.
+ *
+ * O prazo de encomenda não é editável aqui: é o mesmo para a loja inteira
+ * (config/catalogo.ts), então aparece só como leitura — assim o painel nunca
+ * mostra um prazo diferente do que o cliente vê na vitrine.
  */
 export default function VariantsEditor({
   variants,
@@ -26,15 +28,6 @@ export default function VariantsEditor({
   onPatch: (index: number, patch: Partial<VariantDraft>) => void;
   onRemove: (index: number) => void;
 }) {
-  const togglePreOrder = (index: number, checked: boolean) => {
-    const v = variants[index];
-    onPatch(index, {
-      allowPreOrder: checked,
-      estimatedDelivery:
-        checked && !v.estimatedDelivery ? DEFAULT_DELIVERY : v.estimatedDelivery,
-    });
-  };
-
   return (
     <>
       {/* Cards no celular */}
@@ -95,19 +88,15 @@ export default function VariantsEditor({
               <input
                 type="checkbox"
                 checked={v.allowPreOrder}
-                onChange={(e) => togglePreOrder(i, e.target.checked)}
+                onChange={(e) => onPatch(i, { allowPreOrder: e.target.checked })}
                 className="h-4 w-4 accent-roxo"
               />
               Aceita encomenda quando zerar
             </label>
             {v.allowPreOrder && (
-              <input
-                value={v.estimatedDelivery}
-                onChange={(e) => onPatch(i, { estimatedDelivery: e.target.value })}
-                placeholder={DEFAULT_DELIVERY}
-                aria-label={`Prazo de encomenda do tamanho ${v.label || i + 1}`}
-                className="mt-2 w-full rounded border border-ink/15 px-2.5 py-2 text-sm"
-              />
+              <p className="mt-2 rounded bg-cloud/70 px-2.5 py-2 text-xs text-steel">
+                {PRE_ORDER_DELIVERY_TEXT}
+              </p>
             )}
           </li>
         ))}
@@ -121,7 +110,7 @@ export default function VariantsEditor({
               <th className="px-3 py-2">Tamanho</th>
               <th className="px-3 py-2">Quantidade</th>
               <th className="px-3 py-2">Aceita encomenda</th>
-              <th className="px-3 py-2">Prazo estimado</th>
+              <th className="px-3 py-2">Prazo da encomenda</th>
               <th className="px-3 py-2">Ativo</th>
               <th className="px-3 py-2"><span className="sr-only">Remover</span></th>
             </tr>
@@ -152,20 +141,13 @@ export default function VariantsEditor({
                   <input
                     type="checkbox"
                     checked={v.allowPreOrder}
-                    onChange={(e) => togglePreOrder(i, e.target.checked)}
+                    onChange={(e) => onPatch(i, { allowPreOrder: e.target.checked })}
                     aria-label={`Aceita encomenda no tamanho ${v.label || i + 1}`}
                     className="h-4 w-4 accent-roxo"
                   />
                 </td>
-                <td className="px-3 py-2">
-                  <input
-                    value={v.estimatedDelivery}
-                    onChange={(e) => onPatch(i, { estimatedDelivery: e.target.value })}
-                    placeholder={v.allowPreOrder ? DEFAULT_DELIVERY : "—"}
-                    disabled={!v.allowPreOrder}
-                    aria-label={`Prazo de encomenda do tamanho ${v.label || i + 1}`}
-                    className="w-36 rounded border border-ink/15 px-2 py-1.5 text-sm disabled:bg-cloud/60 disabled:text-steel"
-                  />
+                <td className="px-3 py-2 text-sm text-steel">
+                  {v.allowPreOrder ? PRE_ORDER_DELIVERY_TEXT : "—"}
                 </td>
                 <td className="px-3 py-2">
                   <input

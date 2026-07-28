@@ -172,6 +172,25 @@ function ProdutosHelp() {
         </p>
       </section>
 
+      <section className="rounded-xl border border-ink/10 bg-cloud/40 p-4">
+        <SectionTitle>4 · Mudar preço de vários de uma vez</SectionTitle>
+        <p className="mt-2 text-xs leading-relaxed text-steel">
+          Na aba <strong className="text-ink">Preços em lote</strong> você
+          reprecifica por faixa (Torcedor, Jogador, Retrô, Manga longa): digite o
+          preço novo, veja quantos produtos mudam e aplique.
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-steel">
+          Para um grupo específico, marque as caixinhas na lista — filtre antes,
+          use <strong className="text-ink">Marcar todos</strong> e escolha{" "}
+          <strong className="text-ink">Ajustar preço</strong>: dá para definir um
+          valor ou reajustar em porcentagem.
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-ink">
+          Em qualquer um dos dois, produtos <strong>em oferta são pulados</strong>{" "}
+          — sua promoção não é apagada sem você mandar.
+        </p>
+      </section>
+
       <p className="rounded-lg bg-amarelo/15 p-3 text-xs leading-relaxed text-ink">
         Toda entrada e saída pede um <strong>motivo</strong> e vira um registro
         permanente na tela de <strong>Movimentações</strong> — você sempre sabe

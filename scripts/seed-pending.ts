@@ -13,7 +13,8 @@ import sharp from "sharp";
 import { readFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 import { getTeam } from "../data/teams";
-import { READY_STOCK, PRE_ORDER_DELIVERY } from "../lib/readyStock";
+import { READY_STOCK } from "../lib/readyStock";
+import { LONG_SLEEVE_PRICE, PRE_ORDER_DELIVERY_RANGE } from "../config/catalogo";
 
 config({ path: ".env.local" });
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -104,7 +105,7 @@ const MODELS: Model[] = [
     collection: "atual",
     season: "2026",
     colors: ["Celeste", "Branco"],
-    price: 189,
+    price: LONG_SLEEVE_PRICE,
     sizes: FULL,
     description:
       "Camisa Argentina home 2026 de manga longa, listras celeste e branco, três estrelas e patch de campeã. Fotos reais do produto — fale com a equipe pelo WhatsApp para confirmar disponibilidade.",
@@ -122,7 +123,7 @@ const MODELS: Model[] = [
     collection: "atual",
     season: "2026",
     colors: ["Branco", "Preto", "Vermelho", "Dourado"],
-    price: 189,
+    price: LONG_SLEEVE_PRICE,
     sizes: FULL,
     description:
       "Camisa Alemanha home 2026 de manga longa, branca com o chevron preto, vermelho e dourado. Fotos reais do produto — fale com a equipe pelo WhatsApp para confirmar disponibilidade.",
@@ -337,7 +338,7 @@ async function main() {
         active: true,
         stock: stock[label] ?? 0,
         allow_pre_order: true,
-        estimated_delivery: PRE_ORDER_DELIVERY,
+        estimated_delivery: PRE_ORDER_DELIVERY_RANGE,
       }))
     );
     if (ins.error) {

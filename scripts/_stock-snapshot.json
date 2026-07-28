@@ -1117,7 +1117,7 @@
     "position": 4,
     "product_id": "b67335a1-3b53-41d7-aac4-989299de91ce",
     "allow_pre_order": true,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "5d053609-3811-440c-a99e-83295f705d27",
@@ -1617,7 +1617,7 @@
     "position": 4,
     "product_id": "4a0073ef-cc5c-4f5b-a25f-a3a6a27dcac7",
     "allow_pre_order": true,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "6ddb1e5c-cb12-4a78-8943-59eb581a8eab",
@@ -8147,7 +8147,7 @@
     "position": 0,
     "product_id": "194016e0-c02a-45ce-908c-8783c79642f3",
     "allow_pre_order": true,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "f1fbea1c-7c21-469a-bc32-878b33668038",
@@ -8157,7 +8157,7 @@
     "position": 1,
     "product_id": "194016e0-c02a-45ce-908c-8783c79642f3",
     "allow_pre_order": true,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "2ba20211-6bc8-4225-a4fe-36e8cbfba80d",
@@ -8167,7 +8167,7 @@
     "position": 2,
     "product_id": "194016e0-c02a-45ce-908c-8783c79642f3",
     "allow_pre_order": false,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "5facfebc-5645-4696-895f-d73f6c9d491b",
@@ -8177,7 +8177,7 @@
     "position": 3,
     "product_id": "194016e0-c02a-45ce-908c-8783c79642f3",
     "allow_pre_order": true,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "f4406dd8-7b8b-423a-9075-b0d22b0582b2",
@@ -13037,7 +13037,7 @@
     "position": 0,
     "product_id": "bb2b8b50-b82d-4e2c-bd01-9bb135cb7a89",
     "allow_pre_order": true,
-    "estimated_delivery": "7 a 12 dias úteis"
+    "estimated_delivery": "15 a 25 dias úteis"
   },
   {
     "id": "11c796d5-6a12-4678-acfe-169dfd94f38a",

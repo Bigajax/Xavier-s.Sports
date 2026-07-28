@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Camera,
   HelpCircle,
@@ -11,6 +11,9 @@ import {
   X,
 } from "lucide-react";
 import { teams } from "@/data/teams";
+import { PRE_ORDER_DELIVERY_TEXT } from "@/config/catalogo";
+import { bandLabels, bandOf, suggestedPrice } from "@/lib/products/priceBands";
+import { brl } from "@/lib/format";
 import type { Product } from "@/lib/products/types";
 import {
   createProduct,
@@ -21,7 +24,6 @@ import {
 import ImagesEditor from "@/components/admin/ImagesEditor";
 import MoneyInput from "@/components/admin/MoneyInput";
 import VariantsEditor, {
-  DEFAULT_DELIVERY,
   type VariantDraft,
 } from "@/components/admin/VariantsEditor";
 import { toast } from "@/components/Toaster";
@@ -62,7 +64,6 @@ const emptyVariant = (label = ""): VariantDraft => ({
   label,
   stock: "0",
   allowPreOrder: false,
-  estimatedDelivery: "",
   active: true,
 });
 
@@ -112,7 +113,7 @@ function StockRuleLegend() {
     {
       chip: "M: 0 ⏱",
       chipCls: "bg-amarelo/25 text-ink",
-      label: "Sob encomenda (informe o prazo)",
+      label: "Sob encomenda (prazo padrão da loja)",
       labelCls: "bg-amarelo/30 text-ink",
     },
     {
@@ -151,10 +152,13 @@ function StockRuleLegend() {
  */
 export default function ProductForm({
   product,
+  catalog = [],
   onClose,
   onSaved,
 }: {
   product?: Product;
+  /** Catálogo atual — só para sugerir o preço da faixa (versão + manga). */
+  catalog?: Product[];
   onClose: () => void;
   onSaved: () => void;
 }) {
@@ -182,6 +186,34 @@ export default function ProductForm({
   const [oldPrice, setOldPrice] = useState<number | null>(
     product?.oldPrice ?? null
   );
+
+  /**
+   * Preço praticado pela faixa (versão + manga) hoje no catálogo. O próprio
+   * produto sai da conta na edição — senão um preço digitado errado se
+   * autoconfirmaria como padrão.
+   */
+  const bandPrice = useMemo(
+    () =>
+      suggestedPrice(
+        catalog.filter((p) => p.id !== product?.id),
+        { sleeve, version }
+      ),
+    [catalog, product?.id, sleeve, version]
+  );
+  const bandLabel = bandLabels[bandOf({ sleeve, version })];
+
+  /** Vira true no primeiro toque no campo de preço — aí paramos de sugerir. */
+  const [priceEdited, setPriceEdited] = useState(false);
+
+  /**
+   * Cadastro novo: o preço acompanha a faixa enquanto o usuário não digitar
+   * nada. Marcar "Manga: longa" já troca o valor para o preço da manga longa.
+   * Depois que ele digita, nunca mais sobrescrevemos — vira só uma dica.
+   */
+  useEffect(() => {
+    if (isEdit || priceEdited || bandPrice === null) return;
+    setPrice(bandPrice);
+  }, [isEdit, priceEdited, bandPrice]);
   const [installments, setInstallments] = useState(
     product?.installments ? String(product.installments) : "3"
   );
@@ -205,7 +237,6 @@ export default function ProductForm({
           label: v.label,
           stock: String(v.stock),
           allowPreOrder: v.allowPreOrder,
-          estimatedDelivery: v.estimatedDelivery ?? "",
           active: v.active,
         }))
       : ["P", "M", "G", "GG"].map((l) => emptyVariant(l))
@@ -291,11 +322,6 @@ export default function ProductForm({
     for (const v of variants) {
       const stock = Math.floor(Number(v.stock) || 0);
       if (stock < 0) estoque.push(`O tamanho ${v.label || "?"} não pode ter estoque negativo.`);
-      if (v.allowPreOrder && stock === 0 && !v.estimatedDelivery.trim()) {
-        estoque.push(
-          `Informe o prazo estimado do tamanho ${v.label || "?"} (encomenda com estoque zerado).`
-        );
-      }
     }
 
     if (onSale && (price === null || oldPrice === null || oldPrice <= price)) {
@@ -324,7 +350,6 @@ export default function ProductForm({
       label: v.label.trim(),
       stock: Math.max(0, Math.floor(Number(v.stock) || 0)),
       allowPreOrder: v.allowPreOrder,
-      estimatedDelivery: v.estimatedDelivery.trim() || undefined,
       active: v.active,
     }));
     const colorsPayload = colors
@@ -605,9 +630,22 @@ export default function ProductForm({
                 <MoneyInput
                   id="pf-preco"
                   value={price}
-                  onChange={(v) => { setPrice(v); touch(); }}
+                  onChange={(v) => { setPrice(v); setPriceEdited(true); touch(); }}
                   placeholder="249,90"
                 />
+                {bandPrice !== null && price !== bandPrice && (
+                  <p className="mt-1 text-xs leading-snug text-steel">
+                    {bandLabel} está a{" "}
+                    <b className="tabular-nums text-ink">{brl(bandPrice)}</b>.{" "}
+                    <button
+                      type="button"
+                      onClick={() => { setPrice(bandPrice); setPriceEdited(true); touch(); }}
+                      className="font-bold text-roxo hover:underline"
+                    >
+                      Usar esse preço
+                    </button>
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="pf-preco-de" className={labelCls}>Preço &quot;de&quot; (opcional)</label>
@@ -727,9 +765,9 @@ export default function ProductForm({
             </div>
             <p className="text-xs text-steel">
               Estoque maior que zero = pronta entrega. Estoque zero com
-              &quot;aceita encomenda&quot; = sob encomenda (o prazo é
-              obrigatório, ex.: {DEFAULT_DELIVERY}). Estoque zero sem encomenda
-              = indisponível.
+              &quot;aceita encomenda&quot; = sob encomenda ({PRE_ORDER_DELIVERY_TEXT}{" "}
+              — igual para toda a loja). Estoque zero sem encomenda =
+              indisponível.
             </p>
             <VariantsEditor
               variants={variants}

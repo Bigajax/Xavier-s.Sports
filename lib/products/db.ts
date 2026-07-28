@@ -4,6 +4,7 @@ import { unstable_cache } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
 import type { Product, Variant } from "@/lib/products/types";
+import { PRE_ORDER_DELIVERY_RANGE } from "@/config/catalogo";
 
 /**
  * Leitura do catálogo no Supabase, cacheada com a tag "products".
@@ -81,7 +82,12 @@ function mapVariant(row: VariantRow): Variant {
     label: row.label,
     stock: row.stock,
     allowPreOrder: row.allow_pre_order,
-    estimatedDelivery: row.estimated_delivery ?? undefined,
+    // O prazo é política da loja, não dado do produto: vem sempre de
+    // config/catalogo.ts. Ignorar a coluna evita que uma linha antiga
+    // ("7 a 12 dias úteis") mostre um prazo diferente em alguma página.
+    estimatedDelivery: row.allow_pre_order
+      ? PRE_ORDER_DELIVERY_RANGE
+      : undefined,
     active: row.active,
   };
 }

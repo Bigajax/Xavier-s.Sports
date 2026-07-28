@@ -6,6 +6,12 @@ import { z } from "zod";
 import { supabaseServer } from "@/lib/supabase/server";
 import { supabaseUrl } from "@/lib/supabase/env";
 import { PRODUCTS_TAG } from "@/lib/products/db";
+import {
+  MAX_PRICE,
+  groupChanges,
+  planBulkPrice,
+} from "@/lib/products/bulkPrice";
+import { PRE_ORDER_DELIVERY_RANGE } from "@/config/catalogo";
 import { norm } from "@/lib/catalog";
 import { ENTRY_REASONS, EXIT_REASONS } from "@/lib/stock";
 
@@ -38,9 +44,16 @@ const variantSchema = z.object({
   label: z.string().trim().min(1, "Informe o tamanho").max(20),
   stock: z.number().int().min(0, "Estoque não pode ser negativo"),
   allowPreOrder: z.boolean(),
-  estimatedDelivery: z.string().trim().max(60).optional(),
   active: z.boolean(),
 });
+
+/**
+ * Prazo gravado na variante. Não vem do formulário: é o prazo único da loja
+ * (config/catalogo.ts), para o banco nunca guardar um prazo divergente.
+ */
+function deliveryFor(allowPreOrder: boolean): string | null {
+  return allowPreOrder ? PRE_ORDER_DELIVERY_RANGE : null;
+}
 
 /** Oferta honesta: só com preço "de" maior que o preço atual. */
 function offerRule(
@@ -167,7 +180,7 @@ export async function saveProduct(input: SaveProductInput): Promise<ActionResult
         label: v.label,
         stock: v.stock,
         allow_pre_order: v.allowPreOrder,
-        estimated_delivery: v.estimatedDelivery || null,
+        estimated_delivery: deliveryFor(v.allowPreOrder),
         active: v.active,
         position: index,
       };
@@ -318,7 +331,7 @@ export async function createProduct(
         label: v.label,
         stock: v.stock,
         allow_pre_order: v.allowPreOrder,
-        estimated_delivery: v.estimatedDelivery || null,
+        estimated_delivery: deliveryFor(v.allowPreOrder),
         active: v.active,
         position: index,
       }))
@@ -487,6 +500,103 @@ export async function archiveProduct(id: string): Promise<ActionResult> {
   }
 }
 
+const bulkPriceSchema = z
+  .object({
+    ids: z
+      .array(z.string().uuid())
+      .min(1, "Selecione ao menos um produto")
+      .max(1000, "Selecione no máximo 1000 produtos por vez"),
+    mode: z.enum(["fixo", "percentual"]),
+    /** Modo fixo: preço em reais. Modo percentual: variação (10 = +10%). */
+    value: z.number().finite(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.mode === "fixo" && (data.value <= 0 || data.value > MAX_PRICE)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["value"],
+        message: "Informe um preço entre R$ 0,01 e R$ 99.999,00.",
+      });
+    }
+    if (data.mode === "percentual" && (data.value <= -90 || data.value > 300)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["value"],
+        message: "O reajuste precisa ficar entre -90% e +300%.",
+      });
+    }
+  });
+
+export type BulkPriceResult = ActionResult & {
+  changed?: number;
+  skippedOnSale?: number;
+  unchanged?: number;
+};
+
+/**
+ * Ajusta o preço de vários produtos de uma vez (preço fixo ou reajuste em %).
+ *
+ * Os preços vêm do banco, não do cliente: o painel manda só os ids e o ajuste,
+ * e o plano é recalculado aqui. Produtos em oferta são pulados de propósito —
+ * mexer no preço deles apagaria a promoção sem o dono perceber.
+ */
+export async function applyBulkPrice(
+  input: z.infer<typeof bulkPriceSchema>
+): Promise<BulkPriceResult> {
+  try {
+    const supabase = await requireUser();
+    const data = bulkPriceSchema.parse(input);
+
+    const { data: rows, error } = await supabase
+      .from("products")
+      .select("id, name, price, old_price, on_sale")
+      .in("id", data.ids);
+    if (error) throw new Error(error.message);
+    if (!rows?.length) return { ok: false, error: "Produtos não encontrados." };
+
+    const plan = planBulkPrice(
+      rows.map((r) => ({
+        id: r.id,
+        name: r.name,
+        price: Number(r.price),
+        oldPrice: r.old_price === null ? undefined : Number(r.old_price),
+        onSale: r.on_sale,
+      })),
+      data.mode,
+      data.value
+    );
+
+    if (plan.invalid.length > 0) {
+      return {
+        ok: false,
+        error: `O ajuste deixaria ${plan.invalid.length} produto(s) com preço inválido. Nada foi alterado.`,
+      };
+    }
+
+    for (const group of groupChanges(plan.changes)) {
+      const { error: upError } = await supabase
+        .from("products")
+        .update({
+          price: group.price,
+          ...(group.clearOldPrice ? { old_price: null, on_sale: false } : {}),
+          updated_at: new Date().toISOString(),
+        })
+        .in("id", group.ids);
+      if (upError) throw new Error(upError.message);
+    }
+
+    revalidateTag(PRODUCTS_TAG);
+    return {
+      ok: true,
+      changed: plan.changes.length,
+      skippedOnSale: plan.skippedOnSale.length,
+      unchanged: plan.unchanged,
+    };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
 /** Restaura um produto arquivado (volta oculto — publique manualmente). */
 export async function unarchiveProduct(id: string): Promise<ActionResult> {
   try {
@@ -561,7 +671,6 @@ export async function duplicateProduct(
     const variantRows = (variants ?? []) as {
       label: string;
       allow_pre_order: boolean;
-      estimated_delivery: string | null;
       active: boolean;
       position: number;
     }[];
@@ -572,7 +681,7 @@ export async function duplicateProduct(
           label: v.label,
           stock: 0,
           allow_pre_order: v.allow_pre_order,
-          estimated_delivery: v.estimated_delivery,
+          estimated_delivery: deliveryFor(v.allow_pre_order),
           active: v.active,
           position: v.position,
         }))

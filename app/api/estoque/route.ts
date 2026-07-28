@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
+import { PRE_ORDER_DELIVERY_RANGE } from "@/config/catalogo";
 
 /**
  * Estoque fresco por slug para a reconciliação da sacola — sem cache, porque
@@ -59,7 +60,10 @@ export async function GET(request: Request) {
         label: v.label,
         stock: v.stock,
         allowPreOrder: v.allow_pre_order,
-        estimatedDelivery: v.estimated_delivery ?? undefined,
+        // Mesmo prazo derivado do catálogo (ver lib/products/db.ts).
+        estimatedDelivery: v.allow_pre_order
+          ? PRE_ORDER_DELIVERY_RANGE
+          : undefined,
         active: v.active,
       }));
   }

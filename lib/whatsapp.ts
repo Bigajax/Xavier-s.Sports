@@ -95,7 +95,7 @@ export function waProduct(
   } else if (isPreOrder) {
     blocks.push(block("DISPONIBILIDADE", "Sob encomenda"));
     if (availability.estimatedDelivery) {
-      blocks.push(block("PRAZO ESTIMADO", availability.estimatedDelivery));
+      blocks.push(block("PRAZO", availability.estimatedDelivery));
     }
   }
 
@@ -206,7 +206,7 @@ export function waCart(
     lines.push(`Quantidade: ${item.qty}`);
     lines.push(`Disponibilidade: ${availabilityText[item.availability]}`);
     if (item.availability === "encomenda" && item.estimatedDelivery) {
-      lines.push(`Prazo estimado: ${item.estimatedDelivery}`);
+      lines.push(`Prazo: ${item.estimatedDelivery}`);
     }
     if (item.qty > 1) {
       lines.push(`Valor unitário: ${brl(item.unitPrice)}`);

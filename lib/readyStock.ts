@@ -5,7 +5,7 @@
  * é dado de seed, 10 por tamanho em todo produto). Ao carregar o catálogo,
  * `applyReadyStock` reescreve as variantes de cada produto com estes números:
  *   - tamanho listado abaixo (> 0) ....... pronta entrega, com a quantidade real;
- *   - qualquer outro tamanho/produto ..... por encomenda (prazo de 7 a 12 dias).
+ *   - qualquer outro tamanho/produto ..... por encomenda (prazo em config/catalogo.ts).
  *
  * Assim toda a vitrine (cards, seletor de tamanho, WhatsApp, sacola) reflete o
  * estoque real com viés seguro: sem correspondência explícita aqui, o site
@@ -14,6 +14,8 @@
  * Para alterar o estoque, edite SOMENTE este arquivo. A lista foi informada
  * pelo cliente: 29 modelos, 89 unidades (validado em runtime abaixo).
  */
+
+import { PRE_ORDER_DELIVERY_RANGE } from "@/config/catalogo";
 
 export type ReadyStockGroup = "Clubes" | "Seleções";
 
@@ -33,9 +35,6 @@ export type ReadyStockEntry = {
   /** Observação de divergência quando o match exigiu uma escolha. */
   note?: string;
 };
-
-/** Prazo padrão dos produtos por encomenda. */
-export const PRE_ORDER_DELIVERY = "7 a 12 dias úteis";
 
 export const READY_STOCK: ReadyStockEntry[] = [
   // ---------------- Seleções ----------------
@@ -295,7 +294,7 @@ export function applyReadyStock<T extends ProductLike>(product: T): T {
       active: true,
       stock: stock?.[v.label] ?? 0,
       allowPreOrder: true,
-      estimatedDelivery: PRE_ORDER_DELIVERY,
+      estimatedDelivery: PRE_ORDER_DELIVERY_RANGE,
     })),
   };
 }

@@ -5,6 +5,7 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 import CatalogError from "@/components/CatalogError";
 import ProntaEntregaClient from "@/components/ProntaEntregaClient";
 import { getCatalog } from "@/lib/products/db";
+import { PRE_ORDER_DELIVERY_RANGE } from "@/config/catalogo";
 import { deriveStatus } from "@/lib/products/types";
 import { waGeneric } from "@/lib/whatsapp";
 
@@ -73,7 +74,7 @@ export default async function ProntaEntregaPage() {
             </h2>
             <p className="mt-2 max-w-lg text-steel">
               Fale com a equipe: consultamos reposição, outros tamanhos e modelos
-              por encomenda com prazo estimado de 7 a 12 dias úteis.
+              por encomenda com prazo de {PRE_ORDER_DELIVERY_RANGE}.
             </p>
           </div>
           <a

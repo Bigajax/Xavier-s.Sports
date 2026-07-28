@@ -11,6 +11,7 @@
 import { config } from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 import { products, type SizeStatus } from "../data/products";
+import { PRE_ORDER_DELIVERY_RANGE } from "../config/catalogo";
 
 config({ path: ".env.local" });
 
@@ -29,7 +30,7 @@ const supabase = createClient(url, serviceKey, {
 });
 
 /** Prazo padrão para tamanhos que hoje são "sob consulta". */
-const DEFAULT_PREORDER_DELIVERY = "7 a 12 dias úteis";
+const DEFAULT_PREORDER_DELIVERY = PRE_ORDER_DELIVERY_RANGE;
 
 const variantDefaults: Record<
   SizeStatus,

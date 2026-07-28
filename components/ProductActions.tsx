@@ -248,7 +248,7 @@ export default function ProductActions({ product }: { product: Product }) {
                 </p>
                 {selectedAvail.estimatedDelivery && (
                   <p className="mt-0.5 pl-[22px] text-xs text-steel">
-                    Prazo estimado: {selectedAvail.estimatedDelivery}
+                    Prazo de {selectedAvail.estimatedDelivery}.
                   </p>
                 )}
               </div>

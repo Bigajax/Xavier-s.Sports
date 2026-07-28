@@ -3,7 +3,7 @@
  * fonte de verdade — o admin passa a controlar o estoque pela sua UI.
  *
  *   - modelos casados (slug) ...... tamanho listado recebe a quantidade real;
- *   - todos os demais tamanhos ..... stock 0 + encomenda (7 a 12 dias úteis);
+ *   - todos os demais tamanhos ..... stock 0 + encomenda (prazo de config/catalogo.ts);
  *   - todos os outros produtos ..... zerados + encomenda.
  *
  * Antes de escrever, salva um snapshot completo em scripts/_stock-snapshot.json
@@ -15,7 +15,8 @@
 import { config } from "dotenv";
 import { writeFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
-import { READY_STOCK, PRE_ORDER_DELIVERY } from "../lib/readyStock";
+import { READY_STOCK } from "../lib/readyStock";
+import { PRE_ORDER_DELIVERY_RANGE } from "../config/catalogo";
 
 config({ path: ".env.local" });
 const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim().replace(/\/+$/, "");
@@ -70,7 +71,7 @@ async function main() {
         label: v.label,
         stock: qty,
         allow_pre_order: true,
-        estimated_delivery: PRE_ORDER_DELIVERY,
+        estimated_delivery: PRE_ORDER_DELIVERY_RANGE,
         active: true,
         position: v.position,
       });

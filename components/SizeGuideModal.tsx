@@ -34,7 +34,10 @@ export default function SizeGuideModal({
   onClose: () => void;
 }) {
   const table = tableFor(product);
-  const hasBody = table.rows.some((r) => r.height || r.weight);
+  const hasAge = table.rows.some((r) => r.age);
+  const hasHeight = table.rows.some((r) => r.height);
+  const hasWeight = table.rows.some((r) => r.weight);
+  const hasWaist = table.rows.some((r) => r.waist);
 
   useEffect(() => {
     if (!open) return;
@@ -87,6 +90,12 @@ export default function SizeGuideModal({
                 <thead className="bg-ink text-[10px] uppercase tracking-wide text-white sm:text-[11px]">
                   <tr>
                     <th className="px-2 py-2.5 sm:px-3">Tam.</th>
+                    {hasAge && (
+                      <th className="px-2 py-2.5 sm:px-3">
+                        Idade
+                        <span className="block text-[9px] font-normal normal-case opacity-70">anos</span>
+                      </th>
+                    )}
                     <th className="px-2 py-2.5 sm:px-3">
                       Comprimento
                       <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
@@ -95,13 +104,19 @@ export default function SizeGuideModal({
                       Largura
                       <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
                     </th>
-                    {hasBody && (
+                    {hasWaist && (
+                      <th className="px-2 py-2.5 sm:px-3">
+                        Cintura
+                        <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
+                      </th>
+                    )}
+                    {hasHeight && (
                       <th className="px-2 py-2.5 sm:px-3">
                         Altura
                         <span className="block text-[9px] font-normal normal-case opacity-70">cm</span>
                       </th>
                     )}
-                    {hasBody && (
+                    {hasWeight && (
                       <th className="px-2 py-2.5 sm:px-3">
                         Peso
                         <span className="block text-[9px] font-normal normal-case opacity-70">kg</span>
@@ -131,14 +146,24 @@ export default function SizeGuideModal({
                             </span>
                           )}
                         </td>
+                        {hasAge && (
+                          <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">
+                            {row.age ?? "—"}
+                          </td>
+                        )}
                         <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">{row.length}</td>
                         <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">{row.width}</td>
-                        {hasBody && (
+                        {hasWaist && (
+                          <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">
+                            {row.waist ?? "—"}
+                          </td>
+                        )}
+                        {hasHeight && (
                           <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">
                             {row.height ?? "—"}
                           </td>
                         )}
-                        {hasBody && (
+                        {hasWeight && (
                           <td className="tabular-nums whitespace-nowrap px-2 py-2 sm:px-3">
                             {row.weight ?? "—"}
                           </td>

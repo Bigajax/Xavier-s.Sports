@@ -77,7 +77,10 @@ export default function GuiaDeTamanhosPage() {
 
       <div className="mt-12 space-y-8">
         {sizeTables.map((t) => {
-          const hasBody = t.rows.some((r) => r.height || r.weight);
+          const hasAge = t.rows.some((r) => r.age);
+          const hasHeight = t.rows.some((r) => r.height);
+          const hasWeight = t.rows.some((r) => r.weight);
+          const hasWaist = t.rows.some((r) => r.waist);
           return (
             <section key={t.slug}>
               <h2 className="display-upright text-xl text-ink">{t.name}</h2>
@@ -87,12 +90,18 @@ export default function GuiaDeTamanhosPage() {
                   <thead className="bg-ink text-white">
                     <tr>
                       <th scope="col" className="px-4 py-3 font-bold">Tamanho</th>
+                      {hasAge && (
+                        <th scope="col" className="px-4 py-3 font-bold">Idade (anos)</th>
+                      )}
                       <th scope="col" className="px-4 py-3 font-bold">Comprimento (cm)</th>
                       <th scope="col" className="px-4 py-3 font-bold">Largura (cm)</th>
-                      {hasBody && (
+                      {hasWaist && (
+                        <th scope="col" className="px-4 py-3 font-bold">Cintura do shorts (cm)</th>
+                      )}
+                      {hasHeight && (
                         <th scope="col" className="px-4 py-3 font-bold">Altura indicada (cm)</th>
                       )}
-                      {hasBody && (
+                      {hasWeight && (
                         <th scope="col" className="px-4 py-3 font-bold">Peso indicado (kg)</th>
                       )}
                     </tr>
@@ -103,12 +112,18 @@ export default function GuiaDeTamanhosPage() {
                         <th scope="row" className="px-4 py-2.5 font-bold text-roxo">
                           {r.label}
                         </th>
+                        {hasAge && (
+                          <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.age ?? "—"}</td>
+                        )}
                         <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.length}</td>
                         <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.width}</td>
-                        {hasBody && (
+                        {hasWaist && (
+                          <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.waist ?? "—"}</td>
+                        )}
+                        {hasHeight && (
                           <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.height ?? "—"}</td>
                         )}
-                        {hasBody && (
+                        {hasWeight && (
                           <td className="tabular-nums whitespace-nowrap px-4 py-2.5">{r.weight ?? "—"}</td>
                         )}
                       </tr>

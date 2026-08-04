@@ -9,6 +9,11 @@
  * confirmar com o cliente: torcedor G/GG altura e 3XL peso; jogador M
  * comprimento, G peso, GG largura, 2XL comprimento e a última coluna
  * duplicada "3XL" (tratada como 4XL); feminina GG altura.
+ *
+ * Infantil: arte "Tabela de Medidas — INFANTIL / KIT KIDS" enviada em
+ * 03/08/2026. Tamanhos numéricos 16 a 28. A arte tem uma linha apagada logo
+ * acima do 16 (provavelmente o 14) e pula a idade 7–8 (vai de 6–7 para 8–9) —
+ * confirmar com o cliente.
  */
 
 export type SizeRow = {
@@ -17,6 +22,8 @@ export type SizeRow = {
   width: string; // largura da peça (axila a axila)
   height?: string; // altura indicada da pessoa
   weight?: string; // peso indicado da pessoa
+  age?: string; // idade indicada (só infantil)
+  waist?: string; // cintura do shorts (só infantil / kit)
 };
 
 export type SizeTable = {
@@ -31,6 +38,9 @@ const NOTE_OFICIAL =
 
 const NOTE_DEMO =
   "Medidas de referência (demonstrativas). Podem variar entre modelos e versões — compare sempre com uma peça que você já utiliza.";
+
+const NOTE_INFANTIL =
+  "Tabela oficial do Kit Kids. O tamanho infantil é numérico (16 a 28): use a altura da criança como referência principal e a idade como apoio. Comprimento e largura são da camisa; cintura é do shorts. Em caso de dúvida, fale com a equipe pelo WhatsApp.";
 
 export const sizeTables: SizeTable[] = [
   {
@@ -74,14 +84,16 @@ export const sizeTables: SizeTable[] = [
   },
   {
     slug: "infantil",
-    name: "Infantil",
-    note: NOTE_DEMO,
+    name: "Infantil / Kit Kids — 16 a 28",
+    note: NOTE_INFANTIL,
     rows: [
-      { label: "4 anos", length: "48", width: "36" },
-      { label: "6 anos", length: "52", width: "38" },
-      { label: "8 anos", length: "56", width: "40" },
-      { label: "10 anos", length: "60", width: "42" },
-      { label: "12 anos", length: "64", width: "44" },
+      { label: "16", age: "3 – 4", height: "95–105", length: "44", width: "35", waist: "20–37" },
+      { label: "18", age: "4 – 5", height: "105–115", length: "47", width: "37", waist: "21–39" },
+      { label: "20", age: "5 – 6", height: "115–125", length: "50", width: "39", waist: "22–41" },
+      { label: "22", age: "6 – 7", height: "125–135", length: "53", width: "41", waist: "23–42" },
+      { label: "24", age: "8 – 9", height: "135–145", length: "56", width: "43", waist: "24–44" },
+      { label: "26", age: "10 – 11", height: "145–155", length: "59", width: "45", waist: "25–47" },
+      { label: "28", age: "12 – 13", height: "155–165", length: "62", width: "47", waist: "26–50" },
     ],
   },
   {

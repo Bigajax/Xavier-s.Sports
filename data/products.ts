@@ -69,7 +69,8 @@ function sizes(
 
 const ADULTO = ["P", "M", "G", "GG", "XGG"];
 const ADULTO_PP = ["PP", "P", "M", "G", "GG"];
-const INFANTIL = ["4 anos", "6 anos", "8 anos", "10 anos", "12 anos"];
+// Grade oficial infantil (Kit Kids): numérica, 16 a 28 — ver data/sizes.ts.
+const INFANTIL = ["16", "18", "20", "22", "24", "26", "28"];
 
 let n = 0;
 function sku(prefix: string): string {
@@ -635,7 +636,7 @@ export const products: Product[] = [
     installments: 2,
     images: ["/images/produtos/kit-infantil-brasil-a.webp"],
     colors: ["Amarelo", "Azul"],
-    sizes: sizes(INFANTIL, { "12 anos": "poucas-unidades" }),
+    sizes: sizes(INFANTIL, { "28": "poucas-unidades" }),
     personalizationAvailable: true,
     personalizationPrice: 20,
     sku: sku("INF"),

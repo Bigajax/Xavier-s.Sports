@@ -13,7 +13,7 @@
     "@hookform/resolvers": "^3.10.0",
     "@supabase/ssr": "^0.12.3",
     "@supabase/supabase-js": "^2.110.7",
-    "@vitrine/plataforma": "github:Bigajax/vitrine-plataforma#v1.6.0",
+    "@vitrine/plataforma": "github:Bigajax/vitrine-plataforma#v1.6.1",
     "framer-motion": "^12.0.0",
     "lucide-react": "^0.475.0",
     "next": "^15.3.0",

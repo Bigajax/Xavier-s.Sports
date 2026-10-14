@@ -22,7 +22,8 @@ export const categories: Category[] = [
     slug: "clubes-internacionais",
     name: "Clubes internacionais",
     description: "Gigantes da Europa e do mundo.",
-    filters: { teamType: "clube" },
+    /* sem o notCountry, a categoria mostrava os clubes brasileiros junto (14/10/2026) */
+    filters: { teamType: "clube", notCountry: "Brasil" },
     coverProduct: "camisa-barcelona-retro-1996",
   },
   {

@@ -1,34 +1,38 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { retroProducts, type Product } from "@/lib/products/types";
 import { brl } from "@/lib/format";
 import ProductImage from "@/components/ProductImage";
 
-/** Seção retrô com tratamento editorial de arquivo esportivo. */
-export default function RetroSection({ products }: { products: Product[] }) {
+/**
+ * Seção retrô com tratamento editorial de arquivo esportivo.
+ *
+ * O cabeçalho (14/10/2026, pedido do Rafael: "melhora o design, título e
+ * subtítulo"): sem a etiqueta "Coleção retrô" em cima, o título diz o que é,
+ * a linha traz a contagem real e o preço de tabela (R$ 229, config/catalogo),
+ * e o botão fica colado ao texto. Saiu do pé o aviso interno ("descrições
+ * demonstrativas e editáveis"), que tinha vazado para o site.
+ */
+export default function RetroSection({ products, total }: { products: Product[]; total?: number }) {
   const highlights = retroProducts(products).slice(0, 3);
 
   return (
     <section className="retro-paper">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-20">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-xl">
-            <p className="xavier-eyebrow text-roxo">Coleção retrô</p>
-            <h2 className="display mt-2 text-4xl text-ink sm:text-5xl">
-              <span className="swoosh">Histórias que nunca saem de campo</span>
+          <div className="max-w-2xl">
+            <h2 className="display flex items-center gap-3 text-4xl leading-none text-ink sm:text-5xl">
+              <span className="h-8 w-2.5 shrink-0 -skew-x-[8deg] bg-amarelo sm:h-10" aria-hidden="true" />
+              Camisas que marcaram época
             </h2>
-            <p className="mt-4 text-steel">
-              Reviva temporadas, títulos e jogadores que marcaram gerações.
+            <p className="mt-3 text-base leading-snug text-ink/65 sm:text-lg">
+              {total ? `${total} retrôs de clubes e seleções` : "Retrôs de clubes e seleções"}, a partir de R$ 229. Em até 3x no cartão.
             </p>
           </div>
           <Link
             href="/retro"
-            className="xavier-tag bg-ink px-6 py-3 text-sm text-amarelo transition-transform hover:scale-[1.03]"
+            className="xavier-tag bg-ink px-7 py-3.5 text-sm text-amarelo transition-transform hover:scale-[1.03]"
           >
-            <span className="flex items-center gap-2">
-              Ver coleção retrô
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </span>
+            <span>Ver as retrô</span>
           </Link>
         </div>
 
@@ -65,11 +69,6 @@ export default function RetroSection({ products }: { products: Product[] }) {
             </Link>
           ))}
         </div>
-
-        <p className="mt-6 text-xs text-steel">
-          Modelos inspirados em temporadas históricas. Descrições demonstrativas
-          e editáveis — consulte os detalhes de cada peça com a equipe.
-        </p>
       </div>
     </section>
   );

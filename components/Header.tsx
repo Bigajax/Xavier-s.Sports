@@ -48,33 +48,92 @@ export default function Header() {
     <header className="sticky top-0 z-50 shadow-lg shadow-ink/20">
       <TopBar />
       <div className="bg-ink text-white">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:px-6">
-          {/* mobile: hambúrguer */}
-          <button
-            className="rounded-lg p-2 hover:bg-white/10 lg:hidden"
-            onClick={() => setDrawerOpen(true)}
-            aria-label="Abrir menu"
-          >
-            <Menu className="h-6 w-6" aria-hidden="true" />
-          </button>
+        {/* O CABEÇALHO DO MOLDE (14/10/2026, pedido do Rafael: "coloca igual o
+            molde e destaca o pronta entrega"). Primeira linha: a logo, a busca
+            larga, Favoritos e Sacola com o nome e o "Falar com a loja".
+            Segunda linha: os departamentos. No celular: menu, logo, coração e
+            sacola em cima, e a busca larga logo embaixo. */}
+        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 py-2 md:px-6 lg:flex lg:gap-8 lg:py-3">
+          <div className="flex items-center lg:hidden">
+            <button
+              className="rounded-lg p-2 hover:bg-white/10"
+              onClick={() => setDrawerOpen(true)}
+              aria-label="Abrir menu"
+            >
+              <Menu className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
 
           <Logo />
 
-          {/* nav desktop */}
-          <nav aria-label="Navegação principal" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+          {/* a busca larga, a partir do notebook: abre a busca da loja */}
+          <button onClick={() => openSearch()} aria-label="Buscar camisas" className="xs-topo__busca hidden lg:flex">
+            <Search className="h-5 w-5 shrink-0 text-roxo" aria-hidden="true" />
+            <span className="truncate">Busque por time, seleção ou temporada</span>
+          </button>
+
+          {/* ações à direita */}
+          <div className="flex items-center justify-self-end gap-0.5 lg:ml-auto lg:gap-1">
+            <button
+              onClick={() => setFavOpen(true)}
+              aria-label={`Abrir favoritos${ready && count > 0 ? ` (${count})` : ""}`}
+              className="xs-topo__acao"
+            >
+              <span className="relative">
+                <Heart className="h-[1.375rem] w-[1.375rem]" aria-hidden="true" />
+                {ready && count > 0 && <span className="xs-topo__conta">{count}</span>}
+              </span>
+              <span className="hidden xl:inline">Favoritos</span>
+            </button>
+            <button
+              onClick={() => setCartOpen(true)}
+              aria-label={`Abrir minha sacola${cartReady && cartCount > 0 ? ` (${cartCount} ${cartCount === 1 ? "item" : "itens"})` : ""}`}
+              className="xs-topo__acao"
+            >
+              <span className="relative">
+                <ShoppingBag className="h-[1.375rem] w-[1.375rem]" aria-hidden="true" />
+                {cartReady && cartCount > 0 && (
+                  <motion.span key={cartCount} initial={{ scale: 1.5 }} animate={{ scale: 1 }} className="xs-topo__conta">
+                    {cartCount}
+                  </motion.span>
+                )}
+              </span>
+              <span className="hidden xl:inline">Sacola</span>
+            </button>
+            <a href={waDefault()} target="_blank" rel="noopener noreferrer" className="xs-topo__whats hidden lg:inline-flex">
+              <WhatsAppIcon className="h-5 w-5 shrink-0" aria-hidden="true" />
+              Falar com a loja
+            </a>
+          </div>
+        </div>
+
+        {/* a busca larga do celular, embaixo da linha da logo, como no molde */}
+        <div className="px-3 pb-2.5 md:px-6 lg:hidden">
+          <button onClick={() => openSearch()} aria-label="Buscar camisas" className="xs-topo__busca flex w-full">
+            <Search className="h-5 w-5 shrink-0 text-roxo" aria-hidden="true" />
+            <span className="truncate">Busque por time, seleção ou temporada</span>
+          </button>
+        </div>
+
+          {/* a segunda linha: os departamentos. A Pronta entrega é um item igual
+              aos outros, só que verde (o Rafael não quis a etiqueta amarela).
+              O nav é a referência do mega menu: ele abre na largura do site,
+              e não centralizado no item, que cortava "Clubes" à esquerda. */}
+          <nav aria-label="Navegação principal" className="relative hidden border-t border-white/10 lg:block">
+            <ul className="mx-auto flex h-11 max-w-7xl items-center gap-1 px-6">
               {mainNav.map((item) => (
                 <li
                   key={item.href}
                   onMouseEnter={() => setMega(item.mega ?? null)}
                   onMouseLeave={() => setMega(null)}
-                  className="relative"
                 >
                   <Link
                     href={item.href}
                     aria-expanded={item.mega ? mega === item.mega : undefined}
-                    className={`flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors hover:bg-white/10 hover:text-amarelo ${
-                      pathname === item.href ? "text-amarelo" : ""
+                    className={`flex items-center gap-1 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold transition-colors hover:bg-white/10 ${
+                      item.href === "/pronta-entrega"
+                        ? "text-[#4ade80] hover:text-[#86efac]"
+                        : `hover:text-amarelo ${pathname === item.href ? "text-amarelo" : ""}`
                     }`}
                   >
                     {item.label}
@@ -85,10 +144,10 @@ export default function Header() {
 
                   {/* mega menu */}
                   {item.mega && mega === item.mega && (
-                    <div className="absolute left-1/2 top-full w-max max-w-3xl -translate-x-1/2 pt-2">
-                      <div className="rounded-xl border border-white/10 bg-ink p-6 shadow-2xl">
+                    <div className="absolute inset-x-0 top-full z-10 px-6">
+                      <div className="mx-auto max-h-[calc(100vh-11rem)] max-w-7xl overflow-y-auto rounded-b-xl border border-t-0 border-white/10 bg-ink p-6 shadow-2xl">
                         {item.mega === "clubes" ? (
-                          <div className="grid grid-cols-2 gap-8">
+                          <div className="grid grid-cols-[1fr_2fr] gap-10">
                             <div>
                               <p className="xavier-eyebrow text-amarelo">Brasil</p>
                               <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1.5">
@@ -108,7 +167,7 @@ export default function Header() {
                               <p className="xavier-eyebrow text-amarelo">
                                 Internacionais
                               </p>
-                              <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1.5">
+                              <ul className="mt-3 grid grid-cols-4 gap-x-6 gap-y-1.5">
                                 {megaClubes.europa.map((t) => (
                                   <li key={t.href}>
                                     <Link
@@ -155,56 +214,6 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* ações à direita */}
-          <div className="flex items-center gap-1">
-            {/* busca desktop: campo visível que abre o modal */}
-            <button
-              onClick={() => openSearch()}
-              aria-label="Buscar camisas"
-              className="mr-1 hidden w-44 items-center gap-2 rounded-lg bg-white/10 px-3 py-2 text-sm text-white/60 transition-colors hover:bg-white/15 hover:text-white/80 lg:flex xl:w-56"
-            >
-              <Search className="h-4 w-4 shrink-0" aria-hidden="true" />
-              <span className="truncate">Buscar camisas…</span>
-            </button>
-            <button
-              onClick={() => openSearch()}
-              aria-label="Buscar camisas"
-              className="rounded-lg p-2 hover:bg-white/10 lg:hidden"
-            >
-              <Search className="h-5 w-5" aria-hidden="true" />
-            </button>
-            {/* favoritos e sacola: no mobile vivem na barra inferior */}
-            <button
-              onClick={() => setFavOpen(true)}
-              aria-label={`Abrir favoritos${ready && count > 0 ? ` (${count})` : ""}`}
-              className="relative hidden rounded-lg p-2 hover:bg-white/10 lg:block"
-            >
-              <Heart className="h-5 w-5" aria-hidden="true" />
-              {ready && count > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amarelo px-1 text-[10px] font-bold text-ink">
-                  {count}
-                </span>
-              )}
-            </button>
-            <button
-              onClick={() => setCartOpen(true)}
-              aria-label={`Abrir meu pedido${cartReady && cartCount > 0 ? ` (${cartCount} ${cartCount === 1 ? "item" : "itens"})` : ""}`}
-              className="relative hidden rounded-lg p-2 hover:bg-white/10 lg:block"
-            >
-              <ShoppingBag className="h-5 w-5" aria-hidden="true" />
-              {cartReady && cartCount > 0 && (
-                <motion.span
-                  key={cartCount}
-                  initial={{ scale: 1.5 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amarelo px-1 text-[10px] font-bold text-ink"
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </button>
-          </div>
-        </div>
       </div>
 
       {/* drawer mobile */}
@@ -246,9 +255,12 @@ export default function Header() {
                       key={item.href}
                       className={item.href === "/catalogo" || item.href === "/como-comprar" ? "col-span-2" : ""}
                     >
+                      {/* a Pronta entrega em verde também aqui, como no menu do computador */}
                       <Link
                         href={item.href}
-                        className="display block rounded-lg px-3 py-2 text-xl hover:bg-white/10 hover:text-amarelo"
+                        className={`display block rounded-lg px-3 py-2 text-xl hover:bg-white/10 ${
+                          item.href === "/pronta-entrega" ? "text-[#4ade80]" : "hover:text-amarelo"
+                        }`}
                       >
                         {item.label}
                       </Link>

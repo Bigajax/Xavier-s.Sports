@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  /* build de conferência com o dev de pé (14/10/2026): NEXT_DIST_DIR=.next-build; sem ela, o .next de sempre */
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     // Necessário para os escudos-monograma SVG gerados em public/images/escudos.
     // CSP em sandbox impede execução de script — seguro para SVGs próprios.

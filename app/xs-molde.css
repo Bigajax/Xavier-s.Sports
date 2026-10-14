@@ -1,0 +1,525 @@
+/* ─────────────────────────────────────────────────────────────
+   O PADRÃO DO MOLDE NA XAVIER'S (14/10/2026): os banners do topo, a
+   faixa de marcas, as fileiras em trilho, os banners do meio. A cara é a
+   dela: o roxo #6F16A8 / #3D095E, o amarelo #FFD600, o preto e o corte de
+   -8 graus da logo.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── os 3 banners do topo ────────────────────────────────────── */
+.xs-campanha {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-roxo-escuro);
+  /* o celular usa a arte em pé (4:5) */
+  aspect-ratio: 4 / 5;
+  max-height: calc(100svh - 9rem);
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .xs-campanha {
+    aspect-ratio: 2400 / 1029;
+    max-height: calc(100svh - 10rem);
+  }
+}
+.xs-campanha__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 600ms ease-out, visibility 0s linear 600ms;
+}
+.xs-campanha__slide[data-ativo="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.xs-campanha__arte {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.xs-campanha__texto {
+  position: absolute;
+  z-index: 2;
+  left: 1rem;
+  right: 1rem;
+  bottom: 2.75rem;
+  color: #fff;
+}
+@media (min-width: 768px) {
+  .xs-campanha__texto {
+    top: 50%;
+    bottom: auto;
+    /* as camisas das artes ocupam uns 60% da largura: o texto cabe nos outros 30% */
+    width: min(29%, 27rem);
+    transform: translateY(-50%);
+  }
+  .xs-campanha__slide[data-lado="esquerda"] .xs-campanha__texto {
+    left: max(5.5rem, 6vw);
+    right: auto;
+  }
+  .xs-campanha__slide[data-lado="direita"] .xs-campanha__texto {
+    right: max(5.5rem, 6vw);
+    left: auto;
+  }
+}
+.xs-campanha__titulo {
+  font-size: clamp(2.25rem, 3.3vw, 3.5rem);
+  line-height: 0.95;
+  text-wrap: balance;
+}
+.xs-campanha__linha {
+  margin-top: 0.75rem;
+  max-width: 36ch;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+}
+@media (min-width: 768px) {
+  .xs-campanha__linha {
+    font-size: 1.0625rem;
+  }
+}
+.xs-campanha__botao {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.8rem 1.6rem;
+  background: var(--color-amarelo);
+  color: var(--color-ink);
+  font-size: 0.875rem;
+}
+/* as setas: finas, brancas e sem fundo, só no computador */
+.xs-campanha__seta {
+  display: none;
+}
+@media (min-width: 768px) {
+  .xs-campanha__seta {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 7rem;
+    margin-top: -3.5rem;
+    color: #fff;
+    opacity: 0.85;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+    transition: opacity 150ms linear, transform 200ms ease-out;
+  }
+  .xs-campanha__seta svg {
+    width: 1.5rem;
+    height: 3rem;
+  }
+  .xs-campanha__seta--antes {
+    left: 0.75rem;
+  }
+  .xs-campanha__seta--depois {
+    right: 0.75rem;
+  }
+  .xs-campanha__seta:hover {
+    opacity: 1;
+  }
+  .xs-campanha__seta--antes:hover {
+    transform: translateX(-3px);
+  }
+  .xs-campanha__seta--depois:hover {
+    transform: translateX(3px);
+  }
+}
+/* as bolinhas: só no celular, no pé, no centro */
+.xs-campanha__pontos {
+  position: absolute;
+  left: 50%;
+  bottom: 0.5rem;
+  z-index: 3;
+  display: flex;
+  transform: translateX(-50%);
+}
+.xs-campanha__pontos button {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.xs-campanha__pontos button::before {
+  content: "";
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  transition: background-color 150ms linear, transform 200ms ease-out;
+}
+.xs-campanha__pontos button[aria-current="true"]::before {
+  background: var(--color-amarelo);
+  transform: scale(1.3);
+}
+@media (min-width: 768px) {
+  .xs-campanha__pontos {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* ── escolha pela marca ──────────────────────────────────────── */
+.xs-marcas {
+  padding-block: 2.25rem 2rem;
+  background: #fff;
+}
+.xs-marcas__titulo {
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  color: var(--color-ink);
+}
+.xs-marcas__trilho {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.xs-marcas__trilho::-webkit-scrollbar {
+  display: none;
+}
+.xs-marcas__trilho > li {
+  flex: 0 0 50%;
+  scroll-snap-align: start;
+}
+@media (min-width: 640px) {
+  .xs-marcas__trilho > li {
+    flex-basis: 33.333%;
+  }
+}
+@media (min-width: 1024px) {
+  .xs-marcas__trilho > li {
+    flex-basis: 20%;
+  }
+}
+.xs-marcas__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  color: var(--color-ink);
+  transition: color 150ms linear;
+}
+.xs-marcas__item:hover {
+  color: var(--color-roxo);
+}
+.xs-marcas__logo {
+  display: block;
+  width: 100%;
+  height: 2.75rem;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+.xs-marcas__conta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-steel);
+}
+.xs-marcas__seta {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(9, 9, 9, 0.15);
+  border-radius: 999px;
+  color: var(--color-ink);
+  transition: background-color 150ms linear, color 150ms linear;
+}
+.xs-marcas__seta:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+/* ── as fileiras em trilho ───────────────────────────────────── */
+.xs-fileira {
+  padding-block: 2.75rem 3rem;
+}
+.xs-fileira__cabeca {
+  margin-bottom: 1.25rem;
+}
+.xs-trilho {
+  position: relative;
+}
+.xs-trilho__fila {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.25rem;
+}
+.xs-trilho__fila::-webkit-scrollbar {
+  display: none;
+}
+.xs-trilho__peca {
+  flex: 0 0 calc((100% - 0.75rem) / 2);
+  scroll-snap-align: start;
+}
+@media (min-width: 768px) {
+  .xs-trilho__fila {
+    gap: 1rem;
+  }
+  .xs-trilho__peca {
+    flex-basis: calc((100% - 3rem) / 4);
+  }
+}
+.xs-trilho__seta {
+  position: absolute;
+  top: 32%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: 0 2px 10px rgba(9, 9, 9, 0.18);
+  transition: background-color 150ms linear, color 150ms linear;
+}
+.xs-trilho__seta--antes {
+  left: -0.5rem;
+}
+.xs-trilho__seta--depois {
+  right: -0.5rem;
+}
+@media (min-width: 768px) {
+  .xs-trilho__seta {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .xs-trilho__seta--antes {
+    left: -1.25rem;
+  }
+  .xs-trilho__seta--depois {
+    right: -1.25rem;
+  }
+}
+.xs-trilho__seta:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+.xs-fileira__ver {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 1.75rem;
+  border: 1.5px solid var(--color-ink);
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  transform: skewX(-8deg);
+  transition: background-color 150ms linear, color 150ms linear;
+}
+.xs-fileira__ver:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+/* ── os banners do meio ──────────────────────────────────────── */
+.xs-meio {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--color-roxo-escuro);
+  aspect-ratio: 1 / 1;
+  max-height: 34rem;
+}
+@media (min-width: 768px) {
+  .xs-meio {
+    aspect-ratio: 3 / 1;
+  }
+}
+.xs-meio__arte {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* sem a arte: o fundo da marca, o roxo com as linhas de gramado e a faixa amarela */
+.xs-meio--sem-arte {
+  background:
+    repeating-linear-gradient(-8deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 34px),
+    radial-gradient(120% 140% at 85% 30%, var(--color-roxo) 0%, var(--color-roxo-escuro) 55%, #12021d 100%);
+}
+.xs-meio__faixa {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  right: 14%;
+  width: 18%;
+  background: var(--color-amarelo);
+  transform: skewX(-8deg);
+  opacity: 0.95;
+}
+@media (max-width: 767px) {
+  .xs-meio__faixa {
+    right: -10%;
+    width: 38%;
+    top: -30%;
+    bottom: 40%;
+  }
+}
+.xs-meio__texto {
+  position: absolute;
+  z-index: 2;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .xs-meio__texto {
+    top: 50%;
+    bottom: auto;
+    left: clamp(1.5rem, 5vw, 4rem);
+    width: 52%;
+    transform: translateY(-50%);
+  }
+}
+.xs-meio::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(9, 9, 9, 0.75) 0%, rgba(9, 9, 9, 0) 55%);
+}
+@media (min-width: 768px) {
+  .xs-meio::after {
+    background: linear-gradient(to right, rgba(9, 9, 9, 0.65) 0%, rgba(9, 9, 9, 0) 60%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xs-campanha__slide {
+    transition: none;
+  }
+}
+
+/* ── as gavetas de favoritos e sacola (14/10/2026) ───────────── */
+/* a contagem: etiqueta amarela inclinada, como o corte da logo */
+.xs-gaveta__conta {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.625rem;
+  padding-inline: 0.4rem;
+  background: var(--color-amarelo);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 800;
+  transform: skewX(-8deg);
+  font-variant-numeric: tabular-nums;
+}
+
+/* no celular, o pé do banner escurece por baixo do texto: a camisa branca do
+   Corinthians chegava até o título e o "DO SEU" sumia (14/10/2026) */
+@media (max-width: 767px) {
+  .xs-campanha__slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(9, 9, 9, 0.88) 0%, rgba(9, 9, 9, 0.55) 38%, rgba(9, 9, 9, 0) 60%);
+  }
+}
+
+/* ── o cabeçalho do molde (14/10/2026) ───────────────────────── */
+/* nenhuma destas define display: quem mostra e esconde é o Tailwind (hidden
+   lg:flex), e CSS próprio venceria o utilitário (armadilha do cofre) */
+.xs-topo__busca {
+  flex: 1;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 40rem;
+  height: 2.75rem;
+  padding-inline: 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-steel);
+  font-size: 0.875rem;
+  text-align: left;
+  transition: box-shadow 150ms linear;
+}
+.xs-topo__busca:hover,
+.xs-topo__busca:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-amarelo);
+  outline: none;
+}
+@media (max-width: 1023px) {
+  .xs-topo__busca {
+    height: 2.5rem;
+    max-width: none;
+  }
+}
+.xs-topo__acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 150ms linear, color 150ms linear;
+}
+.xs-topo__acao:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-amarelo);
+}
+.xs-topo__conta {
+  position: absolute;
+  top: -0.375rem;
+  right: -0.5rem;
+  display: grid;
+  place-items: center;
+  min-width: 1.125rem;
+  height: 1.125rem;
+  padding-inline: 0.25rem;
+  border-radius: 999px;
+  background: var(--color-amarelo);
+  color: var(--color-ink);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.xs-topo__whats {
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  margin-left: 0.5rem;
+  padding-inline: 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-whats);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: filter 150ms linear;
+}
+.xs-topo__whats:hover {
+  filter: brightness(1.08);
+}

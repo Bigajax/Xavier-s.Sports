@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,7 +11,15 @@ import { useFavorites } from "@/lib/favorites";
 import { waFavorites } from "@/lib/whatsapp";
 import { brl } from "@/lib/format";
 
-/** Painel lateral (direita) com as camisas favoritadas, sem sair da página. */
+/**
+ * Painel lateral (direita) com as camisas favoritadas, sem sair da página.
+ *
+ * Redesenhado em 14/10/2026 no desenho das gavetas da casa: o cabeçalho no
+ * roxo da marca com a contagem numa etiqueta amarela inclinada, o corpo
+ * claro, a foto maior sobre o cinza, o nome inteiro em duas linhas (antes
+ * cortava em "Camisa Brasil Home 2026 — Ver…") e o tamanho em botões, em vez
+ * do seletor miúdo. O pé segue com a lista para o WhatsApp.
+ */
 export default function FavoritesDrawer({
   open,
   onClose,
@@ -33,7 +41,7 @@ export default function FavoritesDrawer({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[55] bg-ink/70"
+            className="fixed inset-0 z-[55] bg-ink/60"
             onClick={onClose}
             aria-label="Fechar favoritos"
           />
@@ -41,105 +49,93 @@ export default function FavoritesDrawer({
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.25 }}
-            className="fixed inset-y-0 right-0 z-[56] flex w-[88%] max-w-sm flex-col bg-ink text-white"
+            transition={{ type: "tween", duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-y-0 right-0 z-[56] flex w-full max-w-md flex-col bg-white text-ink shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-label="Favoritos"
           >
-            <div className="flex items-center justify-between border-b border-white/10 p-4">
-              <p className="display flex items-center gap-2 text-2xl">
-                <Heart
-                  className="h-5 w-5 fill-amarelo text-amarelo"
-                  aria-hidden="true"
-                />
-                Favoritos
-                {products.length > 0 && (
-                  <span className="text-base text-white/60">
-                    ({products.length})
-                  </span>
-                )}
-              </p>
-              <button
-                onClick={onClose}
-                aria-label="Fechar favoritos"
-                className="rounded-lg p-2 hover:bg-white/10"
-              >
+            <header className="field-lines flex items-center justify-between bg-roxo-escuro px-5 py-4 text-white">
+              <div>
+                <p className="display flex items-center gap-2.5 text-3xl leading-none">
+                  Meus favoritos
+                  {products.length > 0 && (
+                    <span className="xs-gaveta__conta">{products.length}</span>
+                  )}
+                </p>
+                <p className="mt-1.5 text-xs text-white/70">As camisas que você guardou para ver depois.</p>
+              </div>
+              <button onClick={onClose} aria-label="Fechar favoritos" className="rounded-lg p-2 hover:bg-white/10">
                 <X className="h-6 w-6" aria-hidden="true" />
               </button>
-            </div>
+            </header>
 
             {products.length === 0 ? (
-              <div className="flex flex-1 flex-col items-center justify-center gap-4 p-6 text-center">
-                <Heart className="h-10 w-10 text-white/25" aria-hidden="true" />
-                <p className="text-white/70">
-                  Você ainda não favoritou nenhuma camisa.
-                </p>
-                <Link
-                  href="/catalogo"
-                  onClick={onClose}
-                  className="xavier-tag bg-amarelo px-6 py-3 text-sm text-ink"
-                >
+              <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
+                <span className="grid h-14 w-14 -skew-x-[8deg] place-items-center bg-roxo/10">
+                  <Heart className="h-6 w-6 skew-x-[8deg] text-roxo" aria-hidden="true" />
+                </span>
+                <p className="display text-2xl">Nenhuma camisa guardada ainda.</p>
+                <p className="max-w-xs text-sm text-steel">Toque no coração de uma camisa para guardar e ver depois.</p>
+                <Link href="/catalogo" onClick={onClose} className="xavier-tag mt-2 bg-amarelo px-6 py-3 text-sm text-ink">
                   <span>Explorar camisas</span>
                 </Link>
               </div>
             ) : (
               <>
-                <ul className="flex-1 space-y-1 overflow-y-auto p-3">
-                  {products.map((p) => (
-                    <li
-                      key={p.slug}
-                      className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-white/5"
-                    >
-                      <Link
-                        href={`/produto/${p.slug}`}
-                        onClick={onClose}
-                        className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-cloud"
-                      >
-                        <ProductImage product={p} sizes="64px" />
-                      </Link>
-                      <div className="min-w-0 flex-1">
-                        <Link href={`/produto/${p.slug}`} onClick={onClose}>
-                          <p className="truncate text-sm font-semibold leading-snug hover:text-amarelo">
-                            {p.name}
-                          </p>
-                          <p className="mt-0.5 text-xs text-white/60">
-                            {p.team}
-                          </p>
+                <ul className="flex-1 divide-y divide-ink/10 overflow-y-auto px-5">
+                  {products.map((p) => {
+                    const tamanhos = purchasableVariants(p);
+                    return (
+                      <li key={p.slug} className="flex gap-4 py-4">
+                        <Link
+                          href={`/produto/${p.slug}`}
+                          onClick={onClose}
+                          className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-cloud"
+                        >
+                          <ProductImage product={p} sizes="96px" />
                         </Link>
-                        <div className="mt-1 flex items-center gap-2">
-                          <p className="tabular-nums text-sm font-bold text-amarelo">
-                            {brl(p.price)}
-                          </p>
-                          <label className="sr-only" htmlFor={`fav-tam-${p.slug}`}>
-                            Tamanho de {p.name}
-                          </label>
-                          <select
-                            id={`fav-tam-${p.slug}`}
-                            value={sizes[p.slug] ?? ""}
-                            onChange={(e) => setSize(p.slug, e.target.value)}
-                            className="rounded-md border border-white/20 bg-white/10 px-1.5 py-0.5 text-xs text-white [&>option]:text-ink"
-                          >
-                            <option value="">Tam.: a definir</option>
-                            {purchasableVariants(p).map((s) => (
-                              <option key={s.label} value={s.label}>
-                                {s.label}
-                              </option>
-                            ))}
-                          </select>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-start gap-2">
+                            <Link href={`/produto/${p.slug}`} onClick={onClose} className="min-w-0 flex-1">
+                              <p className="text-[0.6875rem] font-bold uppercase tracking-wider text-roxo">{p.team}</p>
+                              <p className="mt-0.5 line-clamp-2 text-sm font-semibold leading-snug hover:text-roxo">{p.name}</p>
+                            </Link>
+                            <button
+                              onClick={() => toggle(p.slug)}
+                              aria-label={`Remover ${p.name} dos favoritos`}
+                              className="-mr-1.5 -mt-1 rounded-lg p-1.5 text-steel hover:bg-cloud hover:text-ink"
+                            >
+                              <X className="h-4 w-4" aria-hidden="true" />
+                            </button>
+                          </div>
+                          <p className="mt-1 tabular-nums text-base font-bold">{brl(p.price)}</p>
+                          {tamanhos.length ? (
+                            <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label={`Tamanho de ${p.name}`}>
+                              {tamanhos.map((s) => {
+                                const marcado = sizes[p.slug] === s.label;
+                                return (
+                                  <button
+                                    key={s.label}
+                                    type="button"
+                                    aria-pressed={marcado}
+                                    onClick={() => setSize(p.slug, marcado ? "" : s.label)}
+                                    className={`min-w-9 rounded-md border px-2 py-1 text-xs font-bold transition-colors ${
+                                      marcado ? "border-roxo bg-roxo text-white" : "border-ink/15 text-ink hover:border-roxo"
+                                    }`}
+                                  >
+                                    {s.label}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          ) : null}
                         </div>
-                      </div>
-                      <button
-                        onClick={() => toggle(p.slug)}
-                        aria-label={`Remover ${p.name} dos favoritos`}
-                        className="rounded-lg p-2 text-white/50 hover:bg-white/10 hover:text-white"
-                      >
-                        <X className="h-4 w-4" aria-hidden="true" />
-                      </button>
-                    </li>
-                  ))}
+                      </li>
+                    );
+                  })}
                 </ul>
-                <div className="space-y-2 border-t border-white/10 p-4">
+                <div className="space-y-2 border-t border-ink/10 bg-cloud p-5">
                   <a
                     href={waFavorites(
                       products.map((p) => ({
@@ -149,17 +145,17 @@ export default function FavoritesDrawer({
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"
+                    className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3.5 font-bold text-white transition-transform hover:scale-[1.02]"
                   >
                     <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
-                    Consultar lista pelo WhatsApp
+                    Consultar a lista pelo WhatsApp
                   </a>
                   <Link
                     href="/favoritos"
                     onClick={onClose}
-                    className="block text-center text-sm font-semibold text-white/70 hover:text-amarelo"
+                    className="block py-1 text-center text-sm font-semibold text-ink/70 underline underline-offset-4 hover:text-roxo"
                   >
-                    Ver página de favoritos →
+                    Ver a página de favoritos
                   </Link>
                 </div>
               </>

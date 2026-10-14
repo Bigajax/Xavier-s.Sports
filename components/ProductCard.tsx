@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clock, PackageCheck } from "lucide-react";
+import { Clock } from "lucide-react";
 import {
   availabilitySummary,
   type Product,
@@ -61,25 +61,15 @@ export default function ProductCard({
           </span>
         )}
         {ready && (
-          <>
-            {/* mobile: selo compacto no canto inferior esquerdo — longe do
-                favorito (topo-direita), então não há disputa de espaço */}
-            <span className="absolute bottom-2.5 left-2.5 z-10 inline-flex h-8 max-w-[calc(100%-20px)] items-center gap-1 rounded-md bg-whats px-2 text-white shadow-sm sm:hidden">
-              <PackageCheck className="h-[15px] w-[15px] shrink-0" aria-hidden="true" />
-              <span className="whitespace-nowrap text-[10px] font-bold uppercase leading-none tracking-tight">
-                Pronta entrega
-              </span>
-            </span>
-            {/* desktop/tablet: mantém o selo inclinado original. O wrapper
-                controla a visibilidade — `hidden` direto no .xavier-tag não
-                funciona porque a classe define display:inline-block. */}
-            <span className="absolute left-3 top-3 z-10 hidden sm:block">
-              <span className="xavier-tag flex items-center gap-1 bg-whats px-2.5 py-1 text-xs text-white">
-                <PackageCheck className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>Pronta entrega</span>
-              </span>
-            </span>
-          </>
+          /* o selo de pronta entrega (14/10/2026, pedido do Rafael: "mais
+             profissional"): UM selo, igual em todas as telas, no lugar do verde
+             cheio inclinado em caixa alta, que brigava com a foto. Etiqueta
+             branca com o ponto verde de "disponível", como o estoque das lojas
+             grandes; o ponto não pisca (oito piscando numa fileira é ruído). */
+          <span className="absolute left-2.5 top-2.5 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/95 py-1 pl-2 pr-2.5 text-[11px] font-semibold leading-none text-ink shadow-sm ring-1 ring-ink/10 sm:left-3 sm:top-3 sm:text-xs">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#16a34a]" aria-hidden="true" />
+            Pronta entrega
+          </span>
         )}
       </div>
       <FavoriteButton

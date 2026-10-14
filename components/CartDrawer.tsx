@@ -198,7 +198,7 @@ export default function CartDrawer({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[55] bg-ink/70"
+            className="fixed inset-0 z-[55] bg-ink/60"
             onClick={onClose}
             aria-label="Fechar meu pedido"
           />
@@ -206,25 +206,24 @@ export default function CartDrawer({
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.25 }}
-            className="fixed inset-y-0 right-0 z-[56] flex w-[88%] max-w-sm flex-col bg-ink text-white"
+            transition={{ type: "tween", duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-y-0 right-0 z-[56] flex w-full max-w-md flex-col bg-white text-ink shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-label="Meu pedido"
           >
-            <div className="flex items-center justify-between border-b border-white/10 p-4">
-              <p className="display flex items-center gap-2 text-2xl">
-                <ShoppingBag
-                  className="h-5 w-5 text-amarelo"
-                  aria-hidden="true"
-                />
-                Meu pedido
-                {lines.length > 0 && (
-                  <span className="text-base text-white/60">
-                    ({lines.reduce((s, l) => s + l.item.qty, 0)})
-                  </span>
-                )}
-              </p>
+            <header className="field-lines flex items-center justify-between bg-roxo-escuro px-5 py-4 text-white">
+              <div>
+                <p className="display flex items-center gap-2.5 text-3xl leading-none">
+                  Minha sacola
+                  {lines.length > 0 && (
+                    <span className="xs-gaveta__conta">
+                      {lines.reduce((s, l) => s + l.item.qty, 0)}
+                    </span>
+                  )}
+                </p>
+                <p className="mt-1.5 text-xs text-white/70">Confira as camisas e envie o pedido inteiro pelo WhatsApp.</p>
+              </div>
               <button
                 onClick={onClose}
                 aria-label="Fechar meu pedido"
@@ -232,28 +231,28 @@ export default function CartDrawer({
               >
                 <X className="h-6 w-6" aria-hidden="true" />
               </button>
-            </div>
+            </header>
 
             {stockError && lines.length > 0 && (
-              <p className="flex items-start gap-2 border-b border-white/10 bg-white/5 px-4 py-2.5 text-xs text-white/70">
+              <p className="flex items-start gap-2 border-b border-ink/10 bg-cloud px-4 py-2.5 text-xs text-ink/70">
                 <AlertTriangle
-                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amarelo"
+                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-roxo"
                   aria-hidden="true"
                 />
-                Não foi possível confirmar o estoque agora — a disponibilidade
-                será confirmada pela equipe no atendimento.
+                Não foi possível confirmar o estoque agora. A disponibilidade
+                é confirmada pela equipe no atendimento.
               </p>
             )}
 
             {lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center gap-4 p-6 text-center">
-                <ShoppingBag
-                  className="h-10 w-10 text-white/25"
-                  aria-hidden="true"
-                />
-                <p className="text-white/70">
-                  Seu pedido está vazio. Adicione camisas e envie tudo de uma
-                  vez pelo WhatsApp.
+                <span className="grid h-14 w-14 -skew-x-[8deg] place-items-center bg-roxo/10">
+                  <ShoppingBag className="h-6 w-6 skew-x-[8deg] text-roxo" aria-hidden="true" />
+                </span>
+                <p className="display text-2xl">A sacola está vazia.</p>
+                <p className="max-w-xs text-sm text-steel">
+                  Junte as camisas aqui e envie o pedido inteiro de uma vez
+                  pelo WhatsApp.
                 </p>
                 <Link
                   href="/catalogo"
@@ -265,7 +264,7 @@ export default function CartDrawer({
               </div>
             ) : (
               <>
-                <ul className="flex-1 space-y-1 overflow-y-auto p-3">
+                <ul className="flex-1 divide-y divide-ink/10 overflow-y-auto px-5">
                   {states.map(({ item, product: p, state }) => {
                     const unavailable = state.kind === "indisponivel";
                     const maxQty =
@@ -273,45 +272,45 @@ export default function CartDrawer({
                     return (
                       <li
                         key={`${item.slug}::${item.size ?? ""}`}
-                        className={`flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-white/5 ${
+                        className={`flex items-start gap-4 py-4 ${
                           unavailable ? "opacity-50" : ""
                         }`}
                       >
                         <Link
                           href={`/produto/${p.slug}`}
                           onClick={onClose}
-                          className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-cloud"
+                          className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-cloud"
                         >
-                          <ProductImage product={p} sizes="64px" />
+                          <ProductImage product={p} sizes="96px" />
                         </Link>
                         <div className="min-w-0 flex-1">
                           <Link href={`/produto/${p.slug}`} onClick={onClose}>
-                            <p className="truncate text-sm font-semibold leading-snug hover:text-amarelo">
+                            <p className="line-clamp-2 text-sm font-semibold leading-snug hover:text-roxo">
                               {p.name}
                             </p>
                           </Link>
                           {/* Disponibilidade da linha */}
                           <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide">
                             {state.kind === "pronta-entrega" ? (
-                              <span className="text-whats">Pronta entrega</span>
+                              <span className="text-[#128c4a]">Pronta entrega</span>
                             ) : state.kind === "encomenda" ? (
-                              <span className="text-amarelo">
+                              <span className="text-roxo">
                                 Sob encomenda
                                 {state.estimatedDelivery
                                   ? ` · ${state.estimatedDelivery}`
                                   : ""}
                               </span>
                             ) : state.kind === "indisponivel" ? (
-                              <span className="text-white/50">
-                                Tamanho indisponível — remova ou troque
+                              <span className="text-steel">
+                                Tamanho indisponível: remova ou troque
                               </span>
                             ) : (
-                              <span className="text-white/50">
+                              <span className="text-steel">
                                 Tamanho a definir
                               </span>
                             )}
                           </p>
-                          <div className="mt-1 flex items-center gap-2">
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
                             <label
                               className="sr-only"
                               htmlFor={`sacola-tam-${p.slug}-${item.size ?? "x"}`}
@@ -328,7 +327,7 @@ export default function CartDrawer({
                                   e.target.value || undefined
                                 )
                               }
-                              className="rounded-md border border-white/20 bg-white/10 px-1.5 py-0.5 text-xs text-white [&>option]:text-ink"
+                              className="rounded-md border border-ink/15 bg-white px-1.5 py-0.5 text-xs text-ink"
                             >
                               <option value="">Tam.: a definir</option>
                               {state.variants
@@ -344,7 +343,7 @@ export default function CartDrawer({
                                 ))}
                             </select>
                             <div
-                              className="flex items-center rounded-md border border-white/20"
+                              className="flex items-center rounded-md border border-ink/15"
                               role="group"
                               aria-label={`Quantidade de ${p.name}`}
                             >
@@ -354,7 +353,7 @@ export default function CartDrawer({
                                 }
                                 disabled={item.qty <= 1}
                                 aria-label="Diminuir quantidade"
-                                className="p-1 text-white/70 hover:text-white disabled:opacity-30"
+                                className="p-1 text-ink/60 hover:text-ink disabled:opacity-30"
                               >
                                 <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                               </button>
@@ -383,20 +382,20 @@ export default function CartDrawer({
                                   (maxQty !== undefined && item.qty >= maxQty)
                                 }
                                 aria-label="Aumentar quantidade"
-                                className="p-1 text-white/70 hover:text-white disabled:opacity-30"
+                                className="p-1 text-ink/60 hover:text-ink disabled:opacity-30"
                               >
                                 <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                               </button>
                             </div>
                           </div>
-                          <p className="mt-1 tabular-nums text-sm font-bold text-amarelo">
+                          <p className="mt-1.5 tabular-nums text-base font-bold">
                             {brl(p.price * item.qty)}
                           </p>
                         </div>
                         <button
                           onClick={() => remove(item.slug, item.size)}
                           aria-label={`Remover ${p.name} do pedido`}
-                          className="rounded-lg p-2 text-white/50 hover:bg-white/10 hover:text-white"
+                          className="rounded-lg p-2 text-steel hover:bg-cloud hover:text-ink"
                         >
                           <X className="h-4 w-4" aria-hidden="true" />
                         </button>
@@ -404,11 +403,11 @@ export default function CartDrawer({
                     );
                   })}
                 </ul>
-                <div className="space-y-3 border-t border-white/10 p-4">
+                <div className="space-y-3 border-t border-ink/10 bg-cloud p-5">
                   {mixed && (
-                    <p className="flex items-start gap-2 rounded-lg bg-white/5 p-2.5 text-xs leading-relaxed text-white/70">
+                    <p className="flex items-start gap-2 rounded-lg bg-cloud p-2.5 text-xs leading-relaxed text-ink/70">
                       <AlertTriangle
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amarelo"
+                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-roxo"
                         aria-hidden="true"
                       />
                       Seu pedido possui produtos com prazos diferentes. A loja
@@ -417,22 +416,22 @@ export default function CartDrawer({
                     </p>
                   )}
                   {pendingSize && (
-                    <p className="text-xs text-white/50">
+                    <p className="text-xs text-steel">
                       Itens sem tamanho definido são confirmados no
                       atendimento.
                     </p>
                   )}
                   <div className="flex items-baseline justify-between">
-                    <p className="text-sm text-white/70">Total estimado</p>
-                    <p className="tabular-nums text-lg font-bold text-amarelo">
+                    <p className="text-sm text-ink/70">Total estimado</p>
+                    <p className="display tabular-nums text-3xl leading-none">
                       {brl(messageTotal)}
                     </p>
                   </div>
 
                   {/* Dados opcionais do cliente — entram no fim da mensagem */}
                   {canOrder && (
-                    <details className="group rounded-lg bg-white/5">
-                      <summary className="cursor-pointer list-none px-3 py-2.5 text-xs font-bold text-white/70 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
+                    <details className="group rounded-lg border border-ink/10 bg-white">
+                      <summary className="cursor-pointer list-none px-3 py-2.5 text-xs font-bold text-ink/70 transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
                         Adiantar meus dados (opcional)
                         <span className="float-right transition-transform group-open:rotate-180">
                           ▾
@@ -450,7 +449,7 @@ export default function CartDrawer({
                           <div key={key}>
                             <label
                               htmlFor={`pedido-${key}`}
-                              className="mb-0.5 block text-[10px] font-bold uppercase tracking-wide text-white/50"
+                              className="mb-0.5 block text-[10px] font-bold uppercase tracking-wide text-steel"
                             >
                               {label}
                             </label>
@@ -465,14 +464,14 @@ export default function CartDrawer({
                               }
                               placeholder={placeholder}
                               maxLength={80}
-                              className="w-full rounded-md border border-white/20 bg-white/10 px-2.5 py-1.5 text-xs text-white placeholder:text-white/30"
+                              className="w-full rounded-md border border-ink/15 bg-white px-2.5 py-1.5 text-xs text-ink placeholder:text-ink/35"
                             />
                           </div>
                         ))}
                         <div>
                           <label
                             htmlFor="pedido-payment"
-                            className="mb-0.5 block text-[10px] font-bold uppercase tracking-wide text-white/50"
+                            className="mb-0.5 block text-[10px] font-bold uppercase tracking-wide text-steel"
                           >
                             Pagamento
                           </label>
@@ -486,7 +485,7 @@ export default function CartDrawer({
                                   undefined) as OrderCustomer["payment"],
                               }))
                             }
-                            className="w-full rounded-md border border-white/20 bg-white/10 px-2.5 py-1.5 text-xs text-white [&>option]:text-ink"
+                            className="w-full rounded-md border border-ink/15 bg-white px-2.5 py-1.5 text-xs text-ink"
                           >
                             <option value="">A combinar</option>
                             <option value="Pix">Pix</option>
@@ -521,18 +520,18 @@ export default function CartDrawer({
                           origin: "sacola",
                         })
                       }
-                      className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3 font-bold text-white transition-transform hover:scale-[1.02]"
+                      className="flex items-center justify-center gap-2 rounded-xl bg-whats px-4 py-3.5 font-bold text-white transition-transform hover:scale-[1.02]"
                     >
                       <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                       Enviar pedido pelo WhatsApp
                     </a>
                     ) : (
-                    <p className="rounded-xl bg-white/5 px-4 py-3 text-center text-sm text-white/60">
-                      Os itens do pedido estão indisponíveis — remova-os ou
-                      troque o tamanho para enviar.
+                    <p className="rounded-xl bg-white px-4 py-3 text-center text-sm text-steel">
+                      Os itens do pedido estão indisponíveis. Remova ou troque o
+                      tamanho para enviar.
                     </p>
                   )}
-                  <p className="text-center text-xs text-white/50">
+                  <p className="text-center text-xs text-steel">
                     O pedido é confirmado pela equipe no atendimento.
                   </p>
                 </div>

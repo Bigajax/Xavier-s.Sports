@@ -16,6 +16,7 @@ import { getCategory } from "@/data/categories";
 import { leagues } from "@/data/leagues";
 import { teams } from "@/data/teams";
 import { useCatalog } from "@/components/CatalogProvider";
+import { acharFabricante } from "@/lib/fabricantes";
 import CatalogError from "@/components/CatalogError";
 import ProductGrid from "@/components/ProductGrid";
 
@@ -116,6 +117,9 @@ export default function CatalogClient({
     const decada = params.get("decada");
     if (decada) f.decade = decada;
     if (params.get("disponibilidade") === "pronta") f.onlyReadyToShip = true;
+    /* a faixa "Escolha pela marca" da home (14/10/2026) */
+    const marca = params.get("marca");
+    if (marca && acharFabricante(marca)) f.brand = marca;
     return f;
   }, [params]);
 
@@ -375,9 +379,9 @@ export default function CatalogClient({
       <header>
         <p className="xavier-eyebrow text-roxo">Catálogo</p>
         <h1 className="display mt-2 text-3xl text-ink sm:text-5xl">
-          <span className="swoosh">{title}</span>
+          <span className="swoosh">{urlFilters.brand ? `Camisas ${acharFabricante(urlFilters.brand)?.nome}` : title}</span>
         </h1>
-        <p className="mt-2 text-sm text-steel sm:mt-3 sm:text-base">{subtitle}</p>
+        <p className="mt-2 text-sm text-steel sm:mt-3 sm:text-base">{urlFilters.brand ? "Os uniformes atuais de clubes e seleções desta marca." : subtitle}</p>
       </header>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3 md:mt-8">

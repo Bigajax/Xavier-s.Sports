@@ -1,5 +1,6 @@
 import { variantAvailability, type Product } from "@/lib/products/types";
 import { matchesSearch, norm } from "@/lib/search";
+import { fabricanteDe } from "@/lib/fabricantes";
 
 // `norm` mora em lib/search.ts (junto do motor de busca); reexportado aqui
 // porque o painel e a pronta entrega já o importavam deste módulo.
@@ -26,6 +27,10 @@ export type Filters = {
   onlyPersonalizable?: boolean;
   onlyOnSale?: boolean;
   decade?: string; // "1990" | "2000" ...
+  /** o fabricante (lib/fabricantes.ts): só camisas atuais de times da tabela */
+  brand?: string;
+  /** fora deste país: os clubes internacionais são os clubes de fora do Brasil (14/10/2026) */
+  notCountry?: string;
 };
 
 export type SortKey =
@@ -54,8 +59,10 @@ export function applyFilters(list: Product[], f: Filters): Product[] {
   return list.filter((p) => {
     if (f.q && !matchesSearch(p, f.q)) return false;
     if (f.teamSlug && p.teamSlug !== f.teamSlug) return false;
+    if (f.brand && fabricanteDe(p) !== f.brand) return false;
     if (f.teamType && p.teamType !== f.teamType) return false;
     if (f.country && p.country !== f.country) return false;
+    if (f.notCountry && p.country === f.notCountry) return false;
     if (f.league && p.league !== f.league) return false;
     if (f.season && p.season !== f.season) return false;
     if (f.collection && p.collection !== f.collection) return false;

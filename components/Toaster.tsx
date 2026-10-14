@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type Toast = { id: number; message: string };
 
@@ -13,6 +14,8 @@ export function toast(message: string) {
 
 export default function Toaster() {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  /* sem a barra de baixo (14/10/2026), o aviso desce; na peça, fica acima da compra fixa */
+  const pathname = usePathname();
 
   useEffect(() => {
     let counter = 0;
@@ -31,7 +34,7 @@ export default function Toaster() {
   return (
     <div
       aria-live="polite"
-      className="pointer-events-none fixed inset-x-0 bottom-20 z-[70] flex flex-col items-center gap-2 px-4 md:bottom-8"
+      className={`pointer-events-none fixed inset-x-0 z-[70] flex flex-col items-center gap-2 px-4 md:bottom-8 ${pathname.startsWith("/produto") ? "bottom-20" : "bottom-6"}`}
     >
       {toasts.map((t) => (
         <div

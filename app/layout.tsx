@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import "./globals.css";
+import "./xs-molde.css";
 import { site } from "@/config/site";
 import { getCatalog } from "@/lib/products/db";
 import type { Product } from "@/lib/products/types";
@@ -9,8 +10,8 @@ import SearchProvider from "@/components/SearchProvider";
 import SearchOverlay from "@/components/SearchOverlay";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FaixaGarantias from "@/components/FaixaGarantias";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import MobileTabBar from "@/components/MobileTabBar";
 import Toaster from "@/components/Toaster";
 import SiteLoader from "@/components/SiteLoader";
 
@@ -66,8 +67,8 @@ export default async function RootLayout({
             <SiteLoader />
             <Header />
             <main id="conteudo">{children}</main>
+            <FaixaGarantias />
             <Footer />
-            <MobileTabBar />
             <WhatsAppButton />
             <SearchOverlay />
             <Toaster />

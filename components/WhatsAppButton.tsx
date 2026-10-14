@@ -39,7 +39,11 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       title="Fale com a Xavier's Sports"
       className={`group fixed right-4 z-40 flex items-center gap-0 rounded-full bg-whats px-3.5 py-3.5 text-white shadow-xl shadow-ink/25 transition-all duration-500 hover:scale-105 motion-reduce:transition-none ${
-        "bottom-[calc(4.5rem+env(safe-area-inset-bottom))] lg:bottom-4"
+        /* a barra de baixo saiu (14/10/2026): só a página da peça, com a
+           compra fixa no celular, ainda pede o botão mais alto */
+        pathname.startsWith("/produto")
+          ? "bottom-[calc(4.5rem+env(safe-area-inset-bottom))] md:bottom-4"
+          : "bottom-[calc(1rem+env(safe-area-inset-bottom))]"
       } ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
     >
       {/* anel de ping periódico */}

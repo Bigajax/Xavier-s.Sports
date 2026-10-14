@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
+import { fraseDaPeca, ganchoDaPeca, motivosDaPeca } from "@/lib/descricao";
 import { getCatalog, getProduct } from "@/lib/products/db";
 import {
   availabilitySummary,
@@ -183,8 +184,8 @@ export default async function ProdutoPage({
                   {status === "pronta-entrega"
                     ? "Pronta entrega"
                     : status === "sob-encomenda"
-                      ? `Disponível por encomenda${avail.detail ? ` — ${avail.detail}` : ""}`
-                      : "Esgotado — consulte reposição"}
+                      ? `Disponível por encomenda${avail.detail ? `: ${avail.detail}` : ""}`
+                      : "Esgotado: consulte a reposição"}
                 </span>
               </span>
             </p>
@@ -236,15 +237,22 @@ export default async function ProdutoPage({
               )}
             </div>
             {parcel && <p className="mt-1 text-sm text-steel">{parcel}</p>}
-            <p className="mt-2 text-xs text-steel">
-              Preço demonstrativo — valor final confirmado no atendimento.
-            </p>
 
-            {product.description && (
-              <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-steel">
-                {product.description}
-              </p>
-            )}
+            {/* a descrição que vende (14/10/2026): o gancho, a frase da peça e
+                os motivos de compra, montados do cadastro (lib/descricao.ts).
+                Saiu o "Preço demonstrativo": o preço é o real da loja. */}
+            <div className="mt-5 border-l-4 border-amarelo pl-4">
+              <p className="text-base font-semibold leading-snug text-ink">{ganchoDaPeca(product)}</p>
+              {fraseDaPeca(product) ? <p className="mt-1.5 text-sm leading-relaxed text-ink/70">{fraseDaPeca(product)}</p> : null}
+            </div>
+            <ul className="mt-4 space-y-1.5">
+              {motivosDaPeca(product, status).map((m) => (
+                <li key={m} className="flex items-start gap-2 text-sm text-ink/80">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-roxo" strokeWidth={2.5} aria-hidden="true" />
+                  {m}
+                </li>
+              ))}
+            </ul>
 
             <ProductActions product={product} />
 
@@ -257,7 +265,7 @@ export default async function ProdutoPage({
             {/* Acordeões */}
             <div className="mt-8">
               <Accordion title="Detalhes e composição" open>
-                <p>{product.description}</p>
+                <p>{fraseDaPeca(product)}</p>
                 <p>
                   Cores: {product.colors.join(", ")}.
                   {product.material ? ` Material: ${product.material}.` : ""}
@@ -270,8 +278,8 @@ export default async function ProdutoPage({
               <Accordion title="Medidas">
                 <p>
                   As medidas podem variar entre modelos e versões. A versão
-                  jogador possui modelagem mais ajustada — em caso de dúvida,
-                  compare com uma peça que você já utiliza.
+                  jogador tem a modelagem mais ajustada. Na dúvida, compare
+                  com uma camisa que você já usa.
                 </p>
                 <p>
                   <Link href="/guia-de-tamanhos" className="font-semibold text-roxo hover:underline">

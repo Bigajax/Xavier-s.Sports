@@ -1,0 +1,2 @@
+# scripts de shell sempre com LF: o sh da Vercel não entende o  do Windows (14/10/2026)
+*.sh text eol=lf

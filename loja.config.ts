@@ -71,7 +71,8 @@ export const loja: LojaConfig = {
     camisa: true,
   },
   prefixoMedir: "xs",
-  hostsMedir: ["xavierssports.com.br", "www.xavierssports.com.br"],
+  /* o domínio próprio ainda não aponta para a Vercel (14/10/2026): enquanto isso, conta no .vercel.app */
+  hostsMedir: ["xavierssports.com.br", "www.xavierssports.com.br", "xavier-s-sports.vercel.app"],
   abasExtras: [
     { href: "/painel/avaliacoes", nome: "Avaliações", curto: "Avaliações", icone: "texto" },
     { href: "/painel/trocas", nome: "Trocas e devoluções", curto: "Trocas", icone: "loja" },

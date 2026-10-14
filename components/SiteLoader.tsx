@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const MIN_SHOW = 700; // ms mínimos com a logo na tela (evita "flash")
 const MAX_WAIT = 7000; // teto: sai mesmo se algum asset demorar
@@ -15,6 +16,8 @@ const JITTER = 110; // aleatoriedade por quadrado (o "pixelado")
 export default function SiteLoader() {
   const ref = useRef<HTMLDivElement>(null);
   const [gone, setGone] = useState(false);
+  /* o painel não tem a abertura do site (14/10/2026) */
+  const noPainel = usePathname().startsWith("/painel");
 
   useEffect(() => {
     const loader = ref.current;
@@ -79,7 +82,7 @@ export default function SiteLoader() {
     };
   }, []);
 
-  if (gone) return null;
+  if (gone || noPainel) return null;
 
   return (
     <div ref={ref} className="site-loader" role="status" aria-label="Carregando">

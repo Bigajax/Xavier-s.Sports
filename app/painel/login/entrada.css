@@ -1,0 +1,136 @@
+/* ═════════════════════════════════════════════════════════════
+   A ENTRADA DO PAINEL DA XAVIER'S (14/10/2026, a loja entra no pacote).
+   A capa é a logo inteira, grande, no roxo da marca (regra do Rafael para
+   toda loja): o "XAVIER'S" em branco e o "SPORTS" no amarelo, sobre o roxo.
+   O botão no roxo escuro com a sombra amarela, como a etiqueta do site.
+   Só desta loja.
+   ═════════════════════════════════════════════════════════════ */
+.xs-entrada {
+  --xs-acento: #ffd600;
+  --xs-acento-escuro: #6f16a8;
+  --xs-tinta: #3d095e;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100dvh;
+  background: var(--pn-papel);
+}
+@media (min-width: 900px) {
+  .xs-entrada {
+    grid-template-columns: minmax(0, 1.1fr) minmax(24rem, 1fr);
+    grid-template-rows: none;
+  }
+}
+
+/* ── a capa: a logo ── */
+.xs-entrada__capa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.75rem 1.25rem 1.5rem;
+  background: radial-gradient(circle at 50% 42%, #6f16a8 0%, var(--xs-tinta) 55%, #160322 100%);
+}
+.xs-entrada__logo {
+
+  width: min(13rem, 56vw);
+  height: auto;
+}
+.xs-entrada__frase {
+  max-width: 22rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.78);
+}
+@media (min-width: 900px) {
+  .xs-entrada__capa {
+    gap: 1.75rem;
+    min-height: 100dvh;
+    padding: 3rem;
+  }
+  .xs-entrada__logo {
+    width: min(28rem, 66%);
+  }
+  .xs-entrada__frase {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ── o lado do formulário ── */
+.xs-entrada__lado {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.75rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+  border-top: 4px solid var(--xs-tinta);
+}
+@media (min-width: 900px) {
+  .xs-entrada__lado {
+    padding: 3rem clamp(2rem, 5vw, 4.5rem);
+    border-top: 0;
+    border-left: 4px solid var(--xs-tinta);
+  }
+}
+.xs-entrada__caixa {
+  width: 100%;
+  max-width: 24rem;
+  margin: 0 auto;
+}
+.xs-entrada__rotulo {
+  font-family: var(--pn-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pn-tinta);
+}
+.xs-entrada__titulo {
+  margin: 0.375rem 0 1.5rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--pn-tinta);
+}
+/* o botão do painel no preto da marca, com a letra branca */
+.xs-entrada .pn-carimbo button {
+  min-height: 3rem;
+  background: var(--xs-tinta);
+  color: #ffffff;
+  border-color: var(--xs-tinta);
+  box-shadow: 4px 4px 0 #ffd600;
+}
+@media (hover: hover) and (pointer: fine) {
+  .xs-entrada .pn-carimbo button:hover:not(:disabled) {
+    background: #333333;
+  }
+}
+.xs-entrada .campo:focus {
+  border-color: var(--pn-tinta);
+  box-shadow: inset 0 -2px 0 var(--xs-acento-escuro);
+}
+.xs-entrada__ajuda {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--pn-nevoa);
+}
+.xs-entrada__ajuda a {
+  font-weight: 700;
+  color: var(--pn-tinta);
+  text-decoration: underline;
+  text-decoration-color: var(--xs-acento-escuro);
+  text-underline-offset: 0.2em;
+}
+.xs-entrada__assina {
+  margin-top: 2rem;
+  text-align: center;
+  font-family: var(--pn-mono), monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pn-nevoa);
+}

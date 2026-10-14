@@ -36,7 +36,7 @@ export default function FaixaGarantias() {
     return () => window.clearInterval(relogio);
   }, [parado]);
 
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/painel")) return null;
 
   const seta = (passo: 1 | -1) => (
     <button

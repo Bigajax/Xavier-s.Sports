@@ -8,7 +8,7 @@ import {
   deleteReview,
   saveReview,
   updateReviewStatus,
-} from "@/app/admin/atendimento/actions";
+} from "@/lib/atendimento-acoes";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import { toast } from "@/components/Toaster";
 

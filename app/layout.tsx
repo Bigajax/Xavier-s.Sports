@@ -14,6 +14,7 @@ import FaixaGarantias from "@/components/FaixaGarantias";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Toaster from "@/components/Toaster";
 import SiteLoader from "@/components/SiteLoader";
+import MedidorDoSite from "@/components/MedidorDoSite";
 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default async function RootLayout({
             <WhatsAppButton />
             <SearchOverlay />
             <Toaster />
+            <MedidorDoSite />
           </SearchProvider>
         </CatalogProvider>
       </body>

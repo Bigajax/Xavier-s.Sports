@@ -1,32 +1,24 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
-import { PRE_ORDER_DELIVERY_RANGE } from "@/config/catalogo";
+import { variantesDa, type LinhaProduto } from "@/lib/products/db";
+import type { Variant } from "@/lib/products/types";
 
 /**
- * Estoque fresco por slug para a reconciliação da sacola — sem cache, porque
+ * Estoque fresco por slug para a reconciliação da sacola: sem cache, porque
  * a quantidade pode ter mudado desde que o item foi adicionado.
  * GET /api/estoque?slugs=a,b → { a: Variant[], b: Variant[] }
+ *
+ * Desde 14/10/2026 lê as tabelas do painel do pacote (produtos), com a mesma
+ * regra da vitrine (lib/products/db.ts, variantesDa).
  */
 export const dynamic = "force-dynamic";
-
-type VariantPayload = {
-  id: string;
-  label: string;
-  stock: number;
-  allowPreOrder: boolean;
-  estimatedDelivery?: string;
-  active: boolean;
-};
 
 export async function GET(request: Request) {
   const url = supabaseUrl();
   const anonKey = supabaseAnonKey();
   if (!url || !anonKey) {
-    return NextResponse.json(
-      { error: "Supabase não configurado" },
-      { status: 503 }
-    );
+    return NextResponse.json({ error: "Supabase não configurado" }, { status: 503 });
   }
 
   const slugs = (new URL(request.url).searchParams.get("slugs") ?? "")
@@ -36,36 +28,20 @@ export async function GET(request: Request) {
     .slice(0, 100);
   if (slugs.length === 0) return NextResponse.json({});
 
-  const supabase = createClient(url, anonKey, {
-    auth: { persistSession: false },
-  });
+  const supabase = createClient(url, anonKey, { auth: { persistSession: false } });
   const { data, error } = await supabase
-    .from("products")
-    .select(
-      "slug, available, product_variants(id, label, stock, allow_pre_order, estimated_delivery, active, position)"
-    )
+    .from("produtos")
+    .select("id, slug, ativo, tamanhos, tamanhos_esgotados, estoque")
     .in("slug", slugs);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 503 });
   }
 
-  const result: Record<string, VariantPayload[]> = {};
-  for (const row of data ?? []) {
-    if (!row.available) continue;
-    result[row.slug] = [...row.product_variants]
-      .sort((a, b) => a.position - b.position)
-      .map((v) => ({
-        id: v.id,
-        label: v.label,
-        stock: v.stock,
-        allowPreOrder: v.allow_pre_order,
-        // Mesmo prazo derivado do catálogo (ver lib/products/db.ts).
-        estimatedDelivery: v.allow_pre_order
-          ? PRE_ORDER_DELIVERY_RANGE
-          : undefined,
-        active: v.active,
-      }));
+  const result: Record<string, Variant[]> = {};
+  for (const row of (data ?? []) as (Pick<LinhaProduto, "id" | "slug" | "ativo" | "tamanhos" | "tamanhos_esgotados" | "estoque">)[]) {
+    if (!row.ativo) continue;
+    result[row.slug] = variantesDa(row);
   }
   return NextResponse.json(result);
 }

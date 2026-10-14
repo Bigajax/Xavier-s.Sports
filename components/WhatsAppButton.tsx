@@ -30,7 +30,7 @@ export default function WhatsAppButton() {
   // No mobile fica acima da barra inferior (tab bar / CTA do produto).
   // Durante a pesquisa some: o WhatsApp reaparece como ação dentro do estado
   // vazio, onde é útil, em vez de flutuar por cima dos resultados.
-  if (searchOpen || pathname.startsWith("/admin")) return null;
+  if (searchOpen || pathname.startsWith("/painel")) return null;
 
   return (
     <a

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* o painel do pacote usa classes do Tailwind: o Tailwind 4 não olha o node_modules sozinho */
+@source "../node_modules/@vitrine/plataforma";
 
 @theme {
   /* Paleta Xavier's Sports */

@@ -9,7 +9,7 @@ import {
   type ReturnRow,
   type ReturnStatus,
 } from "@/lib/atendimento";
-import { saveReturn, updateReturn } from "@/app/admin/atendimento/actions";
+import { saveReturn, updateReturn } from "@/lib/atendimento-acoes";
 import { toast } from "@/components/Toaster";
 
 const tone = (s: string) =>

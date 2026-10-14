@@ -60,7 +60,7 @@ function telefone(numero: string): string {
  */
 export default function Footer() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/painel")) return null;
   const ano = new Date().getFullYear();
 
   return (

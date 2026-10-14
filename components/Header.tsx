@@ -42,7 +42,7 @@ export default function Header() {
     setMega(null);
   }, [pathname]);
 
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/painel")) return null;
 
   return (
     <header className="sticky top-0 z-50 shadow-lg shadow-ink/20">

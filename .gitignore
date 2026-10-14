@@ -10,3 +10,4 @@ next-env.d.ts
 # material de trabalho dos banners (fotos-base, prompts, artes brutas); com barra, para não pegar app/**/banners
 /banners
 /.next-build/
+.vercel

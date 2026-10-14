@@ -11,11 +11,11 @@ export const dynamic = "force-dynamic";
 /**
  * A ENTRADA DO PAINEL COM A CARA DA XAVIER'S (14/10/2026, a loja entra no
  * pacote). O painel vem do @vitrine/plataforma, e a entrada é dela. A CAPA É
- * A LOGO DA LOJA, inteira e grande, no roxo da marca (regra do Rafael para
- * toda loja, nascida na Japa); o "XAVIER'S" entra em branco (public/marca/
- * logo-branca.png), porque o roxo dele sumiria no fundo roxo. No computador,
- * a logo à esquerda e o formulário à direita; no celular, a logo numa faixa
- * em cima e o formulário logo abaixo.
+ * A LOGO DA LOJA, grande, no roxo da marca (regra do Rafael para toda loja,
+ * nascida na Japa): o monograma XS amarelo (public/images/logo/xs-glow.webp),
+ * a pedido do Rafael no mesmo dia, no lugar do letreiro "XAVIER'S SPORTS". No
+ * computador, a logo à esquerda e o formulário à direita; no celular, a logo
+ * numa faixa em cima e o formulário logo abaixo.
  */
 export default async function PaginaLogin() {
   const { autenticado } = await sessao();
@@ -24,7 +24,7 @@ export default async function PaginaLogin() {
   return (
     <div className="xs-entrada">
       <div className="xs-entrada__capa">
-        <Image src="/marca/logo-branca.png" alt={site.name} width={645} height={411} priority className="xs-entrada__logo" />
+        <Image src="/images/logo/xs-glow.webp" alt={site.name} width={640} height={569} priority className="xs-entrada__logo" />
         <p className="xs-entrada__frase">{site.tagline}</p>
       </div>
 

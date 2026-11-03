@@ -61,7 +61,7 @@ export default function ReviewsBoard({ rows }: { rows: ReviewRow[] }) {
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}/avaliar`);
-      toast("Link copiado — envie para o cliente ✓");
+      toast("Link copiado, envie para o cliente ✓");
     } catch {
       toast(`Link: ${window.location.origin}/avaliar`);
     }
@@ -92,7 +92,7 @@ export default function ReviewsBoard({ rows }: { rows: ReviewRow[] }) {
         </button>
         <button
           onClick={() => setCreating(true)}
-          className="tap flex w-full items-center justify-center gap-2 rounded-lg bg-roxo px-4 py-2.5 text-sm font-bold text-white sm:ml-auto sm:w-auto"
+          className="tap flex w-full items-center justify-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-bold text-white sm:ml-auto sm:w-auto"
         >
           <Plus className="h-4 w-4" aria-hidden="true" />
           Cadastrar avaliação
@@ -104,7 +104,7 @@ export default function ReviewsBoard({ rows }: { rows: ReviewRow[] }) {
           <Star className="mx-auto h-8 w-8 text-ink/20" aria-hidden="true" />
           <p className="mt-3 font-bold text-ink">Nenhuma avaliação neste filtro.</p>
           <p className="mt-1 text-sm text-steel">
-            Envie o link /avaliar para clientes após a entrega — as respostas
+            Envie o link /avaliar para clientes após a entrega: as respostas
             entram aqui aguardando a sua aprovação.
           </p>
         </div>
@@ -248,7 +248,7 @@ function ReviewModal({ onClose, onSaved }: { onClose: () => void; onSaved: () =>
       toast(result.error);
       return;
     }
-    toast("Avaliação cadastrada — aprove para publicar ✓");
+    toast("Avaliação cadastrada, aprove para publicar ✓");
     onSaved();
   };
 
@@ -281,7 +281,7 @@ function ReviewModal({ onClose, onSaved }: { onClose: () => void; onSaved: () =>
           <textarea value={form.comment} onChange={(e) => set("comment", e.target.value)} rows={3} placeholder="Comentário" aria-label="Comentário" className={`${input} sm:col-span-2`} />
         </div>
         <div className="mt-4 flex gap-2">
-          <button onClick={submit} disabled={busy} className="tap flex-1 rounded-lg bg-roxo px-4 py-3 text-sm font-bold text-white disabled:opacity-60">
+          <button onClick={submit} disabled={busy} className="tap flex-1 rounded-full bg-ink px-4 py-3 text-sm font-bold text-white disabled:opacity-60">
             {busy ? "Salvando..." : "Salvar"}
           </button>
           <button onClick={onClose} disabled={busy} className="rounded-lg border border-ink/15 px-4 py-3 text-sm font-bold text-ink">

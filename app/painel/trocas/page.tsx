@@ -26,9 +26,9 @@ export default async function AdminTrocas() {
   }
 
   return (
-    <div>
-      <h1 className="display text-3xl text-ink">Trocas e devoluções</h1>
-      <p className="mt-1 text-sm text-steel">
+    <div className="pn-miolo">
+      <h1 className="pn-titulo">Trocas e devoluções</h1>
+      <p className="pn-sub">
         Cada solicitação tem protocolo, status e justificativa. Recusas exigem
         o motivo interno.
       </p>

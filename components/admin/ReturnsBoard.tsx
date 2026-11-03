@@ -88,7 +88,7 @@ export default function ReturnsBoard({ rows }: { rows: ReturnRow[] }) {
         </select>
         <button
           onClick={() => setCreating(true)}
-          className="tap flex w-full items-center justify-center gap-2 rounded-lg bg-roxo px-4 py-2.5 text-sm font-bold text-white sm:ml-auto sm:w-auto"
+          className="tap flex w-full items-center justify-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-bold text-white sm:ml-auto sm:w-auto"
         >
           <Plus className="h-4 w-4" aria-hidden="true" />
           Nova solicitação
@@ -216,7 +216,7 @@ export default function ReturnsBoard({ rows }: { rows: ReturnRow[] }) {
                         )
                       }
                       disabled={busy}
-                      className="w-full rounded-lg bg-roxo px-4 py-2 text-sm font-bold text-white disabled:opacity-60"
+                      className="w-full rounded-full bg-ink px-4 py-2 text-sm font-bold text-white disabled:opacity-60"
                     >
                       Salvar anotação
                     </button>
@@ -359,7 +359,7 @@ function ReturnModal({
           <textarea value={form.reason} onChange={(e) => set("reason", e.target.value)} rows={2} placeholder="Motivo da troca" aria-label="Motivo" className={`${input} sm:col-span-2`} />
         </div>
         <div className="mt-4 flex gap-2">
-          <button onClick={submit} disabled={busy} className="tap flex-1 rounded-lg bg-roxo px-4 py-3 text-sm font-bold text-white disabled:opacity-60">
+          <button onClick={submit} disabled={busy} className="tap flex-1 rounded-full bg-ink px-4 py-3 text-sm font-bold text-white disabled:opacity-60">
             {busy ? "Salvando..." : "Salvar"}
           </button>
           <button onClick={onClose} disabled={busy} className="rounded-lg border border-ink/15 px-4 py-3 text-sm font-bold text-ink">

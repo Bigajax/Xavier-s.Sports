@@ -26,9 +26,9 @@ export default async function AdminAvaliacoes() {
   }
 
   return (
-    <div>
-      <h1 className="display text-3xl text-ink">Avaliações</h1>
-      <p className="mt-1 text-sm text-steel">
+    <div className="pn-miolo">
+      <h1 className="pn-titulo">Avaliações</h1>
+      <p className="pn-sub">
         Nada é publicado sem a sua aprovação. Compartilhe o link{" "}
         <span className="font-bold text-roxo">/avaliar</span> com clientes para
         receberem novas avaliações.

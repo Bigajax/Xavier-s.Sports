@@ -56,6 +56,8 @@ export const loja: LojaConfig = {
   codigo: "XS",
   conteudo: { partes: PARTES, mapa: MAPA, variaveis: VARIAVEIS },
   opcoes: {
+    /* a aba Turbinar (03/11/2026) */
+    turbinar: true,
     estoque: true,
     gestao: true,
     /* o tamanho riscado é o "acabou de vez" (sem encomenda) */
